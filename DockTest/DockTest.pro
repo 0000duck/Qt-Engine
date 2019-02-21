@@ -30,6 +30,9 @@ SOURCES += \
     inspectorwidget.cpp \
     transformwidget.cpp \
     hierarchywidget.cpp
+    positioncommand.cpp \
+    rotationcommand.cpp \
+    scalecommand.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -37,6 +40,9 @@ HEADERS += \
     inspectorwidget.h \
     transformwidget.h \
     hierarchywidget.h
+    scalecommand.h \
+    rotationcommand.h \
+    positioncommand.h
 
 FORMS += \
         mainwindow.ui \
