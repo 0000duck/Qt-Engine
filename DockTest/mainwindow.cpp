@@ -2,6 +2,7 @@
 #include "ui_mainwindow.h"
 #include "ui_rendering.h"
 #include "inspectorwidget.h"
+#include "hierarchywidget.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -30,12 +31,18 @@ MainWindow::MainWindow(QWidget *parent) :
     this->addDockWidget(Qt::DockWidgetArea::RightDockWidgetArea, dockWidget);
     tabifyDockWidget(uiMainWindow->Rendering, dockWidget);
 
-    // Create the inspector widget and add it to the inspector
+    // Create the Inspector Widget and add it to the Inspector
     uiInspector = new InspectorWidget();
     uiMainWindow->Inspector->setWidget(uiInspector);
 
+    // Create the Hierarchy Widget and add it to the Hierarchy
+    uiHierarchy = new HierarchyWidget();
+    uiMainWindow->Hierarchy->setWidget(uiHierarchy);
+
      connect(uiMainWindow->actionOpenProject, SIGNAL(triggered()), this, SLOT(openProject()));
      connect(uiMainWindow->actionSaveProject, SIGNAL(triggered()), this, SLOT(saveProject()));
+     connect(uiMainWindow->actionUndo, SIGNAL(triggered()), this, SLOT(undo()));
+     connect(uiMainWindow->actionRedo, SIGNAL(triggered()), this, SLOT(redo()));
      connect(uiMainWindow->actionExit, SIGNAL(triggered()), qApp, SLOT(quit()));
 }
 
@@ -54,3 +61,14 @@ void MainWindow::saveProject()
 {
     printf("Save project\n");
 }
+
+void MainWindow::undo()
+{
+    printf("Undo\n");
+}
+
+void MainWindow::redo()
+{
+    printf("Redo\n");
+}
+
