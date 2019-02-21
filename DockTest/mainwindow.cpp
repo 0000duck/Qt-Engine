@@ -72,3 +72,19 @@ void MainWindow::redo()
     printf("Redo\n");
 }
 
+void MainWindow::CreateUndoView()
+{
+    undoView = new QUndoView(undoStack);
+    undoView->setWindowTitle(tr("Command List"));
+    undoView->show();
+    undoView->setAttribute(Qt::WA_QuitOnClose,false);
+}
+
+void MainWindow::CreateAction()
+{
+    undoAction=undoStack->createUndoAction(this,tr("&Undo"));
+    undoAction->setShortcut(QKeySequence::Undo);
+
+    redoAction=undoStack->createRedoAction(this,tr("&Redo"));
+    redoAction->setShortcut(QKeySequence::Redo);
+}

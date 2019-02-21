@@ -10,7 +10,7 @@ InspectorWidget::InspectorWidget(QWidget *parent) : QWidget(parent)
     // Create subwidgets independently
     TransformWidget *transformWidget = new TransformWidget;
     //MeshRenderWidget *meshRendererWidget = new MeshRendererWidget;
-    QSpacerItem *spacer = new QSpacerItem(1,1,QSizePolicy::Expanding, QSizePolicy::Expanding);
+    QSpacerItem *spacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     // Create a vertical layout for this widget
     QVBoxLayout *layout = new QVBoxLayout;

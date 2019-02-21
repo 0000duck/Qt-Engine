@@ -2,6 +2,8 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QUndoStack>
+#include <QUndoView>
 
 namespace Ui {
 class MainWindow;
@@ -26,10 +28,19 @@ public slots:
     void redo();
 
 private:
+    void CreateAction();
+    void CreateUndoView();
+
     Ui::MainWindow *uiMainWindow;
     Ui::Rendering *uiRendering;
     InspectorWidget *uiInspector;
     HierarchyWidget *uiHierarchy;
+
+    QAction* undoAction;
+    QAction* redoAction;
+
+    QUndoStack *undoStack;
+    QUndoView *undoView;
 };
 
 #endif // MAINWINDOW_H
