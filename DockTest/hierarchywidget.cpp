@@ -14,6 +14,8 @@ HierarchyWidget::HierarchyWidget(QWidget *parent) :
     // Link Add/Remove Entry functions to Buttons
     connect(uiHierarchy->AddEntity,SIGNAL(clicked()), this, SLOT(addEntity()));
     connect(uiHierarchy->RemoveEntity,SIGNAL(clicked()), this, SLOT(removeEntity()));
+
+    entityCounter = 0;
 }
 
 HierarchyWidget::~HierarchyWidget()
@@ -24,8 +26,10 @@ HierarchyWidget::~HierarchyWidget()
 void HierarchyWidget::addEntity()
 {
     QListWidgetItem *item = new QListWidgetItem();
-    item->setText("Entity");
-    uiHierarchy->listWidget->insertItem(0, item);
+    QString entityName = "Entity " + QString::number(entityCounter);
+    item->setText(entityName);
+    uiHierarchy->listWidget->insertItem(entityCounter, item);
+    entityCounter++;
 }
 
 void HierarchyWidget::removeEntity()

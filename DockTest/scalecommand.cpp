@@ -1,13 +1,14 @@
 #include "scalecommand.h"
+
 ScaleCommand::ScaleCommand(const QPointF &oldSca,QUndoCommand *parent): QUndoCommand(parent)
 {
     oldScale = oldSca;
 }
-ScaleCommand::undo()
+void ScaleCommand::undo()
 {
 
 }
-ScaleCommand::redo()
+void ScaleCommand::redo()
 {
 
 }

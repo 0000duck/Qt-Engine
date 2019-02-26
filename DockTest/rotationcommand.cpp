@@ -5,11 +5,11 @@ RotationCommand::RotationCommand(const QPointF &oldRot,QUndoCommand *parent): QU
     oldRotation = oldRot;
 }
 
-RotationCommand::undo()
+void RotationCommand::undo()
 {
 
 }
-RotationCommand::redo()
+void RotationCommand::redo()
 {
 
 }

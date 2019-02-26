@@ -2,7 +2,7 @@
 #define ROTATIONCOMMAND_H
 
 #include <QUndoCommand>
-
+#include <QPointF>
 class RotationCommand : public QUndoCommand
 {
 public:

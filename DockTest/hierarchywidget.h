@@ -21,6 +21,7 @@ public slots:
 
 private:
     Ui::HierarchyWidget *uiHierarchy;
+    int entityCounter = 0;
 };
 
 #endif // HIERARCHYWIDGET_H
