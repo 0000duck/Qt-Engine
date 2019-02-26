@@ -2,6 +2,7 @@
 #define SCALECOMMAND_H
 
 #include <QUndoCommand>
+#include <QPointF>
 
 class ScaleCommand : public QUndoCommand
 {

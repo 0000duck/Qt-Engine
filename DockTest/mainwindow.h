@@ -12,6 +12,7 @@ class Rendering;
 
 class InspectorWidget;
 class HierarchyWidget;
+class OpenGLScene;
 
 class MainWindow : public QMainWindow
 {
@@ -35,7 +36,7 @@ private:
     Ui::Rendering *uiRendering;
     InspectorWidget *uiInspector;
     HierarchyWidget *uiHierarchy;
-
+    OpenGLScene *openGLScene;
     QAction* undoAction;
     QAction* redoAction;
 

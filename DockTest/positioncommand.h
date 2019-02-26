@@ -2,7 +2,7 @@
 #define POSITIONCOMMAND_H
 
 #include <QUndoCommand>
-
+#include <QPointF>
 class PositionCommand : public QUndoCommand
 {
 public:

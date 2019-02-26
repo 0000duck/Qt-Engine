@@ -3,11 +3,11 @@ ScaleCommand::ScaleCommand(const QPointF &oldSca,QUndoCommand *parent): QUndoCom
 {
     oldScale = oldSca;
 }
-ScaleCommand::undo()
+void ScaleCommand::undo()
 {
 
 }
-ScaleCommand::redo()
+void ScaleCommand::redo()
 {
 
 }

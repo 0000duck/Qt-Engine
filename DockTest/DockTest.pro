@@ -29,7 +29,7 @@ SOURCES += \
     openglscene.cpp \
     inspectorwidget.cpp \
     transformwidget.cpp \
-    hierarchywidget.cpp
+    hierarchywidget.cpp \
     positioncommand.cpp \
     rotationcommand.cpp \
     scalecommand.cpp
@@ -39,7 +39,7 @@ HEADERS += \
     openglscene.h \
     inspectorwidget.h \
     transformwidget.h \
-    hierarchywidget.h
+    hierarchywidget.h \
     scalecommand.h \
     rotationcommand.h \
     positioncommand.h
