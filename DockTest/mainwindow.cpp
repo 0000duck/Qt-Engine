@@ -3,33 +3,16 @@
 #include "ui_rendering.h"
 #include "inspectorwidget.h"
 #include "hierarchywidget.h"
+#include "shaperendererwidget.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
-    uiMainWindow(new Ui::MainWindow),
-    uiRendering(new Ui::Rendering)
+    uiMainWindow(new Ui::MainWindow)
 {
     uiMainWindow->setupUi(this);
 
     // All tab position on top of the docking area
     setTabPosition(Qt::AllDockWidgetAreas,QTabWidget::TabPosition::North);
-
-    // Create rendering widget
-    QWidget *renderingWidget = new QWidget();
-    uiRendering->setupUi(renderingWidget);
-    renderingWidget->show();
-
-    // Add it to Rendering Dock
-    uiMainWindow->Rendering->setWidget(renderingWidget);
-
-    uiMainWindow->Rendering->setFloating(false);
-    tabifyDockWidget(uiMainWindow->Rendering, uiMainWindow->Inspector);
-
-    // Add Lightning widget
-    QDockWidget *dockWidget = new QDockWidget;
-    dockWidget->setWindowTitle("Lightning");
-    this->addDockWidget(Qt::DockWidgetArea::RightDockWidgetArea, dockWidget);
-    tabifyDockWidget(uiMainWindow->Rendering, dockWidget);
 
     // Create the Inspector Widget and add it to the Inspector
     uiInspector = new InspectorWidget();
@@ -39,6 +22,8 @@ MainWindow::MainWindow(QWidget *parent) :
     uiHierarchy = new HierarchyWidget();
     uiMainWindow->Hierarchy->setWidget(uiHierarchy);
 
+
+     // Connect all the actions
      connect(uiMainWindow->actionOpenProject, SIGNAL(triggered()), this, SLOT(openProject()));
      connect(uiMainWindow->actionSaveProject, SIGNAL(triggered()), this, SLOT(saveProject()));
      connect(uiMainWindow->actionUndo, SIGNAL(triggered()), this, SLOT(undo()));
@@ -49,7 +34,6 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete uiMainWindow;
-    delete uiRendering;
 }
 
 void MainWindow::openProject()

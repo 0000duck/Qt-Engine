@@ -7,11 +7,11 @@
 
 namespace Ui {
 class MainWindow;
-class Rendering;
 }
 
 class InspectorWidget;
 class HierarchyWidget;
+class ShapeRendererWidget;
 
 class MainWindow : public QMainWindow
 {
@@ -32,7 +32,6 @@ private:
     void CreateUndoView();
 
     Ui::MainWindow *uiMainWindow;
-    Ui::Rendering *uiRendering;
     InspectorWidget *uiInspector;
     HierarchyWidget *uiHierarchy;
 

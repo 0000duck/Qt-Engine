@@ -1,6 +1,7 @@
 #include "inspectorwidget.h"
 #include "transformwidget.h"
-//#include "meshrendererwidget.h"
+#include "shaperendererwidget.h"
+
 #include <QLayout>
 #include <QVBoxLayout>
 #include <QSpacerItem>
@@ -9,7 +10,9 @@ InspectorWidget::InspectorWidget(QWidget *parent) : QWidget(parent)
 {
     // Create subwidgets independently
     TransformWidget *transformWidget = new TransformWidget;
-    //MeshRenderWidget *meshRendererWidget = new MeshRendererWidget;
+    ShapeRendererWidget *shapeRendererWidget = new ShapeRendererWidget;
+
+
     QSpacerItem *spacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     // Create a vertical layout for this widget
@@ -17,7 +20,7 @@ InspectorWidget::InspectorWidget(QWidget *parent) : QWidget(parent)
 
     // Add all elements to the layout
     layout->addWidget(transformWidget);
-    //layout->addWidget(meshRendererWidget);
+    layout->addWidget(shapeRendererWidget);
     layout->addItem(spacer);
 
     // Set the layout for this widget
