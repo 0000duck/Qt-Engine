@@ -12,6 +12,7 @@ class MainWindow;
 class InspectorWidget;
 class HierarchyWidget;
 class ShapeRendererWidget;
+class OpenGLScene;
 
 class MainWindow : public QMainWindow
 {
