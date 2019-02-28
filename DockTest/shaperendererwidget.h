@@ -15,6 +15,9 @@ public:
     explicit ShapeRendererWidget(QWidget *parent = 0);
     ~ShapeRendererWidget();
 
+private slots:
+    void on_actionFillColor_triggered();
+
 private:
     Ui::ShapeRendererWidget *ui;
 };

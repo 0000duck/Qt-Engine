@@ -384,6 +384,11 @@
     </spacer>
    </item>
   </layout>
+  <action name="actionFillColor">
+   <property name="text">
+    <string>FillColor</string>
+   </property>
+  </action>
  </widget>
  <resources/>
  <connections/>
