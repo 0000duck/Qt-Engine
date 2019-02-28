@@ -1,6 +1,6 @@
 #include "hierarchywidget.h"
 #include "ui_hierarchywidget.h"
-
+#include "scene.h"
 #include <QStandardItemModel>
 #include <QStandardItem>
 
@@ -22,6 +22,13 @@ HierarchyWidget::~HierarchyWidget()
 {
     delete uiHierarchy;
 }
+
+void HierarchyWidget::UpdateHierarchy(Scene* scene)
+{
+
+}
+
+
 
 void HierarchyWidget::addEntity()
 {

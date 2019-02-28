@@ -1,14 +1,17 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
-#include <QList>
 #include "component.h"
+#include <QList>
+
 class GameObject
 {
 public:
     GameObject();
-private:
 
+public:
+
+private:
     QList<Component*> components;
 
 };

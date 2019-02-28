@@ -5,7 +5,8 @@
 #include <QUndoStack>
 #include <QUndoView>
 
-namespace Ui {
+namespace Ui
+{
 class MainWindow;
 }
 
@@ -13,6 +14,7 @@ class InspectorWidget;
 class HierarchyWidget;
 class ShapeRendererWidget;
 class OpenGLScene;
+class Scene;
 
 class MainWindow : public QMainWindow
 {
@@ -41,6 +43,10 @@ private:
 
     QUndoStack *undoStack;
     QUndoView *undoView;
+
+    // Logic Variables
+    Scene *scene = nullptr;
+
 };
 
 #endif // MAINWINDOW_H

@@ -3,9 +3,12 @@
 
 #include <QWidget>
 
+
 namespace Ui {
 class HierarchyWidget;
 }
+
+class Scene;
 
 class HierarchyWidget : public QWidget
 {
@@ -14,6 +17,9 @@ class HierarchyWidget : public QWidget
 public:
     explicit HierarchyWidget(QWidget *parent = 0);
     ~HierarchyWidget();
+
+    void UpdateHierarchy(Scene* scene);
+
 
 public slots:
     void addEntity();

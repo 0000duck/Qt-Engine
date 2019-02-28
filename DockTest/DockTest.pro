@@ -36,7 +36,8 @@ SOURCES += \
     shaperendererwidget.cpp \
     gameobject.cpp \
     transform.cpp \
-    component.cpp
+    component.cpp \
+    scene.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -50,7 +51,8 @@ HEADERS += \
     shaperendererwidget.h \
     gameobject.h \
     transform.h \
-    component.h
+    component.h \
+    scene.h
 
 FORMS += \
         mainwindow.ui \

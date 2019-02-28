@@ -9,14 +9,14 @@
 InspectorWidget::InspectorWidget(QWidget *parent) : QWidget(parent)
 {
     // Create subwidgets independently
-    TransformWidget *transformWidget = new TransformWidget;
-    ShapeRendererWidget *shapeRendererWidget = new ShapeRendererWidget;
+    TransformWidget *transformWidget = new TransformWidget();
+    ShapeRendererWidget *shapeRendererWidget = new ShapeRendererWidget();
 
 
     QSpacerItem *spacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding);
 
     // Create a vertical layout for this widget
-    QVBoxLayout *layout = new QVBoxLayout;
+    QVBoxLayout *layout = new QVBoxLayout();
 
     // Add all elements to the layout
     layout->addWidget(transformWidget);
