@@ -3,7 +3,7 @@
 #include "scene.h"
 #include <QStandardItemModel>
 #include <QStandardItem>
-
+#include "gameobject.h"
 
 HierarchyWidget::HierarchyWidget(QWidget *parent) :
     QWidget(parent),
@@ -25,7 +25,12 @@ HierarchyWidget::~HierarchyWidget()
 
 void HierarchyWidget::UpdateHierarchy(Scene* scene)
 {
-
+    uiHierarchy->listWidget->clear();
+    for(int i=0;i<scene->gameObjects.count();i++)
+    {
+        GameObject* item = scene->gameObjects[i];
+        uiHierarchy->listWidget->addItem(item->name);
+    }
 }
 
 

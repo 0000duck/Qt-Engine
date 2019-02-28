@@ -10,7 +10,7 @@ public:
     GameObject();
 
 public:
-
+    QString name;
 private:
     QList<Component*> components;
 
