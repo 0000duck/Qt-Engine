@@ -48,7 +48,13 @@
     <property name="title">
      <string>Help</string>
     </property>
-    <addaction name="actionAbout"/>
+    <widget class="QMenu" name="menuAbout">
+     <property name="title">
+      <string>About...</string>
+     </property>
+     <addaction name="actionAboutOpenGL"/>
+    </widget>
+    <addaction name="menuAbout"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
@@ -177,11 +183,6 @@
     <string>Exit</string>
    </property>
   </action>
-  <action name="actionAbout">
-   <property name="text">
-    <string>About...</string>
-   </property>
-  </action>
   <action name="actionUndo">
    <property name="icon">
     <iconset resource="icons.qrc">
@@ -213,6 +214,11 @@
    </property>
    <property name="text">
     <string>SaveScreenShot</string>
+    </property>
+   </action>
+  <action name="actionAboutOpenGL">
+   <property name="text">
+    <string>OpenGL</string>
    </property>
   </action>
  </widget>

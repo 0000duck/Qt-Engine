@@ -32,7 +32,8 @@ SOURCES += \
     hierarchywidget.cpp \
     positioncommand.cpp \
     rotationcommand.cpp \
-    scalecommand.cpp
+    scalecommand.cpp \
+    shaperendererwidget.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -42,13 +43,15 @@ HEADERS += \
     hierarchywidget.h \
     scalecommand.h \
     rotationcommand.h \
-    positioncommand.h
+    positioncommand.h \
+    shaperendererwidget.h
 
 FORMS += \
         mainwindow.ui \
     rendering.ui \
     transformwidget.ui \
-    hierarchywidget.ui
+    hierarchywidget.ui \
+    shaperendererwidget.ui
 
 QT += opengl
 
