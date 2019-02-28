@@ -33,7 +33,10 @@ SOURCES += \
     positioncommand.cpp \
     rotationcommand.cpp \
     scalecommand.cpp \
-    shaperendererwidget.cpp
+    shaperendererwidget.cpp \
+    gameobject.cpp \
+    transform.cpp \
+    component.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -44,7 +47,10 @@ HEADERS += \
     scalecommand.h \
     rotationcommand.h \
     positioncommand.h \
-    shaperendererwidget.h
+    shaperendererwidget.h \
+    gameobject.h \
+    transform.h \
+    component.h
 
 FORMS += \
         mainwindow.ui \
