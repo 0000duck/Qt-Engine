@@ -3,6 +3,7 @@
 
 #include <QUndoCommand>
 #include <QPointF>
+
 class RotationCommand : public QUndoCommand
 {
 public:

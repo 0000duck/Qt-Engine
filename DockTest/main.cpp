@@ -2,9 +2,11 @@
 #include <QApplication>
 #include <QSurfaceFormat>
 
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
+
 
     // Configuration of the default OpenGL Surface format
     QSurfaceFormat format = QSurfaceFormat::defaultFormat();

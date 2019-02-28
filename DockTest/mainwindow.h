@@ -34,7 +34,7 @@ private:
     Ui::MainWindow *uiMainWindow;
     InspectorWidget *uiInspector;
     HierarchyWidget *uiHierarchy;
-
+    OpenGLScene *openGLScene;
     QAction* undoAction;
     QAction* redoAction;
 
