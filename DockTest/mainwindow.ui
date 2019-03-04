@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <widget class="OpenGLScene" name="openGLScene"/>
+     <widget class="SceneWidget" name="widget" native="true"/>
     </item>
    </layout>
   </widget>
@@ -193,8 +193,8 @@
    </property>
    <property name="text">
     <string>SaveScreenShot</string>
-    </property>
-   </action>
+   </property>
+  </action>
   <action name="actionAboutOpenGL">
    <property name="text">
     <string>OpenGL</string>
@@ -204,9 +204,10 @@
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
   <customwidget>
-   <class>OpenGLScene</class>
-   <extends>QOpenGLWidget</extends>
-   <header>openglscene.h</header>
+   <class>SceneWidget</class>
+   <extends>QWidget</extends>
+   <header>scenewidget.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>

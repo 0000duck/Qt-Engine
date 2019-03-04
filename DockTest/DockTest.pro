@@ -37,7 +37,8 @@ SOURCES += \
     gameobject.cpp \
     transform.cpp \
     component.cpp \
-    scene.cpp
+    scene.cpp \
+    scenewidget.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -52,7 +53,8 @@ HEADERS += \
     gameobject.h \
     transform.h \
     component.h \
-    scene.h
+    scene.h \
+    scenewidget.h
 
 FORMS += \
         mainwindow.ui \
