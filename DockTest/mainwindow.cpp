@@ -3,8 +3,10 @@
 #include "ui_rendering.h"
 #include "inspectorwidget.h"
 #include "hierarchywidget.h"
+#include "ui_hierarchywidget.h"
 #include "shaperendererwidget.h"
-
+#include "scene.h"
+#include "gameobject.h"
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     uiMainWindow(new Ui::MainWindow)
@@ -21,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // Create the Hierarchy Widget and add it to the Hierarchy
     uiHierarchy = new HierarchyWidget();
     uiMainWindow->Hierarchy->setWidget(uiHierarchy);
-
+    scene = new Scene();
 
      // Connect all the actions
      connect(uiMainWindow->actionOpenProject, SIGNAL(triggered()), this, SLOT(openProject()));
@@ -30,6 +32,9 @@ MainWindow::MainWindow(QWidget *parent) :
      connect(uiMainWindow->actionRedo, SIGNAL(triggered()), this, SLOT(redo()));
      connect(uiMainWindow->actionExit, SIGNAL(triggered()), qApp, SLOT(quit()));
      connect(uiMainWindow->actionSaveScreenShot,SIGNAL(triggered()),uiMainWindow->openGLScene,SLOT(TakeScreenShot()));
+     connect(uiHierarchy->uiHierarchy->AddEntity,SIGNAL(clicked()),this,SLOT(addGameObject()));
+     connect(uiHierarchy->uiHierarchy->RemoveEntity,SIGNAL(clicked()),this,SLOT(removeGameObject()));
+
 }
 
 MainWindow::~MainWindow()
@@ -55,6 +60,61 @@ void MainWindow::undo()
 void MainWindow::redo()
 {
     printf("Redo\n");
+}
+
+void MainWindow::addGameObject()
+{
+    printf("addGameObject\n");
+    if(scene==nullptr)
+        return;
+    GameObject *go = new GameObject();
+    TryChangeName(*go);
+    scene->gameObjects.push_back(go);
+    uiHierarchy->UpdateHierarchy(scene);
+}
+void MainWindow::removeGameObject()
+{
+    printf("removeGameObject\n");
+    if(scene==nullptr)
+        return;
+   GameObject *go= scene->gameObjects.back();
+   scene->gameObjects.pop_back();
+   delete go;
+   uiHierarchy->UpdateHierarchy(scene);
+
+}
+void MainWindow::removeGameObject(int index)
+{
+    printf("removeGameObject\n");
+    if(scene==nullptr)
+        return;
+   GameObject *go= scene->gameObjects.back();
+   scene->gameObjects.removeAt(index);
+   delete go;
+   uiHierarchy->UpdateHierarchy(scene);
+}
+void MainWindow::TryChangeName(GameObject &go)
+{
+    int count = 0;
+    while(ChangeName(go,count))
+    {
+        count++;
+    }
+}
+bool MainWindow::ChangeName(GameObject &go, int num)
+{
+    for(int i = 0;i<scene->gameObjects.count();i++)
+    {
+        if(scene->gameObjects[i]->name == go.name)
+        {
+            QString stringNum= QString::number(num);
+
+            go.name = "GameObject ("+stringNum+")";
+            return true;
+        }
+
+    }
+    return false;
 }
 
 void MainWindow::CreateUndoView()

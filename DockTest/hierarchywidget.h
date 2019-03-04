@@ -25,8 +25,10 @@ public slots:
     void addEntity();
     void removeEntity();
 
-private:
+public:
     Ui::HierarchyWidget *uiHierarchy;
+
+private:
     int entityCounter = 0;
 };
 

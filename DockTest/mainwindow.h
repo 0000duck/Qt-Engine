@@ -15,7 +15,7 @@ class HierarchyWidget;
 class ShapeRendererWidget;
 class OpenGLScene;
 class Scene;
-
+class GameObject;
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -29,8 +29,14 @@ public slots:
     void saveProject();
     void undo();
     void redo();
+    void addGameObject();
+    void removeGameObject();
+    void removeGameObject(int index);
+
 
 private:
+    void TryChangeName(GameObject &go);
+    bool ChangeName(GameObject &go, int num);
     void CreateAction();
     void CreateUndoView();
 
@@ -40,6 +46,8 @@ private:
     OpenGLScene *openGLScene;
     QAction* undoAction;
     QAction* redoAction;
+    QAction* createGameObjectAction;
+    QAction* removeGameObjectAction;
 
     QUndoStack *undoStack;
     QUndoView *undoView;
