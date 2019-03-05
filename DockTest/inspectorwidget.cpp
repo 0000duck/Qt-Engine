@@ -1,25 +1,29 @@
 #include "inspectorwidget.h"
 #include "transformwidget.h"
 #include "shaperendererwidget.h"
-
+#include "infowidget.h"
+#include "gameobject.h"
+#include "component.h"
 #include <QLayout>
 #include <QVBoxLayout>
 #include <QSpacerItem>
-#include "gameobject.h"
-#include "component.h"
+#include <QTextEdit>
+
+
+
 InspectorWidget::InspectorWidget(QWidget *parent) : QWidget(parent)
 {
     // Create subwidgets independently
     TransformWidget *transformWidget = new TransformWidget();
     ShapeRendererWidget *shapeRendererWidget = new ShapeRendererWidget();
-
-
-    QSpacerItem *spacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding);
+    InfoWidget* infoWidget = new InfoWidget();
 
     // Create a vertical layout for this widget
+    QSpacerItem *spacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding);
     QVBoxLayout *layout = new QVBoxLayout();
 
     // Add all elements to the layout
+    layout->addWidget(infoWidget);
     layout->addWidget(transformWidget);
     layout->addWidget(shapeRendererWidget);
     layout->addItem(spacer);

@@ -9,8 +9,8 @@ ShapeRendererWidget::ShapeRendererWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    connect(ui->pushButton, SIGNAL(clicked()), this, SLOT(FillColor()));
-    connect(ui->pushButton_2, SIGNAL(clicked()), this, SLOT(StrokeColor()));
+    connect(ui->fillButton, SIGNAL(clicked()), this, SLOT(FillColor()));
+    connect(ui->strokeButton, SIGNAL(clicked()), this, SLOT(StrokeColor()));
 }
 
 ShapeRendererWidget::~ShapeRendererWidget()
@@ -24,7 +24,7 @@ void ShapeRendererWidget::FillColor()
     if(color.isValid())
     {
         QString qss = QString("background-color:%1").arg(color.name());
-        ui->pushButton->setStyleSheet(qss);
+        ui->fillButton->setStyleSheet(qss);
     }
 
     //Todo apply color to the gameobject
@@ -37,7 +37,7 @@ void ShapeRendererWidget::StrokeColor()
     if(color.isValid())
     {
         QString qss = QString("background-color:%1").arg(color.name());
-        ui->pushButton_2->setStyleSheet(qss);
+        ui->strokeButton->setStyleSheet(qss);
     }
 
     //Todo apply color to the gameobject
