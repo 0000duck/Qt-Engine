@@ -53,6 +53,7 @@ void InspectorWidget::UpdateInspector(GameObject* go)
 }
 void InspectorWidget::DeleteLayout()
 {
+
     QLayout * layout = new QVBoxLayout();
 
     // ... create complicated layout ...
