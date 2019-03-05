@@ -31,10 +31,10 @@ MainWindow::MainWindow(QWidget *parent) :
      connect(uiMainWindow->actionUndo, SIGNAL(triggered()), this, SLOT(undo()));
      connect(uiMainWindow->actionRedo, SIGNAL(triggered()), this, SLOT(redo()));
      connect(uiMainWindow->actionExit, SIGNAL(triggered()), qApp, SLOT(quit()));
-     connect(uiMainWindow->actionSaveScreenShot,SIGNAL(triggered()),uiMainWindow->openGLScene,SLOT(TakeScreenShot()));
      connect(uiHierarchy->uiHierarchy->AddEntity,SIGNAL(clicked()),this,SLOT(addGameObject()));
      connect(uiHierarchy->uiHierarchy->RemoveEntity,SIGNAL(clicked()),this,SLOT(removeGameObject()));
 
+     //connect(uiMainWindow->actionSaveScreenShot,SIGNAL(triggered()),uiMainWindow->openGLScene,SLOT(TakeScreenShot()));
 }
 
 MainWindow::~MainWindow()

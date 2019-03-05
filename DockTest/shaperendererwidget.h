@@ -12,8 +12,12 @@ class ShapeRendererWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit ShapeRendererWidget(QWidget *parent = 0);
+    explicit ShapeRendererWidget(QWidget *parent = nullptr);
     ~ShapeRendererWidget();
+
+private slots:
+    void FillColor();
+    void StrokeColor();
 
 private:
     Ui::ShapeRendererWidget *ui;
