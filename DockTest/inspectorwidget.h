@@ -2,6 +2,8 @@
 #define INSPECTORWIDGET_H
 
 #include <QWidget>
+class GameObject;
+class Component;
 
 class InspectorWidget : public QWidget
 {
@@ -9,6 +11,9 @@ class InspectorWidget : public QWidget
 public:
     explicit InspectorWidget(QWidget *parent = nullptr);
     ~InspectorWidget();
+
+    void UpdateInspector(GameObject* go);
+    QWidget* GetWidget(Component* component);
 
 };
 

@@ -5,7 +5,8 @@
 #include <QLayout>
 #include <QVBoxLayout>
 #include <QSpacerItem>
-
+#include "gameobject.h"
+#include "component.h"
 InspectorWidget::InspectorWidget(QWidget *parent) : QWidget(parent)
 {
     // Create subwidgets independently
@@ -26,8 +27,37 @@ InspectorWidget::InspectorWidget(QWidget *parent) : QWidget(parent)
     // Set the layout for this widget
     setLayout(layout);
 
+    //delete layout();
+
 }
 
 InspectorWidget::~InspectorWidget()
 {
+
+}
+
+void InspectorWidget::UpdateInspector(GameObject* go)
+{
+
+    QSpacerItem *spacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding);
+    QVBoxLayout *layout = new QVBoxLayout();
+
+    for(int i =0;i<go->components.size();i++)
+    {
+        Component* component = go->components[i];
+        layout->addWidget(GetWidget(component));
+    }
+    layout->addItem(spacer);
+    setLayout(layout);
+
+}
+QWidget* InspectorWidget::GetWidget(Component* component)
+{
+    switch (component->type) {
+    case Type::COMP_TRANSFORM:
+        return new TransformWidget();
+        break;
+    default:
+        break;
+    }
 }

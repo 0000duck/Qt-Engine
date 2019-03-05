@@ -11,8 +11,9 @@ public:
 
 public:
     QString name;
-private:
     QList<Component*> components;
+
+private:
 
 };
 

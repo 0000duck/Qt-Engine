@@ -13,7 +13,7 @@ public:
     Transform(QPointF position,QPointF rotation,GameObject *myGO = nullptr);
     Transform(QPointF position,QPointF rotation,QPointF scale,GameObject *myGO = nullptr);
 
-private:
+public:
 QPointF position;
 QPointF rotation;
 QPointF scale;
