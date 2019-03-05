@@ -13,8 +13,9 @@ public:
     ~InspectorWidget();
 
     void UpdateInspector(GameObject* go);
+private:
     QWidget* GetWidget(Component* component);
-
+    void DeleteLayout();
 };
 
 #endif // INSPECTORWIDGET_H

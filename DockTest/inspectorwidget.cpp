@@ -9,6 +9,7 @@
 #include "component.h"
 InspectorWidget::InspectorWidget(QWidget *parent) : QWidget(parent)
 {
+    /*
     // Create subwidgets independently
     TransformWidget *transformWidget = new TransformWidget();
     ShapeRendererWidget *shapeRendererWidget = new ShapeRendererWidget();
@@ -26,8 +27,7 @@ InspectorWidget::InspectorWidget(QWidget *parent) : QWidget(parent)
 
     // Set the layout for this widget
     setLayout(layout);
-
-    //delete layout();
+*/
 
 }
 
@@ -38,7 +38,7 @@ InspectorWidget::~InspectorWidget()
 
 void InspectorWidget::UpdateInspector(GameObject* go)
 {
-
+    DeleteLayout();
     QSpacerItem *spacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding);
     QVBoxLayout *layout = new QVBoxLayout();
 
@@ -51,11 +51,30 @@ void InspectorWidget::UpdateInspector(GameObject* go)
     setLayout(layout);
 
 }
+void InspectorWidget::DeleteLayout()
+{
+    QLayout * layout = new QVBoxLayout();
+
+    // ... create complicated layout ...
+
+    // completely delete layout and sublayouts
+    QLayoutItem * item;
+    QLayout * sublayout;
+    QWidget * widget;
+    while ((item = layout->takeAt(0))) {
+        if ((sublayout = item->layout()) != 0) {/* do the same for sublayout*/}
+        else if ((widget = item->widget()) != 0) {widget->hide(); delete widget;}
+        else {delete item;}
+    }
+
+    // then finally
+    delete layout;
+}
 QWidget* InspectorWidget::GetWidget(Component* component)
 {
     switch (component->type) {
     case Type::COMP_TRANSFORM:
-        return new TransformWidget();
+        return new TransformWidget((Transform*)component);
         break;
     default:
         break;

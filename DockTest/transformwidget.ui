@@ -85,7 +85,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="spinBox"/>
+        <widget class="QSpinBox" name="TranslationX"/>
        </item>
        <item>
         <widget class="QLabel" name="label_4">
@@ -116,7 +116,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="spinBox_2"/>
+        <widget class="QSpinBox" name="TranslationY"/>
        </item>
       </layout>
      </item>
@@ -176,7 +176,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="spinBox_5"/>
+        <widget class="QSpinBox" name="RotationX"/>
        </item>
        <item>
         <widget class="QLabel" name="label_10">
@@ -207,7 +207,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="spinBox_6"/>
+        <widget class="QSpinBox" name="RotationY"/>
        </item>
       </layout>
      </item>
@@ -267,7 +267,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="spinBox_3"/>
+        <widget class="QSpinBox" name="ScaleX"/>
        </item>
        <item>
         <widget class="QLabel" name="label_7">
@@ -298,7 +298,7 @@
         </widget>
        </item>
        <item>
-        <widget class="QSpinBox" name="spinBox_4"/>
+        <widget class="QSpinBox" name="ScaleY"/>
        </item>
       </layout>
      </item>

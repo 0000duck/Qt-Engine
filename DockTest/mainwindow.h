@@ -9,7 +9,7 @@ namespace Ui
 {
 class MainWindow;
 }
-
+class QListWidgetItem;
 class InspectorWidget;
 class HierarchyWidget;
 class ShapeRendererWidget;
@@ -32,7 +32,7 @@ public slots:
     void addGameObject();
     void removeGameObject();
     void removeGameObject(int index);
-
+    void showGameObjectInspector(QListWidgetItem*);
 
 private:
     void TryChangeName(GameObject &go);

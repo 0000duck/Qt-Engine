@@ -7,6 +7,7 @@
 #include "shaperendererwidget.h"
 #include "scene.h"
 #include "gameobject.h"
+#include <QListWidget>
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     uiMainWindow(new Ui::MainWindow)
@@ -33,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
      connect(uiMainWindow->actionExit, SIGNAL(triggered()), qApp, SLOT(quit()));
      connect(uiHierarchy->uiHierarchy->AddEntity,SIGNAL(clicked()),this,SLOT(addGameObject()));
      connect(uiHierarchy->uiHierarchy->RemoveEntity,SIGNAL(clicked()),this,SLOT(removeGameObject()));
-
+     connect(uiHierarchy->uiHierarchy->listWidget,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(showGameObjectInspector(QListWidgetItem*)));
      //connect(uiMainWindow->actionSaveScreenShot,SIGNAL(triggered()),uiMainWindow->openGLScene,SLOT(TakeScreenShot()));
 }
 
@@ -116,7 +117,20 @@ bool MainWindow::ChangeName(GameObject &go, int num)
     }
     return false;
 }
-
+void MainWindow::showGameObjectInspector(QListWidgetItem* item)
+{
+    if(scene==nullptr)
+    {
+        printf("scene is nullptr\n");
+        return;
+    }
+    if(scene->gameObjects.count()<item->listWidget()->currentRow())
+    {
+        printf("Index out of bounds\n");
+        return;
+    }
+    uiInspector->UpdateInspector(scene->gameObjects[item->listWidget()->currentRow()]);
+}
 void MainWindow::CreateUndoView()
 {
     undoView = new QUndoView(undoStack);
