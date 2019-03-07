@@ -16,6 +16,7 @@ class ShapeRendererWidget;
 class OpenGLScene;
 class Scene;
 class GameObject;
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -23,6 +24,12 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
+
+    enum SaveFormat
+    {
+        Json,
+        Binary
+    };
 
 public slots:
     void openProject();
@@ -39,6 +46,9 @@ private:
     bool ChangeName(GameObject &go, int num);
     void CreateAction();
     void CreateUndoView();
+
+    void Read(const QJsonObject &json);
+    void Write(QJsonObject &json) const;
 
     Ui::MainWindow *uiMainWindow;
     InspectorWidget *uiInspector;
