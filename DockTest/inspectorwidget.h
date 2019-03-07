@@ -4,7 +4,7 @@
 #include <QWidget>
 class GameObject;
 class Component;
-
+class QVBoxLayout;
 class InspectorWidget : public QWidget
 {
     Q_OBJECT
@@ -16,6 +16,8 @@ public:
 private:
     QWidget* GetWidget(Component* component);
     void DeleteLayout();
+private:
+    QVBoxLayout *layout=nullptr;
 };
 
 #endif // INSPECTORWIDGET_H

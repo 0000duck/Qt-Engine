@@ -39,8 +39,9 @@ InspectorWidget::~InspectorWidget()
 void InspectorWidget::UpdateInspector(GameObject* go)
 {
     DeleteLayout();
+
     QSpacerItem *spacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding);
-    QVBoxLayout *layout = new QVBoxLayout();
+    layout = new QVBoxLayout();
 
     for(int i =0;i<go->components.size();i++)
     {
@@ -53,10 +54,10 @@ void InspectorWidget::UpdateInspector(GameObject* go)
 }
 void InspectorWidget::DeleteLayout()
 {
+    if(layout==nullptr)
+        return;
 
-    QLayout * layout = new QVBoxLayout();
 
-    // ... create complicated layout ...
 
     // completely delete layout and sublayouts
     QLayoutItem * item;
