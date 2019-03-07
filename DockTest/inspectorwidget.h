@@ -2,6 +2,7 @@
 #define INSPECTORWIDGET_H
 
 #include <QWidget>
+
 class GameObject;
 class Component;
 class QVBoxLayout;

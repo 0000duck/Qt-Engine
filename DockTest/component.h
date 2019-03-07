@@ -6,6 +6,7 @@ class GameObject;
 
 enum Type
 {
+    COMP_INFO,
     COMP_TRANSFORM,
     COMP_MESH_RENDERER,
 

@@ -38,7 +38,8 @@ SOURCES += \
     transform.cpp \
     component.cpp \
     scene.cpp \
-    scenewidget.cpp
+    scenewidget.cpp \
+    infowidget.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -54,14 +55,16 @@ HEADERS += \
     transform.h \
     component.h \
     scene.h \
-    scenewidget.h
+    scenewidget.h \
+    infowidget.h
 
 FORMS += \
         mainwindow.ui \
     rendering.ui \
     transformwidget.ui \
     hierarchywidget.ui \
-    shaperendererwidget.ui
+    shaperendererwidget.ui \
+    infowidget.ui
 
 QT += opengl
 

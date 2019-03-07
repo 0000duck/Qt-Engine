@@ -73,6 +73,7 @@ void MainWindow::addGameObject()
     scene->gameObjects.push_back(go);
     uiHierarchy->UpdateHierarchy(scene);
 }
+
 void MainWindow::removeGameObject()
 {
     printf("removeGameObject\n");
@@ -84,6 +85,7 @@ void MainWindow::removeGameObject()
    uiHierarchy->UpdateHierarchy(scene);
 
 }
+
 void MainWindow::removeGameObject(int index)
 {
     printf("removeGameObject\n");
@@ -94,14 +96,16 @@ void MainWindow::removeGameObject(int index)
    delete go;
    uiHierarchy->UpdateHierarchy(scene);
 }
+
 void MainWindow::TryChangeName(GameObject &go)
 {
-    int count = 0;
-    while(ChangeName(go,count))
+    int count = 1;
+    while(ChangeName(go, count))
     {
         count++;
     }
 }
+
 bool MainWindow::ChangeName(GameObject &go, int num)
 {
     for(int i = 0;i<scene->gameObjects.count();i++)
