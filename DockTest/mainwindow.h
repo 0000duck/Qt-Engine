@@ -31,9 +31,8 @@ public slots:
     void redo();
     void addGameObject();
     void removeGameObject();
-    void removeGameObject(int index);
     void showGameObjectInspector(QListWidgetItem*);
-
+    void updateMain();
 private:
     void TryChangeName(GameObject &go);
     bool ChangeName(GameObject &go, int num);

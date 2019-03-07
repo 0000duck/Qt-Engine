@@ -47,9 +47,16 @@ void InspectorWidget::UpdateInspector(GameObject* go)
     QSpacerItem *spacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Expanding);
     layout = new QVBoxLayout();
 
+    QWidget* widget = new InfoWidget(go);
+
+    connect(widget,SIGNAL(InspectorUpdate()),this,SIGNAL(MainUpdate()));
+
+    layout->addWidget(widget);
+
     for(int i =0;i<go->components.size();i++)
     {
         Component* component = go->components[i];
+
         layout->addWidget(GetWidget(component));
     }
     layout->addItem(spacer);
@@ -75,15 +82,20 @@ void InspectorWidget::DeleteLayout()
 
     // then finally
     delete layout;
+
+    layout = nullptr;
 }
+
 QWidget* InspectorWidget::GetWidget(Component* component)
 {
     switch (component->type) {
-    case Type::COMP_INFO:
-       // return new InfoWidget((Transform*)component);
-        break;
+
     case Type::COMP_TRANSFORM:
-        return new TransformWidget((Transform*)component);
+    {
+        TransformWidget* widget= new TransformWidget((Transform*)component);
+        connect(widget,SIGNAL(InspectorUpdate()),this,SIGNAL(MainUpdate()));
+        return widget;
+    }
         break;
     case Type::COMP_MESH_RENDERER:
       //  return new ShapeRendererWidget((Transform*)component);

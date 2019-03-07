@@ -11,6 +11,9 @@ public:
 
 public:
     QString name;
+    bool active = true;
+    bool visible = true;
+
     QList<Component*> components;
 
 private:

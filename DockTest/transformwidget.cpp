@@ -42,6 +42,7 @@ void TransformWidget::ChangeTranslationX(int value)
         return;
     }
     transform->position.setX(value);
+    emit InspectorUpdate();
 }
 void TransformWidget::ChangeTranslationY(int value)
 {
@@ -51,7 +52,7 @@ void TransformWidget::ChangeTranslationY(int value)
         return;
     }
     transform->position.setY(value);
-
+    emit InspectorUpdate();
 }
 void TransformWidget::ChangeRotationX(int value)
 {
@@ -61,7 +62,7 @@ void TransformWidget::ChangeRotationX(int value)
         return;
     }
     transform->rotation.setX(value);
-
+    emit InspectorUpdate();
 }
 void TransformWidget::ChangeRotationY(int value)
 {
@@ -71,7 +72,7 @@ void TransformWidget::ChangeRotationY(int value)
         return;
     }
     transform->rotation.setY(value);
-
+    emit InspectorUpdate();
 }
 void TransformWidget::ChangeScaleX(int value)
 {
@@ -81,7 +82,7 @@ void TransformWidget::ChangeScaleX(int value)
         return;
     }
     transform->scale.setX(value);
-
+    emit InspectorUpdate();
 }
 void TransformWidget::ChangeScaleY(int value)
 {
@@ -91,5 +92,5 @@ void TransformWidget::ChangeScaleY(int value)
         return;
     }
     transform->scale.setY(value);
-
+    emit InspectorUpdate();
 }

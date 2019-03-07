@@ -14,9 +14,12 @@ public:
     ~InspectorWidget();
 
     void UpdateInspector(GameObject* go);
+    void DeleteLayout();
+signals:
+    void MainUpdate();
+
 private:
     QWidget* GetWidget(Component* component);
-    void DeleteLayout();
 private:
     QVBoxLayout *layout=nullptr;
 };

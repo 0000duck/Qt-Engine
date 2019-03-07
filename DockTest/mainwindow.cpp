@@ -35,6 +35,8 @@ MainWindow::MainWindow(QWidget *parent) :
      connect(uiHierarchy->uiHierarchy->AddEntity,SIGNAL(clicked()),this,SLOT(addGameObject()));
      connect(uiHierarchy->uiHierarchy->RemoveEntity,SIGNAL(clicked()),this,SLOT(removeGameObject()));
      connect(uiHierarchy->uiHierarchy->listWidget,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(showGameObjectInspector(QListWidgetItem*)));
+
+     connect(uiInspector,SIGNAL(MainUpdate()),this,SLOT(updateMain()));
      //connect(uiMainWindow->actionSaveScreenShot,SIGNAL(triggered()),uiMainWindow->openGLScene,SLOT(TakeScreenShot()));
 }
 
@@ -74,24 +76,18 @@ void MainWindow::addGameObject()
     uiHierarchy->UpdateHierarchy(scene);
 }
 
+
 void MainWindow::removeGameObject()
 {
     printf("removeGameObject\n");
     if(scene==nullptr)
         return;
-   GameObject *go= scene->gameObjects.back();
-   scene->gameObjects.pop_back();
-   delete go;
-   uiHierarchy->UpdateHierarchy(scene);
+   int index = uiHierarchy->uiHierarchy->listWidget->currentRow();
+   if(index<0||index >scene->gameObjects.count() )
+       return;
 
-}
-
-void MainWindow::removeGameObject(int index)
-{
-    printf("removeGameObject\n");
-    if(scene==nullptr)
-        return;
-   GameObject *go= scene->gameObjects.back();
+   uiInspector->DeleteLayout();
+   GameObject *go= scene->gameObjects.at(index);
    scene->gameObjects.removeAt(index);
    delete go;
    uiHierarchy->UpdateHierarchy(scene);
@@ -120,6 +116,11 @@ bool MainWindow::ChangeName(GameObject &go, int num)
 
     }
     return false;
+}
+void MainWindow::updateMain()
+{
+    uiHierarchy->UpdateHierarchy(scene);
+
 }
 void MainWindow::showGameObjectInspector(QListWidgetItem* item)
 {

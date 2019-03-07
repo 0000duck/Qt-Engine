@@ -23,7 +23,8 @@ public slots:
     void ChangeRotationY(int value);
     void ChangeScaleX(int value);
     void ChangeScaleY(int value);
-
+signals:
+    void InspectorUpdate();
 private:
     Ui::TransformWidget *ui;
     Transform* transform = nullptr;
