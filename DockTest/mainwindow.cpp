@@ -7,7 +7,16 @@
 #include "shaperendererwidget.h"
 #include "scene.h"
 #include "gameobject.h"
+
 #include <QListWidget>
+#include <QJsonObject>
+#include <QJsonDocument>
+#include <QJsonArray>
+#include <QDebug>
+#include <QStandardPaths>
+#include <QFileDialog>
+#include <QMessageBox>
+
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     uiMainWindow(new Ui::MainWindow)
@@ -45,14 +54,90 @@ MainWindow::~MainWindow()
     delete uiMainWindow;
 }
 
+void MainWindow::Read(const QJsonObject &json)
+{
+
+}
+
+void MainWindow::Write(QJsonObject &json) const
+{
+
+}
+
+
 void MainWindow::openProject()
 {
     printf("Open project\n");
+
+    QString fileName = QFileDialog::getOpenFileName(this,
+           tr("Open Scene"), "",
+           tr("JSON (*.json);;All Files (*)"));
+
+    if(fileName.isEmpty())
+        return;
+    else
+    {
+        QFile file(fileName);
+        if(!file.open(QIODevice::ReadOnly))
+        {
+            QMessageBox::information(this, tr("Unable to open file"),
+                                     file.errorString());
+            return;
+        }
+        else
+        {
+            QByteArray saveData = file.readAll();
+            QJsonDocument doc(QJsonDocument::fromJson(saveData));
+            qDebug() << doc.toJson();
+        }
+    }
+
 }
 
 void MainWindow::saveProject()
 {
     printf("Save project\n");
+
+    QJsonObject recordObject;
+    recordObject.insert("FirstName", QJsonValue::fromVariant("John"));
+    recordObject.insert("LastName", QJsonValue::fromVariant("Doe"));
+    recordObject.insert("Age", QJsonValue::fromVariant(43));
+
+    QJsonObject addressObject;
+    addressObject.insert("Street", "Downing Street 10");
+    addressObject.insert("City", "London");
+    addressObject.insert("Country", "Great Britain");
+    recordObject.insert("Address", addressObject);
+
+    QJsonArray phoneNumbersArray;
+    phoneNumbersArray.push_back("+44 1234567");
+    phoneNumbersArray.push_back("+44 2345678");
+    recordObject.insert("Phone Numbers", phoneNumbersArray);
+
+    QJsonDocument doc(recordObject);
+    qDebug() << doc.toJson();
+
+
+    QString fileName = QFileDialog::getSaveFileName(this,
+         tr("Save Sceve"),"",
+         tr("JSON (*.json);;All Files (*)"));
+
+    if (fileName.isEmpty())
+        return;
+    else
+    {
+        QFile file(fileName);
+        if(!file.open(QIODevice::WriteOnly))
+        {
+            QMessageBox::information(this, tr("Unable to open file"),
+                                     file.errorString());
+            return;
+        }
+        else
+        {
+            file.write(doc.toJson());
+        }
+    }
 }
 
 void MainWindow::undo()
