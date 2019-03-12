@@ -39,7 +39,8 @@ SOURCES += \
     component.cpp \
     scene.cpp \
     scenewidget.cpp \
-    infowidget.cpp
+    infowidget.cpp \
+    shaperenderer.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -56,7 +57,8 @@ HEADERS += \
     component.h \
     scene.h \
     scenewidget.h \
-    infowidget.h
+    infowidget.h \
+    shaperenderer.h
 
 FORMS += \
         mainwindow.ui \

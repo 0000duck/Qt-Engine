@@ -1,0 +1,28 @@
+#ifndef SHAPERENDERER_H
+#define SHAPERENDERER_H
+#include "component.h"
+#include <QColor>
+class GameObject;
+enum ShapeForm{
+    CIRCLE = 0,
+    CUBE,
+    TRIANGLE
+};
+enum StrokeStyle{
+    CONTINUOS = 0,
+    DISCONTINUOS
+};
+class ShapeRenderer: public Component
+{
+public:
+    ShapeRenderer(GameObject *myGO = nullptr);
+public:
+    ShapeForm form = ShapeForm::CIRCLE;
+    StrokeStyle style = StrokeStyle::CONTINUOS;
+    QColor fillColor;
+    QColor strokeColor;
+    int size;
+    int tickness;
+};
+
+#endif // SHAPERENDERER_H
