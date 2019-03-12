@@ -23,9 +23,7 @@ void GameObject::Read(const QJsonObject &json)
     active = json["isActive"].toBool();
     visible = json["isVisible"].toBool();
 
-    // Read Components
-    components.clear();
-
+    // Read Component
     QJsonArray compArray = json["components"].toArray();
     for(int i=0; i < compArray.size(); i++)
     {
