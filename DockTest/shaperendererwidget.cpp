@@ -27,9 +27,7 @@ ShapeRendererWidget::ShapeRendererWidget(ShapeRenderer* shapeRenderer,QWidget *p
     }
 
     connect(ui->size, SIGNAL(valueChanged(int)), this, SLOT(ChangeSize(int)));
-
     connect(ui->fillButton, SIGNAL(clicked()), this, SLOT(FillColor()));
-    connect(ui->strokeButton, SIGNAL(clicked()), this, SLOT(StrokeColor()));
     connect(ui->strokeButton, SIGNAL(clicked()), this, SLOT(StrokeColor()));
     connect(ui->shape, SIGNAL(currentIndexChanged(int)), this, SLOT(ChangeShape(int)));
     connect(ui->strokeStyle, SIGNAL(currentIndexChanged(int)), this, SLOT(ChangeStyle(int)));
@@ -48,6 +46,10 @@ void ShapeRendererWidget::FillColor()
     {
         QString qss = QString("background-color:%1").arg(color.name());
         ui->fillButton->setStyleSheet(qss);
+
+        if(shapeRenderer == nullptr)
+            return;
+
         shapeRenderer->fillColor = color;
 
     }

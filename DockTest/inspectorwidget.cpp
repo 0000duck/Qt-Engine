@@ -96,7 +96,6 @@ QWidget* InspectorWidget::GetWidget(Component* component)
         connect(widget,SIGNAL(InspectorUpdate()),this,SIGNAL(MainUpdate()));
         return widget;
     }
-        break;
     case Type::COMP_MESH_RENDERER:
     {
         ShapeRendererWidget* widget= new ShapeRendererWidget((ShapeRenderer*)component);
@@ -104,7 +103,6 @@ QWidget* InspectorWidget::GetWidget(Component* component)
         return widget;
     }
       //  return new ShapeRendererWidget((Transform*)component);
-        break;
     default:
         break;
     }
