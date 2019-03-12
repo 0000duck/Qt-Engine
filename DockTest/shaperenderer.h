@@ -33,7 +33,7 @@ public:
     QColor fillColor;
     QColor strokeColor;
     int size;
-    int tickness;
+    int thickness;
 };
 
 #endif // SHAPERENDERER_H

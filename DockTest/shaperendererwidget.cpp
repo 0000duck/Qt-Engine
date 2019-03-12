@@ -19,7 +19,7 @@ ShapeRendererWidget::ShapeRendererWidget(ShapeRenderer* shapeRenderer,QWidget *p
         ui->strokeButton->setStyleSheet(stokeColor);
 
         ui->size->setValue(this->shapeRenderer->size);
-        ui->strokeThickness->setValue(this->shapeRenderer->tickness);
+        ui->strokeThickness->setValue(this->shapeRenderer->thickness);
 
         ui->strokeStyle->setCurrentIndex(this->shapeRenderer->style);
 
@@ -87,9 +87,9 @@ void ShapeRendererWidget::ChangeSize(int size)
     emit InspectorUpdate();
 
 }
-void ShapeRendererWidget::ChangeTickness(int tickness)
+void ShapeRendererWidget::ChangeTickness(int thickness)
 {
-    shapeRenderer->tickness = tickness;
+    shapeRenderer->thickness = thickness;
     emit InspectorUpdate();
 
 }

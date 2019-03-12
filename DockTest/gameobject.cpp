@@ -18,7 +18,20 @@ GameObject::GameObject()
 
 void GameObject::Read(const QJsonObject &json)
 {
+    // Read Base Info
+    name = json["name"].toString();
+    active = json["isActive"].toBool();
+    visible = json["isVisible"].toBool();
 
+    // Read Components
+    components.clear();
+
+    QJsonArray compArray = json["components"].toArray();
+    for(int i=0; i < compArray.size(); i++)
+    {
+        QJsonObject compObject = compArray[i].toObject();
+        components[i]->Read(compObject);
+    }
 }
 
 void GameObject::Write(QJsonObject &json) const

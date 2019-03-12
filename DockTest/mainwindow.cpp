@@ -35,18 +35,19 @@ MainWindow::MainWindow(QWidget *parent) :
     uiMainWindow->Hierarchy->setWidget(uiHierarchy);
     scene = new Scene();
 
-     // Connect all the actions
-     connect(uiMainWindow->actionOpenProject, SIGNAL(triggered()), this, SLOT(openProject()));
-     connect(uiMainWindow->actionSaveProject, SIGNAL(triggered()), this, SLOT(saveProject()));
-     connect(uiMainWindow->actionUndo, SIGNAL(triggered()), this, SLOT(undo()));
-     connect(uiMainWindow->actionRedo, SIGNAL(triggered()), this, SLOT(redo()));
-     connect(uiMainWindow->actionExit, SIGNAL(triggered()), qApp, SLOT(quit()));
-     connect(uiHierarchy->uiHierarchy->AddEntity,SIGNAL(clicked()),this,SLOT(addGameObject()));
-     connect(uiHierarchy->uiHierarchy->RemoveEntity,SIGNAL(clicked()),this,SLOT(removeGameObject()));
-     connect(uiHierarchy->uiHierarchy->listWidget,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(showGameObjectInspector(QListWidgetItem*)));
+    // Connect all the actions
+    connect(uiMainWindow->actionOpenProject, SIGNAL(triggered()), this, SLOT(openProject()));
+    connect(uiMainWindow->actionSaveProject, SIGNAL(triggered()), this, SLOT(saveProject()));
+    connect(uiMainWindow->actionUndo, SIGNAL(triggered()), this, SLOT(undo()));
+    connect(uiMainWindow->actionRedo, SIGNAL(triggered()), this, SLOT(redo()));
+    connect(uiMainWindow->actionExit, SIGNAL(triggered()), qApp, SLOT(quit()));
+    connect(uiHierarchy->uiHierarchy->AddEntity,SIGNAL(clicked()),this,SLOT(addGameObject()));
+    connect(uiHierarchy->uiHierarchy->RemoveEntity,SIGNAL(clicked()),this,SLOT(removeGameObject()));
+    connect(uiHierarchy->uiHierarchy->listWidget,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(showGameObjectInspector(QListWidgetItem*)));
 
-     connect(uiInspector,SIGNAL(MainUpdate()),this,SLOT(updateMain()));
-     //connect(uiMainWindow->actionSaveScreenShot,SIGNAL(triggered()),uiMainWindow->openGLScene,SLOT(TakeScreenShot()));
+    connect(uiInspector,SIGNAL(MainUpdate()),this,SLOT(updateMain()));
+    //connect(uiMainWindow->actionSaveScreenShot,SIGNAL(triggered()),uiMainWindow->openGLScene,SLOT(TakeScreenShot()));
+
 }
 
 MainWindow::~MainWindow()
@@ -77,36 +78,18 @@ void MainWindow::openProject()
         else
         {
             QByteArray saveData = file.readAll();
-            QJsonDocument doc(QJsonDocument::fromJson(saveData));
-            qDebug() << doc.toJson();
+            QJsonDocument loadDoc(QJsonDocument::fromJson(saveData));
+
+            scene->Read(loadDoc.object());
         }
     }
 
+    updateMain();
 }
 
 void MainWindow::saveProject()
 {
     printf("Save project\n");
-
-    QJsonObject recordObject;
-    recordObject.insert("FirstName", QJsonValue::fromVariant("John"));
-    recordObject.insert("LastName", QJsonValue::fromVariant("Doe"));
-    recordObject.insert("Age", QJsonValue::fromVariant(43));
-
-    QJsonObject addressObject;
-    addressObject.insert("Street", "Downing Street 10");
-    addressObject.insert("City", "London");
-    addressObject.insert("Country", "Great Britain");
-    recordObject.insert("Address", addressObject);
-
-    QJsonArray phoneNumbersArray;
-    phoneNumbersArray.push_back("+44 1234567");
-    phoneNumbersArray.push_back("+44 2345678");
-    recordObject.insert("Phone Numbers", phoneNumbersArray);
-
-    QJsonDocument doc(recordObject);
-    qDebug() << doc.toJson();
-
 
     QString fileName = QFileDialog::getSaveFileName(this,
          tr("Save Scene"),"",
@@ -131,7 +114,6 @@ void MainWindow::saveProject()
             QJsonDocument saveDoc(sceneObject);
 
             file.write(saveDoc.toJson());
-            //file.write(doc.toJson());
         }
     }
 }
