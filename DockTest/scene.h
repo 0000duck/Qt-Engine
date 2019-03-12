@@ -10,7 +10,8 @@ class Scene
 public:
 
     Scene();
-
+    void Read(const QJsonObject &json);
+    void Write(QJsonObject &json) const;
 
 public:
     QList<GameObject*> gameObjects;

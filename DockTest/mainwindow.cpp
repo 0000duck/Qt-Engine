@@ -54,16 +54,6 @@ MainWindow::~MainWindow()
     delete uiMainWindow;
 }
 
-void MainWindow::Read(const QJsonObject &json)
-{
-
-}
-
-void MainWindow::Write(QJsonObject &json) const
-{
-
-}
-
 
 void MainWindow::openProject()
 {
@@ -119,7 +109,7 @@ void MainWindow::saveProject()
 
 
     QString fileName = QFileDialog::getSaveFileName(this,
-         tr("Save Sceve"),"",
+         tr("Save Scene"),"",
          tr("JSON (*.json);;All Files (*)"));
 
     if (fileName.isEmpty())
@@ -135,7 +125,13 @@ void MainWindow::saveProject()
         }
         else
         {
-            file.write(doc.toJson());
+            QJsonObject sceneObject;
+            scene->Write(sceneObject);
+
+            QJsonDocument saveDoc(sceneObject);
+
+            file.write(saveDoc.toJson());
+            //file.write(doc.toJson());
         }
     }
 }

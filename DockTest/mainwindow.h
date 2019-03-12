@@ -29,7 +29,7 @@ public:
     {
         Json,
         Binary
-    };
+    }; 
 
 public slots:
     void openProject();
@@ -40,14 +40,12 @@ public slots:
     void removeGameObject();
     void showGameObjectInspector(QListWidgetItem*);
     void updateMain();
+
 private:
     void TryChangeName(GameObject &go);
     bool ChangeName(GameObject &go, int num);
     void CreateAction();
     void CreateUndoView();
-
-    void Read(const QJsonObject &json);
-    void Write(QJsonObject &json) const;
 
     Ui::MainWindow *uiMainWindow;
     InspectorWidget *uiInspector;

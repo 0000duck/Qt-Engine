@@ -7,3 +7,16 @@ Component::Component(GameObject* myGO,Type type)
     this->type=type;
 }
 
+Component::~Component()
+{
+
+}
+
+void Component::Read(const QJsonObject &json)
+{
+
+}
+void Component::Write(QJsonObject &json) const
+{
+
+}
