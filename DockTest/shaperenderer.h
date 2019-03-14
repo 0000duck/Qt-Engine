@@ -9,7 +9,7 @@ class GameObject;
 enum ShapeForm
 {
     CIRCLE = 0,
-    CUBE,
+    SQUARE,
     TRIANGLE
 };
 

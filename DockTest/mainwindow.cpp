@@ -35,6 +35,8 @@ MainWindow::MainWindow(QWidget *parent) :
     uiMainWindow->Hierarchy->setWidget(uiHierarchy);
     scene = new Scene();
 
+    uiMainWindow->Scene->GetScene(scene);
+
     // Connect all the actions
     connect(uiMainWindow->actionOpenProject, SIGNAL(triggered()), this, SLOT(openProject()));
     connect(uiMainWindow->actionSaveProject, SIGNAL(triggered()), this, SLOT(saveProject()));
@@ -46,7 +48,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(uiHierarchy->uiHierarchy->listWidget,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(showGameObjectInspector(QListWidgetItem*)));
 
     connect(uiInspector,SIGNAL(MainUpdate()),this,SLOT(updateMain()));
-    //connect(uiMainWindow->actionSaveScreenShot,SIGNAL(triggered()),uiMainWindow->openGLScene,SLOT(TakeScreenShot()));
+    //connect(uiMainWindow->actionSaveScreenShot,SIGNAL(triggered()),uiMainWindow->widget, SLOT(TakeScreenShot()));
 
 }
 
@@ -137,6 +139,7 @@ void MainWindow::addGameObject()
     TryChangeName(*go);
     scene->gameObjects.push_back(go);
     uiHierarchy->UpdateHierarchy(scene);
+    uiMainWindow->Scene->update();
 }
 
 
@@ -154,6 +157,7 @@ void MainWindow::removeGameObject()
    scene->gameObjects.removeAt(index);
    delete go;
    uiHierarchy->UpdateHierarchy(scene);
+   uiMainWindow->Scene->update();
 }
 
 void MainWindow::TryChangeName(GameObject &go)
@@ -183,6 +187,7 @@ bool MainWindow::ChangeName(GameObject &go, int num)
 void MainWindow::updateMain()
 {
     uiHierarchy->UpdateHierarchy(scene);
+    uiMainWindow->Scene->update();
 
 }
 void MainWindow::showGameObjectInspector(QListWidgetItem* item)

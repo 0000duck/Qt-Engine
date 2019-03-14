@@ -12,6 +12,8 @@ public:
     GameObject();
     void Read(const QJsonObject &json);
     void Write(QJsonObject &json) const;
+    Transform* GetTransform();
+    Component* GetComponent(Type type);
 
 public:
     QString name;
@@ -19,8 +21,7 @@ public:
     bool visible = true;
 
     QList<Component*> components;
-    Transform* GetTransform();
-    Component* GetComponent(Type type);
+
 private:
 
 };

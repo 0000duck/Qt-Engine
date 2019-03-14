@@ -16,7 +16,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <widget class="SceneWidget" name="widget" native="true"/>
+     <widget class="SceneWidget" name="Scene" native="true"/>
     </item>
    </layout>
   </widget>
@@ -35,7 +35,6 @@
     </property>
     <addaction name="actionOpenProject"/>
     <addaction name="actionSaveProject"/>
-    <addaction name="actionSaveScreenShot"/>
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
@@ -133,8 +132,6 @@
    </attribute>
    <addaction name="actionOpenProject"/>
    <addaction name="actionSaveProject"/>
-   <addaction name="actionUndo"/>
-   <addaction name="actionRedo"/>
   </widget>
   <action name="actionOpenProject">
    <property name="icon">

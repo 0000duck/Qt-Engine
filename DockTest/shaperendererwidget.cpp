@@ -31,6 +31,7 @@ ShapeRendererWidget::ShapeRendererWidget(ShapeRenderer* shapeRenderer,QWidget *p
     connect(ui->strokeButton, SIGNAL(clicked()), this, SLOT(StrokeColor()));
     connect(ui->shape, SIGNAL(currentIndexChanged(int)), this, SLOT(ChangeShape(int)));
     connect(ui->strokeStyle, SIGNAL(currentIndexChanged(int)), this, SLOT(ChangeStyle(int)));
+    connect(ui->strokeThickness, SIGNAL(valueChanged(int)), this, SLOT(ChangeThickness(int)));
 
 }
 
@@ -87,8 +88,10 @@ void ShapeRendererWidget::ChangeSize(int size)
     emit InspectorUpdate();
 
 }
-void ShapeRendererWidget::ChangeTickness(int thickness)
+void ShapeRendererWidget::ChangeThickness(int thickness)
 {
+    if(shapeRenderer == nullptr)
+        return;
     shapeRenderer->thickness = thickness;
     emit InspectorUpdate();
 

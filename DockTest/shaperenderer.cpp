@@ -7,8 +7,8 @@ ShapeRenderer::ShapeRenderer(GameObject *myGO):Component(myGO, Type::COMP_MESH_R
 {
     fillColor = QColor(255,255,255);
     strokeColor= QColor(0,0,0);
-    size = 1;
-    thickness = 1;
+    size = 64;
+    thickness = 5;
 }
 
 void ShapeRenderer::Read(const QJsonObject &json)
