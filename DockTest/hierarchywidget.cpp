@@ -1,20 +1,16 @@
-#include "hierarchywidget.h"
 #include "ui_hierarchywidget.h"
+#include "hierarchywidget.h"
 #include "scene.h"
-#include <QStandardItemModel>
-#include <QStandardItem>
 #include "gameobject.h"
 #include "mainwindow.h"
+#include <QStandardItemModel>
+#include <QStandardItem>
+
 HierarchyWidget::HierarchyWidget(QWidget *parent) :
     QWidget(parent),
     uiHierarchy(new Ui::HierarchyWidget)
 {
     uiHierarchy->setupUi(this);
-
-    // Link Add/Remove Entry functions to Buttons
-
-  //  connect(uiHierarchy->AddEntity,SIGNAL(clicked()), this, SLOT(addEntity()));
-   // connect(uiHierarchy->RemoveEntity,SIGNAL(clicked()), this, SLOT(removeEntity()));
 
     entityCounter = 0;
 }
@@ -34,8 +30,6 @@ void HierarchyWidget::UpdateHierarchy(Scene* scene)
     }
 }
 
-
-
 void HierarchyWidget::addEntity()
 {
     QListWidgetItem *item = new QListWidgetItem();
@@ -48,7 +42,6 @@ void HierarchyWidget::addEntity()
 void HierarchyWidget::removeEntity()
 {
     QList<QListWidgetItem*> items = uiHierarchy->listWidget->selectedItems();
-
     foreach(QListWidgetItem* item, items)
     {
         uiHierarchy->listWidget->removeItemWidget(item);

@@ -7,14 +7,12 @@ OpenGLScene::OpenGLScene(QWidget *parent) :
 {
     setMinimumSize(QSize(256,256));
 }
+
 OpenGLScene::~OpenGLScene()
 {
     makeCurrent();
     finalizeGL();
 }
-
-
-
 
 void OpenGLScene::initializeGL()
 {

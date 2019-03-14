@@ -3,8 +3,6 @@
 #include "gameobject.h"
 #include "component.h"
 #include "transform.h"
-#include "shaperenderer.h"
-
 #include <QPainter>
 
 SceneWidget::SceneWidget(QWidget *parent) : QWidget(parent)
@@ -32,9 +30,15 @@ QSize SceneWidget::minimumSizeHint() const
 }
 
 void SceneWidget::SetPainter(QColor fillColor, QColor strokeColor, StrokeStyle strokeStyle, int lineSize,
-                             QBrush& brush, QPen& pen, QPainter& painter)
+                             QBrush& brush, QPen& pen, QPainter& painter, bool active)
 {
     // Brush/Pen configuration
+    if(!active)
+    {
+        fillColor.setAlphaF(0.5f);
+        strokeColor.setAlphaF(0.5f);
+    }
+
     brush.setColor(fillColor);
     pen.setWidth(lineSize);
     pen.setColor(strokeColor);
@@ -76,17 +80,8 @@ void SceneWidget::DrawTriangle(int posX, int posY, int size, QPainter &painter)
 
     QRect triangleRect(posX, posY, w, h);
 
-    /*QPainterPath path;
-    path.moveTo(triangleRect.left() + s, triangleRect.top());
-    path.lineTo(triangleRect.bottomLeft());
-    path.lineTo(triangleRect.bottomRight());
-    path.lineTo(triangleRect.left() + s, triangleRect.top());
-
-    painter.fillPath(path, painter.brush().color());*/
-
     QPolygon triangle;
     triangle << triangleRect.bottomLeft() << triangleRect.bottomRight() << QPoint(triangleRect.left() + s, triangleRect.top());
-
     painter.drawPolygon(triangle);
 }
 
@@ -121,12 +116,16 @@ void SceneWidget::paintEvent(QPaintEvent *event)
 
     foreach(GameObject* go, scene->gameObjects)
     {
+        // Omit drawing for invisible objects
+        if(!go->visible)
+            continue;
+
         Transform* transform = go->GetTransform();
         ShapeRenderer* shape = (ShapeRenderer*)go->GetComponent(Type::COMP_MESH_RENDERER);
 
         ShapeForm form = shape->form;
 
-        SetPainter(shape->fillColor, shape->strokeColor, shape->style, shape->thickness, brush, pen, painter);
+        SetPainter(shape->fillColor, shape->strokeColor, shape->style, shape->thickness, brush, pen, painter, go->active);
 
         switch (form)
         {

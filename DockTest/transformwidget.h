@@ -4,7 +4,8 @@
 #include <QWidget>
 
 class Transform;
-namespace Ui {
+namespace Ui
+{
 class TransformWidget;
 }
 
@@ -14,8 +15,8 @@ class TransformWidget : public QWidget
 
 public:
     explicit TransformWidget(Transform* transform=nullptr, QWidget *parent = 0);
-
     ~TransformWidget();
+
 public slots:
     void ChangeTranslationX(int value);
     void ChangeTranslationY(int value);
@@ -23,8 +24,10 @@ public slots:
     void ChangeRotationY(int value);
     void ChangeScaleX(int value);
     void ChangeScaleY(int value);
+
 signals:
     void InspectorUpdate();
+
 private:
     Ui::TransformWidget *ui;
     Transform* transform = nullptr;

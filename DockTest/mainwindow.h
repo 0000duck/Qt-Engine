@@ -47,6 +47,7 @@ private:
     void CreateAction();
     void CreateUndoView();
 
+private:
     Ui::MainWindow *uiMainWindow;
     InspectorWidget *uiInspector;
     HierarchyWidget *uiHierarchy;

@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "scene.h"
-
 #include <QApplication>
 #include <QSurfaceFormat>
 

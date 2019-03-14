@@ -1,6 +1,7 @@
-#include "infowidget.h"
 #include "ui_infowidget.h"
+#include "infowidget.h"
 #include "gameobject.h"
+
 InfoWidget::InfoWidget(GameObject* go,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::InfoWidget)
@@ -31,19 +32,20 @@ void InfoWidget::SetName(QString name)
         return;
     go->name = name;
     emit InspectorUpdate();
-    //emit gameObjectCganged
 }
+
 void InfoWidget::SetActive(bool active)
 {
     if(go->active == active)
         return;
     go->active = active;
-     emit InspectorUpdate();
+    emit InspectorUpdate();
 }
+
 void InfoWidget::SetVisible(bool active)
 {
     if(go->visible == active)
         return;
     go->visible = active;
-     emit InspectorUpdate();
+    emit InspectorUpdate();
 }

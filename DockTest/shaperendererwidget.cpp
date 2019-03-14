@@ -1,8 +1,9 @@
 #include "shaperendererwidget.h"
+#include "shaperenderer.h"
 #include "ui_shaperendererwidget.h"
 #include <QColorDialog>
 #include <QColor>
-#include "shaperenderer.h"
+
 ShapeRendererWidget::ShapeRendererWidget(ShapeRenderer* shapeRenderer,QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ShapeRendererWidget)
@@ -55,9 +56,6 @@ void ShapeRendererWidget::FillColor()
 
     }
     emit InspectorUpdate();
-
-    //Todo apply color to the gameobject
-
 }
 
 void ShapeRendererWidget::StrokeColor()
@@ -74,28 +72,25 @@ void ShapeRendererWidget::StrokeColor()
         shapeRenderer->strokeColor = color;
 
     }
-
     emit InspectorUpdate();
-
-    //Todo apply color to the gameobject
-
 }
+
 void ShapeRendererWidget::ChangeSize(int size)
 {
     if(shapeRenderer == nullptr)
         return;
     shapeRenderer->size = size;
     emit InspectorUpdate();
-
 }
+
 void ShapeRendererWidget::ChangeThickness(int thickness)
 {
     if(shapeRenderer == nullptr)
         return;
     shapeRenderer->thickness = thickness;
     emit InspectorUpdate();
-
 }
+
 void ShapeRendererWidget::ChangeShape(int index)
 {
     if(shapeRenderer == nullptr)
@@ -103,15 +98,13 @@ void ShapeRendererWidget::ChangeShape(int index)
 
     shapeRenderer->form = static_cast<ShapeForm>(index);
     emit InspectorUpdate();
-
 }
+
 void ShapeRendererWidget::ChangeStyle(int index)
 {
     if(shapeRenderer == nullptr)
         return;
 
     shapeRenderer->style = static_cast<StrokeStyle>(index);
-
     emit InspectorUpdate();
-
 }

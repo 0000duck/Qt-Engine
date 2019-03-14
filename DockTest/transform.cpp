@@ -1,5 +1,4 @@
 #include "transform.h"
-
 #include<QJsonObject>
 
 Transform::Transform(GameObject *myGO):Component(myGO,Type::COMP_TRANSFORM)
@@ -14,7 +13,6 @@ Transform::Transform(QPointF position,GameObject *myGO):Component(myGO,Type::COM
     this->position =position;
     this->rotation =QPoint(0,0);
     this->scale  =QPoint(1,1);
-
 }
 
 Transform::Transform(QPointF position,QPointF rotation,GameObject *myGO):Component(myGO,Type::COMP_TRANSFORM)
@@ -22,7 +20,6 @@ Transform::Transform(QPointF position,QPointF rotation,GameObject *myGO):Compone
     this->position = position;
     this->rotation = rotation;
     this->scale = QPoint(1,1);
-
 }
 
 Transform::Transform(QPointF position,QPointF rotation,QPointF scale,GameObject *myGO):Component(myGO,Type::COMP_TRANSFORM)

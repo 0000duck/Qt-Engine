@@ -5,7 +5,6 @@
 #include <QOpenGLFunctions_3_3_Core>
 
 
-
 class OpenGLScene : public QOpenGLWidget,
                     protected QOpenGLFunctions_3_3_Core
 {
@@ -21,15 +20,14 @@ public:
     void paintGL() override;
 
 private:
-    QImage GetScreenShot();
-private :
-    QImage image;
-signals:
+    QImage GetScreenShot();  
 
 public slots:
-
     void finalizeGL();
     void TakeScreenShot();
+
+private :
+    QImage image;
 
 };
 

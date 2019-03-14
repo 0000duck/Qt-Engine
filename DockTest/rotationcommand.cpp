@@ -9,6 +9,7 @@ void RotationCommand::undo()
 {
 
 }
+
 void RotationCommand::redo()
 {
 

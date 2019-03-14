@@ -1,15 +1,16 @@
 #ifndef SCENEWIDGET_H
 #define SCENEWIDGET_H
 
+#include "shaperenderer.h"
 #include <QObject>
 #include <QWidget>
 
 class Scene;
-enum StrokeStyle;
 
 class SceneWidget : public QWidget
 {
     Q_OBJECT
+
 public:
     explicit SceneWidget(QWidget *parent = nullptr);
 
@@ -19,20 +20,14 @@ public:
     bool GetScene(Scene* scenePointer);
 
 private:
-    void SetPainter(QColor fillColor, QColor strokeColor, StrokeStyle strokeStyle, int lineSize, QBrush& brush, QPen& pen, QPainter& painter);
-
+    void SetPainter(QColor fillColor, QColor strokeColor, StrokeStyle strokeStyle, int lineSize, QBrush& brush, QPen& pen, QPainter& painter, bool active);
     void DrawCircle(int posX, int posY, int radius, QPainter& painter);
     void DrawSquare(int posX, int posY, int size, QPainter& painter);
     void DrawTriangle(int posX, int posY, int size, QPainter& painter);
 
-signals:
-
-public slots:    
-
-private:
-
     void paintEvent(QPaintEvent *event) override;
 
+private:
     Scene* scene = nullptr;
 
 };

@@ -4,10 +4,12 @@ PositionCommand::PositionCommand(const QPointF &oldPos,QUndoCommand *parent): QU
 {
     oldPosition = oldPos;
 }
+
 void PositionCommand::undo()
 {
 
 }
+
 void PositionCommand::redo()
 {
 

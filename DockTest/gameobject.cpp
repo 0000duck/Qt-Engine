@@ -1,10 +1,9 @@
 #include "gameobject.h"
 #include "transform.h"
-
+#include "shaperenderer.h"
 #include <QJsonArray>
 #include <QJsonObject>
 
-#include "shaperenderer.h"
 
 GameObject::GameObject()
 {
