@@ -11,3 +11,28 @@ GameObject::GameObject()
     components.push_back(myShapeRenderer);
 
 }
+
+
+Transform* GameObject::GetTransform()
+{
+    for(int i =0;i<components.size();i++)
+    {
+        if(components[i]->type== Type::COMP_TRANSFORM)
+        {
+            return (Transform*)components[i];
+        }
+    }
+    return nullptr;
+}
+
+Component* GameObject::GetComponent(Type type)
+{
+    for(int i =0;i<components.size();i++)
+    {
+        if(components[i]->type== type)
+        {
+            return components[i];
+        }
+    }
+    return nullptr;
+}

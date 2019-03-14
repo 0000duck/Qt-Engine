@@ -3,6 +3,8 @@
 
 #include "component.h"
 #include <QList>
+class Transform;
+class Component;
 
 class GameObject
 {
@@ -15,7 +17,8 @@ public:
     bool visible = true;
 
     QList<Component*> components;
-
+    Transform* GetTransform();
+    Component* GetComponent(Type type);
 private:
 
 };
