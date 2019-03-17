@@ -40,16 +40,15 @@ MainWindow::MainWindow(QWidget *parent) :
     // Connect all the actions
     connect(uiMainWindow->actionOpenProject, SIGNAL(triggered()), this, SLOT(openProject()));
     connect(uiMainWindow->actionSaveProject, SIGNAL(triggered()), this, SLOT(saveProject()));
-    connect(uiMainWindow->actionUndo, SIGNAL(triggered()), this, SLOT(undo()));
-    connect(uiMainWindow->actionRedo, SIGNAL(triggered()), this, SLOT(redo()));
     connect(uiMainWindow->actionExit, SIGNAL(triggered()), qApp, SLOT(quit()));
     connect(uiHierarchy->uiHierarchy->AddEntity,SIGNAL(clicked()),this,SLOT(addGameObject()));
     connect(uiHierarchy->uiHierarchy->RemoveEntity,SIGNAL(clicked()),this,SLOT(removeGameObject()));
     connect(uiHierarchy->uiHierarchy->listWidget,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(showGameObjectInspector(QListWidgetItem*)));
-
     connect(uiInspector,SIGNAL(MainUpdate()),this,SLOT(updateMain()));
-    //connect(uiMainWindow->actionSaveScreenShot,SIGNAL(triggered()),uiMainWindow->widget, SLOT(TakeScreenShot()));
 
+    //connect(uiMainWindow->actionSaveScreenShot,SIGNAL(triggered()),uiMainWindow->widget, SLOT(TakeScreenShot()));
+    //connect(uiMainWindow->actionUndo, SIGNAL(triggered()), this, SLOT(undo()));
+    //connect(uiMainWindow->actionRedo, SIGNAL(triggered()), this, SLOT(redo()));
 }
 
 MainWindow::~MainWindow()
