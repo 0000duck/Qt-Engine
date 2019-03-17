@@ -41,14 +41,23 @@ previously saved scene.
 - **MainWindow:** it contains all actions that involves the UI interaction (Open/Save Project, 
 Add/Remove Entity, Show Inspector...)
 
+![](https://github.com/Jordior97/Qt-Engine/blob/master/QtScreenshots/MWActions.png?raw=true)
+
 - **Components:** we have stablished  a GameObject - Component structure (Unity-like). Each
-component is linked with a QT Widget to visualize and modify its parameters. For example, 
-the position of the transform is modified through its linked Transform Widget. 
+component is linked with a QT Widget to visualize and modify its parameters. 
 Also, when a component is modified, we send a signal to the Inspector who, in turn, sends another
 signal to the MainWindow to to update all the main Widgets.
+Here we have an example: the shape parameters of the GameObject are modified through its linked ShapeRenderer Widget 
+
+![](https://github.com/Jordior97/Qt-Engine/blob/master/QtScreenshots/ComponentSignals.png?raw=true)
 
 - **Dialogs:** we have implemented two types of dialogs: 
   - **Open/Save Project**.
+  
+  ![](https://github.com/Jordior97/Qt-Engine/blob/master/QtScreenshots/SaveDialog.png?raw=true)
+  
   - **Choose Color**: by clicking "Fill Color" or "Stroke Color" in the ShapeRenderer Widget, a basic color picker 
   is displayed.
+  
+  ![](https://github.com/Jordior97/Qt-Engine/blob/master/QtScreenshots/ColorDialog.png?raw=true)
 
