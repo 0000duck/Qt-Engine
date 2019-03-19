@@ -40,7 +40,24 @@ SOURCES += \
     scene.cpp \
     scenewidget.cpp \
     infowidget.cpp \
-    shaperenderer.cpp
+    shaperenderer.cpp \
+    component.cpp \
+    gameobject.cpp \
+    hierarchywidget.cpp \
+    infowidget.cpp \
+    inspectorwidget.cpp \
+    main.cpp \
+    mainwindow.cpp \
+    openglscene.cpp \
+    positioncommand.cpp \
+    rotationcommand.cpp \
+    scalecommand.cpp \
+    scene.cpp \
+    scenewidget.cpp \
+    shaperenderer.cpp \
+    shaperendererwidget.cpp \
+    transform.cpp \
+    transformwidget.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -58,7 +75,23 @@ HEADERS += \
     scene.h \
     scenewidget.h \
     infowidget.h \
-    shaperenderer.h
+    shaperenderer.h \
+    component.h \
+    gameobject.h \
+    hierarchywidget.h \
+    infowidget.h \
+    inspectorwidget.h \
+    mainwindow.h \
+    openglscene.h \
+    positioncommand.h \
+    rotationcommand.h \
+    scalecommand.h \
+    scene.h \
+    scenewidget.h \
+    shaperenderer.h \
+    shaperendererwidget.h \
+    transform.h \
+    transformwidget.h
 
 FORMS += \
         mainwindow.ui \
@@ -76,3 +109,7 @@ LIBS += -lopengl32
 
 RESOURCES += \
     icons.qrc
+
+DISTFILES += \
+    Shaders/forwardshading_frag.frag \
+    Shaders/forwardshading_vert.vert
