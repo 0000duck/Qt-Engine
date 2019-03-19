@@ -76,3 +76,7 @@ LIBS += -lopengl32
 
 RESOURCES += \
     icons.qrc
+
+DISTFILES += \
+    shaders/shader1_frag.frag \
+    shaders/shader1_vert.vert

@@ -3,7 +3,9 @@
 
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions_3_3_Core>
-
+#include <QOpenGLShaderProgram>
+#include <QOpenGLBuffer>
+#include <QOpenGLVertexArrayObject>
 
 class OpenGLScene : public QOpenGLWidget,
                     protected QOpenGLFunctions_3_3_Core
@@ -28,7 +30,9 @@ public slots:
 
 private :
     QImage image;
-
+    QOpenGLBuffer vbo;
+    QOpenGLVertexArrayObject vao;
+    QOpenGLShaderProgram program;
 };
 
 #endif // OPENGLSCENE_H
