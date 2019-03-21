@@ -19,8 +19,21 @@ void OpenGLScene::initializeGL()
 {
     initializeOpenGLFunctions();
 
-    // Handle context destructions
-    connect(context(), SIGNAL(aboutToBeDestroyed()), this, SLOT(finalizeGL()));
+    // Depth Test
+    if(enableZtest)
+    {
+        glEnable(GL_DEPTH_TEST);
+        glDepthFunc(GL_LESS);
+
+        if(enableZwrite)
+            glDepthMask(GL_TRUE);
+        else
+            glDepthMask(GL_FALSE);
+    }
+    else
+    {
+        glDisable(GL_DEPTH_TEST);
+    }
 
     // Program
     program.create();
@@ -58,6 +71,11 @@ void OpenGLScene::initializeGL()
     vao.release();
     vbo.release();
     program.release();
+
+
+    // Handle context destructions
+    connect(context(), SIGNAL(aboutToBeDestroyed()), this, SLOT(finalizeGL()));
+
 }
 
 void OpenGLScene::resizeGL(int width, int height)
@@ -67,8 +85,9 @@ void OpenGLScene::resizeGL(int width, int height)
 
 void OpenGLScene::paintGL()
 {
-    glClearColor(0.5f, 0.7f,0.9f,1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClearDepth(1.0);
+    glClearColor(0.0f, 0.0f,0.0f,1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     // Paint Triangle
     if(program.bind())

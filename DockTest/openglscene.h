@@ -33,6 +33,9 @@ private :
     QOpenGLShaderProgram program;
     QOpenGLBuffer vbo;
     QOpenGLVertexArrayObject vao;
+
+    bool enableZtest = true;
+    bool enableZwrite = true;
 };
 
 #endif // OPENGLSCENE_H
