@@ -1,7 +1,7 @@
 #ifndef SHAPERENDERER_H
 #define SHAPERENDERER_H
 
-#include "component.h"
+#include "Component/component.h"
 #include <QColor>
 
 class GameObject;

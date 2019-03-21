@@ -1,6 +1,6 @@
 #include "ui_transformwidget.h"
 #include "transformwidget.h"
-#include "transform.h"
+#include "Component/transform.h"
 
 TransformWidget::TransformWidget(Transform* transform,QWidget *parent) :
     QWidget(parent),

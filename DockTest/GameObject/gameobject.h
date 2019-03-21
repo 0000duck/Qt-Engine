@@ -1,7 +1,7 @@
 #ifndef GAMEOBJECT_H
 #define GAMEOBJECT_H
 
-#include "component.h"
+#include "Component/component.h"
 #include <QList>
 
 class Transform;

@@ -1,5 +1,5 @@
 #include "shaperendererwidget.h"
-#include "shaperenderer.h"
+#include "Component/shaperenderer.h"
 #include "ui_shaperendererwidget.h"
 #include <QColorDialog>
 #include <QColor>

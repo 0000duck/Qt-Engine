@@ -1,5 +1,5 @@
 #include "component.h"
-#include "gameobject.h"
+#include "GameObject/gameobject.h"
 
 Component::Component(GameObject* myGO,Type type)
 {

@@ -1,5 +1,5 @@
 #include "scene.h"
-#include "gameobject.h"
+#include "GameObject/gameobject.h"
 #include <QList>
 #include <QJsonArray>
 #include <QJsonObject>

@@ -24,74 +24,43 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
-    openglscene.cpp \
-    inspectorwidget.cpp \
-    transformwidget.cpp \
-    hierarchywidget.cpp \
-    positioncommand.cpp \
-    rotationcommand.cpp \
-    scalecommand.cpp \
-    shaperendererwidget.cpp \
-    gameobject.cpp \
-    transform.cpp \
-    component.cpp \
-    scene.cpp \
-    scenewidget.cpp \
-    infowidget.cpp \
-    shaperenderer.cpp \
-    component.cpp \
-    gameobject.cpp \
-    hierarchywidget.cpp \
-    infowidget.cpp \
-    inspectorwidget.cpp \
-    main.cpp \
-    mainwindow.cpp \
-    openglscene.cpp \
-    positioncommand.cpp \
-    rotationcommand.cpp \
-    scalecommand.cpp \
-    scene.cpp \
-    scenewidget.cpp \
-    shaperenderer.cpp \
-    shaperendererwidget.cpp \
-    transform.cpp \
-    transformwidget.cpp
+    Component/component.cpp \
+    Component/infowidget.cpp \
+    Component/shaperenderer.cpp \
+    Component/transform.cpp \
+    ComponentWidget/hierarchywidget.cpp \
+    ComponentWidget/inspectorwidget.cpp \
+    ComponentWidget/shaperendererwidget.cpp \
+    ComponentWidget/transformwidget.cpp \
+    GameObject/gameobject.cpp \
+    Main/main.cpp \
+    Main/mainwindow.cpp \
+    Mesh/mesh.cpp \
+    Mesh/submesh.cpp \
+    Mesh/vertexformat.cpp \
+    Scene/openglscene.cpp \
+    Scene/scene.cpp \
+    SceneWidget/scenewidget.cpp \
+
 
 HEADERS += \
-        mainwindow.h \
-    openglscene.h \
-    inspectorwidget.h \
-    transformwidget.h \
-    hierarchywidget.h \
-    scalecommand.h \
-    rotationcommand.h \
-    positioncommand.h \
-    shaperendererwidget.h \
-    gameobject.h \
-    transform.h \
-    component.h \
-    scene.h \
-    scenewidget.h \
-    infowidget.h \
-    shaperenderer.h \
-    component.h \
-    gameobject.h \
-    hierarchywidget.h \
-    infowidget.h \
-    inspectorwidget.h \
-    mainwindow.h \
-    openglscene.h \
-    positioncommand.h \
-    rotationcommand.h \
-    scalecommand.h \
-    scene.h \
-    scenewidget.h \
-    shaperenderer.h \
-    shaperendererwidget.h \
-    transform.h \
-    transformwidget.h
+    Component/component.h \
+    Component/infowidget.h \
+    Component/shaperenderer.h \
+    Component/transform.h \
+    ComponentWidget/hierarchywidget.h \
+    ComponentWidget/inspectorwidget.h \
+    ComponentWidget/shaperendererwidget.h \
+    ComponentWidget/transformwidget.h \
+    GameObject/gameobject.h \
+    Main/mainwindow.h \
+    Mesh/mesh.h \
+    Mesh/submesh.h \
+    Mesh/vertexformat.h \
+    Scene/openglscene.h \
+    Scene/scene.h \
+    SceneWidget/scenewidget.h
+
 
 FORMS += \
         mainwindow.ui \

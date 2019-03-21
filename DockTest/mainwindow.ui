@@ -186,13 +186,13 @@
   <customwidget>
    <class>SceneWidget</class>
    <extends>QWidget</extends>
-   <header>scenewidget.h</header>
+   <header>SceneWidget/scenewidget.h</header>
    <container>1</container>
   </customwidget>
   <customwidget>
    <class>OpenGLScene</class>
    <extends>QOpenGLWidget</extends>
-   <header>openglscene.h</header>
+   <header>Scene/openglscene.h</header>
   </customwidget>
  </customwidgets>
  <resources>
