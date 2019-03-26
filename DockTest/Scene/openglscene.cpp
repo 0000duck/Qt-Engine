@@ -1,4 +1,4 @@
-#include "openglscene.h"
+#include "Scene/openglscene.h"
 #include <iostream>
 #include <QGLWidget>
 #include <QOpenGLShader>

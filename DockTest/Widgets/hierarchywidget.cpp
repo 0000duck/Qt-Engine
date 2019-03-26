@@ -1,8 +1,8 @@
+#include "Widgets/hierarchywidget.h"
+#include "Scene/scene.h"
+#include "Scene/gameobject.h"
+#include "Main/mainwindow.h"
 #include "ui_hierarchywidget.h"
-#include "hierarchywidget.h"
-#include "scene.h"
-#include "gameobject.h"
-#include "mainwindow.h"
 #include <QStandardItemModel>
 #include <QStandardItem>
 

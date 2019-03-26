@@ -1,12 +1,12 @@
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
+#include "Main/mainwindow.h"
+#include "Widgets/shaperendererwidget.h"
+#include "Scene/scene.h"
+#include "Scene/gameobject.h"
+#include "Widgets/inspectorwidget.h"
+#include "Widgets/hierarchywidget.h"
 #include "ui_rendering.h"
-#include "inspectorwidget.h"
-#include "hierarchywidget.h"
 #include "ui_hierarchywidget.h"
-#include "shaperendererwidget.h"
-#include "scene.h"
-#include "gameobject.h"
+#include "ui_mainwindow.h"
 
 #include <QListWidget>
 #include <QJsonObject>

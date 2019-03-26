@@ -1,6 +1,6 @@
-#include "gameobject.h"
-#include "transform.h"
-#include "shaperenderer.h"
+#include "Scene/gameobject.h"
+#include "Components/transform.h"
+#include "Components/shaperenderer.h"
 #include <QJsonArray>
 #include <QJsonObject>
 

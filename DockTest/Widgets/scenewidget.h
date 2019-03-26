@@ -1,7 +1,7 @@
 #ifndef SCENEWIDGET_H
 #define SCENEWIDGET_H
 
-#include "shaperenderer.h"
+#include "Components/shaperenderer.h"
 #include <QObject>
 #include <QWidget>
 

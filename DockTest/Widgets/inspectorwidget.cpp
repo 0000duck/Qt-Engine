@@ -1,9 +1,9 @@
-#include "inspectorwidget.h"
-#include "transformwidget.h"
-#include "shaperendererwidget.h"
-#include "infowidget.h"
-#include "gameobject.h"
-#include "component.h"
+#include "Widgets/inspectorwidget.h"
+#include "Widgets/transformwidget.h"
+#include "Widgets/shaperendererwidget.h"
+#include "Widgets/infowidget.h"
+#include "Scene/gameobject.h"
+#include "Components/component.h"
 #include <QLayout>
 #include <QVBoxLayout>
 #include <QSpacerItem>

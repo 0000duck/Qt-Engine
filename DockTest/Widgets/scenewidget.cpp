@@ -1,8 +1,8 @@
-#include "scenewidget.h"
-#include "scene.h"
-#include "gameobject.h"
-#include "component.h"
-#include "transform.h"
+#include "Widgets/scenewidget.h"
+#include "Scene/scene.h"
+#include "Scene/gameobject.h"
+#include "Components/component.h"
+#include "Components/transform.h"
 #include <QPainter>
 
 SceneWidget::SceneWidget(QWidget *parent) : QWidget(parent)

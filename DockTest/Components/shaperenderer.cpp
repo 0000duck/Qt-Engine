@@ -1,5 +1,5 @@
-#include "shaperenderer.h"
-#include<QJsonObject>
+#include "Components/shaperenderer.h"
+#include <QJsonObject>
 
 ShapeRenderer::ShapeRenderer(GameObject *myGO):Component(myGO, Type::COMP_MESH_RENDERER)
 {

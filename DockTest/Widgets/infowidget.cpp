@@ -1,6 +1,6 @@
+#include "Widgets/infowidget.h"
+#include "Scene/gameobject.h"
 #include "ui_infowidget.h"
-#include "infowidget.h"
-#include "gameobject.h"
 
 InfoWidget::InfoWidget(GameObject* go,QWidget *parent) :
     QWidget(parent),

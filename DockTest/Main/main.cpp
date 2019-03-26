@@ -1,5 +1,5 @@
-#include "mainwindow.h"
-#include "scene.h"
+#include "Main/mainwindow.h"
+#include "Scene/scene.h"
 #include <QApplication>
 #include <QSurfaceFormat>
 

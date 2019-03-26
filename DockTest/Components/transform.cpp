@@ -1,4 +1,4 @@
-#include "transform.h"
+#include "Components/transform.h"
 #include<QJsonObject>
 
 Transform::Transform(GameObject *myGO):Component(myGO,Type::COMP_TRANSFORM)

@@ -1,7 +1,7 @@
 #ifndef SUBMESH_H
 #define SUBMESH_H
 
-#include"vertexformat.h"
+#include"Models/vertexformat.h"
 #include<QOpenGLBuffer>
 #include<QOpenGLVertexArrayObject>
 
