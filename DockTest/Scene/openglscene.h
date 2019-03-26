@@ -38,4 +38,6 @@ private :
     bool enableZwrite = true;
 };
 
+extern QOpenGLFunctions_3_3_Core* glFuncs;
+
 #endif // OPENGLSCENE_H

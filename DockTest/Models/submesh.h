@@ -9,7 +9,6 @@
 class SubMesh
 {
 public:
-    SubMesh();
     SubMesh(VertexFormat vFormat, void *data, int size);
     SubMesh(VertexFormat vFormat, void *data, int size, unsigned int *indices, int indices_count);
 
@@ -22,7 +21,7 @@ private:
     size_t dataSize = 0;
 
     unsigned int *indices = nullptr;
-    size_t indexCount = 0;
+    size_t indicesCount = 0;
 
     VertexFormat vertexFormat;
     QOpenGLBuffer vbo;

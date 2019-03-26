@@ -16,7 +16,9 @@ OpenGLScene::~OpenGLScene()
 }
 
 void OpenGLScene::initializeGL()
-{
+{    
+    glFuncs = this;
+
     initializeOpenGLFunctions();
 
     // Depth Test

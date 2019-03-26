@@ -39,7 +39,8 @@ SOURCES += \
     Widgets/inspectorwidget.cpp \
     Widgets/scenewidget.cpp \
     Widgets/shaperendererwidget.cpp \
-    Widgets/transformwidget.cpp
+    Widgets/transformwidget.cpp \
+    Models/mesh.cpp
 
 HEADERS += \
     Components/component.h \
@@ -56,7 +57,8 @@ HEADERS += \
     Widgets/inspectorwidget.h \
     Widgets/scenewidget.h \
     Widgets/shaperendererwidget.h \
-    Widgets/transformwidget.h
+    Widgets/transformwidget.h \
+    Models/mesh.h
 
 
 
@@ -80,3 +82,10 @@ RESOURCES += \
 DISTFILES += \
     Shaders/forwardshading_frag.frag \
     Shaders/forwardshading_vert.vert
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/ThirdParties/Assimp/lib/ -lassimp
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/ThirdParties/Assimp/lib/ -lassimpd
+else:unix: LIBS += -L$$PWD/ThirdParties/Assimp/lib/ -lassimp
+
+INCLUDEPATH += $$PWD/ThirdParties/Assimp/include
+DEPENDPATH += $$PWD/ThirdParties/Assimp/include
