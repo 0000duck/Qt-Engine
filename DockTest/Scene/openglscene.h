@@ -7,6 +7,8 @@
 #include <QOpenGLBuffer>
 #include <QOpenGLVertexArrayObject>
 
+class Scene;
+extern QOpenGLFunctions_3_3_Core *glFuncs;
 class OpenGLScene : public QOpenGLWidget,
                     protected QOpenGLFunctions_3_3_Core
 {
@@ -20,7 +22,7 @@ public:
     void initializeGL() override;
     void resizeGL(int width, int height) override;
     void paintGL() override;
-
+    bool GetScene(Scene *scene);
 private:
     QImage GetScreenShot();  
 
@@ -28,7 +30,10 @@ public slots:
     void finalizeGL();
     void TakeScreenShot();
 
+
 private :
+    Scene* scene = nullptr;
+
     QImage image;
     QOpenGLShaderProgram program;
     QOpenGLBuffer vbo;

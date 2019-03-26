@@ -35,7 +35,7 @@ MainWindow::MainWindow(QWidget *parent) :
     uiMainWindow->Hierarchy->setWidget(uiHierarchy);
     scene = new Scene();
 
-    uiMainWindow->Scene->GetScene(scene);
+    uiMainWindow->openGLWidget->GetScene(scene);
 
     // Connect all the actions
     connect(uiMainWindow->actionOpenProject, SIGNAL(triggered()), this, SLOT(openProject()));
@@ -138,7 +138,6 @@ void MainWindow::addGameObject()
     TryChangeName(*go);
     scene->gameObjects.push_back(go);
     uiHierarchy->UpdateHierarchy(scene);
-    uiMainWindow->Scene->update();
 }
 
 
@@ -156,7 +155,6 @@ void MainWindow::removeGameObject()
    scene->gameObjects.removeAt(index);
    delete go;
    uiHierarchy->UpdateHierarchy(scene);
-   uiMainWindow->Scene->update();
 }
 
 void MainWindow::TryChangeName(GameObject &go)
@@ -186,7 +184,6 @@ bool MainWindow::ChangeName(GameObject &go, int num)
 void MainWindow::updateMain()
 {
     uiHierarchy->UpdateHierarchy(scene);
-    uiMainWindow->Scene->update();
 
 }
 void MainWindow::showGameObjectInspector(QListWidgetItem* item)

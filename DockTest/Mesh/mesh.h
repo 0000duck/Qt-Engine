@@ -1,11 +1,27 @@
 #ifndef MESH_H
 #define MESH_H
-
-
+#include"Mesh/vertexformat.h"
+#include "QVector"
+class SubMesh;
+struct aiNode;
+struct aiMesh;
+struct aiScene;
 class Mesh
 {
 public:
     Mesh();
+
+    void Update();
+    void Destroy();
+    void AddSubMesh(VertexFormat vertexFormat,void *data,int size);
+    void AddSubMesh(VertexFormat vertexFormat,void *data,int size,unsigned int *index,int indicesCount);
+    void LoadModel(const char* fileName);
+
+public:
+    QVector<SubMesh*> subMeshes;
+private:
+    void ProcessNode(aiNode *node, aiScene *scene);
+    SubMesh* ProcessMesh(aiMesh *mesh, const aiScene* scene);
 };
 
 #endif // MESH_H

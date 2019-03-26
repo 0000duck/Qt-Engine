@@ -17,6 +17,7 @@ OpenGLScene::~OpenGLScene()
 
 void OpenGLScene::initializeGL()
 {
+    glFunc = this;
     initializeOpenGLFunctions();
 
     // Depth Test
@@ -121,5 +122,12 @@ void OpenGLScene::finalizeGL()
     glClearColor(0.9f, 0.85f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 }
+bool OpenGLScene::GetScene(Scene *scenePointer)
+{
+    if(scenePointer == nullptr)
+        return false;
 
+    scene = scenePointer;
+    return true;
+}
 

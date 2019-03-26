@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>808</width>
-    <height>433</height>
+    <width>884</width>
+    <height>528</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,33 +16,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QVBoxLayout" name="verticalLayout_2">
     <item>
-     <widget class="QTabWidget" name="tabWidget">
-      <property name="currentIndex">
-       <number>1</number>
-      </property>
-      <widget class="SceneWidget" name="Scene">
-       <attribute name="title">
-        <string>Scene</string>
-       </attribute>
-      </widget>
-      <widget class="QWidget" name="tab_2">
-       <attribute name="title">
-        <string>OpenGL Scene</string>
-       </attribute>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="OpenGLScene" name="openGLWidget">
-          <property name="sizePolicy">
-           <sizepolicy hsizetype="Expanding" vsizetype="Ignored">
-            <horstretch>0</horstretch>
-            <verstretch>0</verstretch>
-           </sizepolicy>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </widget>
-     </widget>
+     <widget class="OpenGLScene" name="openGLWidget"/>
     </item>
    </layout>
   </widget>
@@ -51,7 +25,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>808</width>
+     <width>884</width>
      <height>21</height>
     </rect>
    </property>
@@ -183,12 +157,6 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <customwidgets>
-  <customwidget>
-   <class>SceneWidget</class>
-   <extends>QWidget</extends>
-   <header>SceneWidget/scenewidget.h</header>
-   <container>1</container>
-  </customwidget>
   <customwidget>
    <class>OpenGLScene</class>
    <extends>QOpenGLWidget</extends>
