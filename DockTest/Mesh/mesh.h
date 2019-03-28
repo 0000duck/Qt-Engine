@@ -20,7 +20,7 @@ public:
 public:
     QVector<SubMesh*> subMeshes;
 private:
-    void ProcessNode(aiNode *node, aiScene *scene);
+    void ProcessNode(aiNode *node, const aiScene *scene);
     SubMesh* ProcessMesh(aiMesh *mesh, const aiScene* scene);
 };
 

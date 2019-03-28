@@ -18,6 +18,7 @@ public:
 
     }
     VertexAttribute attribute[MAX_VERTEX_ATTRIBUTES];
+    int size = 0;
 };
 
 #endif // VERTEXFORMAT_H

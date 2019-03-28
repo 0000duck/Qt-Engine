@@ -82,3 +82,10 @@ RESOURCES += \
 DISTFILES += \
     Shaders/forwardshading_frag.frag \
     Shaders/forwardshading_vert.vert
+
+win32:CONFIG(release, debug|release): LIBS += -L$$PWD/ExternalLibrary/Assimp/lib/ -lassimp
+else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/ExternalLibrary/Assimp/lib/ -lassimpd
+else:unix: LIBS += -L$$PWD/ExternalLibrary/Assimp/lib/ -lassimp
+
+INCLUDEPATH += $$PWD/ExternalLibrary/Assimp/include
+DEPENDPATH += $$PWD/ExternalLibrary/Assimp/include

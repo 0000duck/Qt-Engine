@@ -9,6 +9,7 @@
 
 class Scene;
 extern QOpenGLFunctions_3_3_Core *glFuncs;
+
 class OpenGLScene : public QOpenGLWidget,
                     protected QOpenGLFunctions_3_3_Core
 {
