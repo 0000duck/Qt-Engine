@@ -10,7 +10,7 @@ class Mesh
 {
 public:
     Mesh();
-
+    void Draw();
     void Update();
     void Destroy();
     void AddSubMesh(VertexFormat vertexFormat,void *data,int size);

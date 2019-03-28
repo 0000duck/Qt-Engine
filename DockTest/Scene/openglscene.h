@@ -6,8 +6,8 @@
 #include <QOpenGLShaderProgram>
 #include <QOpenGLBuffer>
 #include <QOpenGLVertexArrayObject>
-
 class Scene;
+class Mesh;
 extern QOpenGLFunctions_3_3_Core *glFuncs;
 
 class OpenGLScene : public QOpenGLWidget,
@@ -34,7 +34,7 @@ public slots:
 
 private :
     Scene* scene = nullptr;
-
+    Mesh* mesh = nullptr;
     QImage image;
     QOpenGLShaderProgram program;
     QOpenGLBuffer vbo;

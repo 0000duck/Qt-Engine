@@ -11,10 +11,19 @@ Mesh::Mesh()
 }
 
 
-
+void Mesh::Draw()
+{
+    foreach(SubMesh* subMesh, subMeshes)
+    {
+        subMesh->Draw();
+    }
+}
 void Mesh::Update()
 {
-
+    foreach(SubMesh* subMesh, subMeshes)
+    {
+        subMesh->Update();
+    }
 }
 void Mesh::Destroy()
 {

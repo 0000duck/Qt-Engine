@@ -2,6 +2,8 @@
 #include <iostream>
 #include <QGLWidget>
 #include <QOpenGLShader>
+#include "Mesh/mesh.h"
+
 QOpenGLFunctions_3_3_Core *glFuncs;
 OpenGLScene::OpenGLScene(QWidget *parent) :
     QOpenGLWidget(parent)
@@ -17,6 +19,9 @@ OpenGLScene::~OpenGLScene()
 
 void OpenGLScene::initializeGL()
 {
+    makeCurrent();
+    mesh = new Mesh();
+    mesh->LoadModel("Models/bunny.obj");
     glFuncs = this;
     initializeOpenGLFunctions();
 
@@ -86,11 +91,19 @@ void OpenGLScene::resizeGL(int width, int height)
 
 void OpenGLScene::paintGL()
 {
+    makeCurrent();
+
     glClearDepth(1.0);
     glClearColor(0.0f, 0.0f,0.0f,1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+    if(mesh!=nullptr)
+    {
+       mesh->Update();
+      //  mesh->Draw();
+    }
     // Paint Triangle
+    /*
     if(program.bind())
     {
         vao.bind();
@@ -98,6 +111,7 @@ void OpenGLScene::paintGL()
         vao.release();
         program.release();
     }
+    */
 
 }
 
