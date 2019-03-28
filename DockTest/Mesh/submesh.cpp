@@ -4,10 +4,16 @@
 SubMesh::SubMesh(VertexFormat vertexFormat,void *data,int size)
 {
     this->vertexFormat = vertexFormat;
+    this->data = (unsigned char*) data;
+    this->dataSize =size;
 }
-SubMesh::SubMesh(VertexFormat vertexFormat,void *data,int size,unsigned int *index,int indicesCount)
+SubMesh::SubMesh(VertexFormat vertexFormat,void *data,int size,unsigned int *indice,int indicesCount)
 {
     this->vertexFormat = vertexFormat;
+    this->data = (unsigned char*) data;
+    this->dataSize =size;
+    this->indice = indice;
+    this->indicesCount =indicesCount;
 
 }
 SubMesh::~SubMesh()
