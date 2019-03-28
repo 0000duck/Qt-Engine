@@ -3,6 +3,8 @@
 #include <QGLWidget>
 #include <QOpenGLShader>
 
+QOpenGLFunctions_3_3_Core* glFuncs;
+
 OpenGLScene::OpenGLScene(QWidget *parent) :
     QOpenGLWidget(parent)
 {

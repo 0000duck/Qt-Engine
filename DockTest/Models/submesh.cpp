@@ -1,5 +1,22 @@
 #include "Models/submesh.h"
+#include "Models/vertexformat.h"
 #include "Scene/openglscene.h"
+
+SubMesh::SubMesh(VertexFormat vFormat, void *data, int size)
+{
+    vertexFormat = vFormat;
+    this->data = (unsigned char*)data;
+    this->dataSize = size;
+}
+
+SubMesh::SubMesh(VertexFormat vFormat, void *data, int size, unsigned int *indices, int indicesCount)
+{
+    vertexFormat = vFormat;
+    this->data = (unsigned char*)data;
+    this->dataSize = size;
+    this->indices = indices;
+    this->indicesCount = indicesCount;
+}
 
 
 void SubMesh::Update()

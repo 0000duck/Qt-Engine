@@ -10,7 +10,7 @@ class SubMesh
 {
 public:
     SubMesh(VertexFormat vFormat, void *data, int size);
-    SubMesh(VertexFormat vFormat, void *data, int size, unsigned int *indices, int indices_count);
+    SubMesh(VertexFormat vFormat, void *data, int size, unsigned int *indices, int indicesCount);
 
     void Update();
     void Draw();
