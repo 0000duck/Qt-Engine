@@ -21,7 +21,7 @@ void OpenGLScene::initializeGL()
 {
     makeCurrent();
     mesh = new Mesh();
-    mesh->LoadModel("Models/bunny.obj");
+    mesh->LoadModel("Models/sponza.obj");
     glFuncs = this;
     initializeOpenGLFunctions();
 
@@ -48,34 +48,10 @@ void OpenGLScene::initializeGL()
     program.link();
     program.bind();
 
-    // VBO
-    QVector3D vertices[] =
+    if(mesh!=nullptr)
     {
-        QVector3D(-0.5f, -0.5f, 0.0f), QVector3D(1.0f, 0.0f, 0.0f), // V1
-        QVector3D( 0.5f, -0.5f, 0.0f), QVector3D(0.0f, 1.0f, 0.0f), // V2
-        QVector3D( 0.0f,  0.5f, 0.0f), QVector3D(0.0f, 0.0f, 1.0f)  // V3
-    };
-    vbo.create();
-    vbo.bind();
-    vbo.setUsagePattern(QOpenGLBuffer::UsagePattern::StaticDraw);
-    vbo.allocate(vertices, 6 * sizeof(QVector3D));
-
-    // VAO: Captures the state of VBOs
-    vao.create();
-    vao.bind();
-    const GLint compCount = 3;
-    const int strideBytes = 2 * sizeof (QVector3D);
-    const int offsetBytes0 = 0;
-    const int offsetBytes1 = sizeof(QVector3D);
-
-    glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(1);
-    glVertexAttribPointer(0, compCount, GL_FLOAT, GL_FALSE, strideBytes, (void*)(offsetBytes0));
-    glVertexAttribPointer(1, compCount, GL_FLOAT, GL_FALSE, strideBytes, (void*)(offsetBytes1)),
-
-    // Release
-    vao.release();
-    vbo.release();
+       mesh->Update();
+    }
     program.release();
 
 
@@ -94,13 +70,19 @@ void OpenGLScene::paintGL()
     makeCurrent();
 
     glClearDepth(1.0);
-    glClearColor(0.0f, 0.0f,0.0f,1.0f);
+    glClearColor(1.0f, 0.0f,0.0f,1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     if(mesh!=nullptr)
     {
-       mesh->Update();
-      //  mesh->Draw();
+       //mesh->Update();
+        if(program.bind())
+        {
+
+        mesh->Draw();
+        program.release();
+
+        }
     }
     // Paint Triangle
     /*

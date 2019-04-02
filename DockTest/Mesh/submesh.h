@@ -7,7 +7,7 @@ class SubMesh
 {
 public:
     SubMesh(VertexFormat vertexFormat,void *data,int size);
-    SubMesh(VertexFormat vertexFormat,void *data,int size,unsigned int *index,int indicesCount);
+    SubMesh(VertexFormat vertexFormat,void *data,int size,unsigned int *indices,int indicesCount);
     ~SubMesh();
 
 

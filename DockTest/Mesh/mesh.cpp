@@ -125,7 +125,7 @@ SubMesh* Mesh::ProcessMesh(aiMesh *mesh, const aiScene* scene)
 
     return new SubMesh(vertexFormat,
                        &vertices[0],
-                       vertices.size()*sizeof (float),
+                       vertices.size(),
                        &indices[0],
                        indices.size());
 }

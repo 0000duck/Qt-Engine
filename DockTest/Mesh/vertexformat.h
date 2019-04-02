@@ -15,7 +15,10 @@ public:
     VertexFormat();
     void SetVertexAttribute(int location, int offset,int ncomp)
     {
-
+       attribute[location].enabled = true;
+       attribute[location].offset = offset;
+       attribute[location].ncomp = ncomp;
+       size+=ncomp*sizeof(float);
     }
     VertexAttribute attribute[MAX_VERTEX_ATTRIBUTES];
     int size = 0;

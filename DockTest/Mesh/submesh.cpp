@@ -1,20 +1,28 @@
 #include "submesh.h"
 #include "Scene/openglscene.h"
 #include <stdio.h>
-SubMesh::SubMesh(VertexFormat vertexFormat,void *data,int size)
+SubMesh::SubMesh(VertexFormat vertexFormat,void *data,int size) : ibo(QOpenGLBuffer::IndexBuffer)
 {
     this->vertexFormat = vertexFormat;
-    memcpy ( &this->data, &data,sizeof(data) );
+    memcpy ( this->data, data,size );
     this->dataSize =size;
 }
-SubMesh::SubMesh(VertexFormat vertexFormat,void *data,int size,unsigned int *indice,int indicesCount)
+SubMesh::SubMesh(VertexFormat vertexFormat,void *data,int size,unsigned int *indices,int indicesCount): ibo(QOpenGLBuffer::IndexBuffer)
 {
     this->vertexFormat = vertexFormat;
-    memcpy ( &this->data, &data,sizeof(data) );
-    this->dataSize =size;
-    memcpy ( & this->indice, &indice,sizeof(indice) );
 
-    this->indicesCount =indicesCount;
+
+    int sizeData= size *sizeof (float);
+    this->data = new unsigned char[sizeData];
+    memcpy ( this->data, data, sizeData );
+    this->dataSize = sizeData;
+
+
+
+    int sizeIndice = indicesCount * sizeof(unsigned int);
+    this->indice = new unsigned int[sizeIndice];
+    memcpy (  this->indice, indices, sizeIndice );
+    this->indicesCount = indicesCount;
 
 
 }
@@ -24,6 +32,7 @@ SubMesh::~SubMesh()
 }
 void SubMesh::Update()
 {
+
     printf("Update VAO Create");
     vao.create();
     printf("Update VAO Bind");
