@@ -64,7 +64,41 @@ void OpenGLScene::initializeGL()
 
     QMatrix4x4 mvp = (proj * view * model);
     GLuint MatrixID = program.uniformLocation("MVP");
+
+
     glUniformMatrix4fv(MatrixID,1,GL_FALSE,mvp.data());
+    // VBO
+    /*
+    QVector3D vertices[] =
+    {
+        QVector3D(-0.5f, -0.5f, 0.0f), QVector3D(1.0f, 0.0f, 0.0f), // V1
+        QVector3D( 0.5f, -0.5f, 0.0f), QVector3D(0.0f, 1.0f, 0.0f), // V2
+        QVector3D( 0.0f,  0.5f, 0.0f), QVector3D(0.0f, 0.0f, 1.0f)  // V3
+    };
+    vbo.create();
+    vbo.bind();
+    vbo.setUsagePattern(QOpenGLBuffer::UsagePattern::StaticDraw);
+    vbo.allocate(vertices, 6 * sizeof(QVector3D));
+
+    // VAO: Captures the state of VBOs
+    vao.create();
+    vao.bind();
+    const GLint compCount = 3;
+    const int strideBytes = 2 * sizeof (QVector3D);
+    const int offsetBytes0 = 0;
+    const int offsetBytes1 = sizeof(QVector3D);
+
+    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
+
+    glVertexAttribPointer(0, compCount, GL_FLOAT, GL_FALSE, strideBytes, (void*)(offsetBytes0));
+    glVertexAttribPointer(1, compCount, GL_FLOAT, GL_FALSE, strideBytes, (void*)(offsetBytes1)),
+
+    // Release
+    vao.release();
+    vbo.release();
+    */
+
 
     if(mesh!=nullptr)
     {
@@ -86,6 +120,7 @@ void OpenGLScene::resizeGL(int width, int height)
     glViewport(0,0,width,height);
     // Resize textures;
 }
+
 void OpenGLScene::paintGL()
 {
     makeCurrent();
@@ -98,9 +133,11 @@ void OpenGLScene::paintGL()
        //mesh->Update();
         if(program.bind())
         {
-
+           // vao.bind();
+            //glDrawArrays(GL_TRIANGLES, 0, 3);
+            //vao.release();
         mesh->Draw();
-        //program.release();
+        program.release();
 
         }
     }

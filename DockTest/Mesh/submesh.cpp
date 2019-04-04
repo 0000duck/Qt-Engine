@@ -33,63 +33,49 @@ SubMesh::~SubMesh()
 void SubMesh::Update()
 {
 
-    printf("Update VAO Create");
+    printf("VAO Create \n");
     vao.create();
-    printf("Update VAO Bind");
     vao.bind();
 
-    printf("Update VBO Create");
+    printf("VBO Create \n");
     vbo.create();
-    printf("Update VBO Bind");
     vbo.bind();
-    printf("Update setUsagePattern");
     vbo.setUsagePattern(QOpenGLBuffer::UsagePattern::StaticDraw);
-    printf("Update VBO Allocate");
     vbo.allocate(data,int(dataSize));
-    printf("Update delete data");
     delete[] data;
-    printf("Update data nullptr");
     data = nullptr;
-    printf("Update indice !=nullptr");
-
     if(indice!=nullptr)
     {
-        printf("Update IBO Create");
+        printf("Update IBO Create \n");
         ibo.create();
-        printf("Update IBO Bind");
         ibo.bind();
-        printf("Update setUsagePattern");
         ibo.setUsagePattern(QOpenGLBuffer::UsagePattern::StaticDraw);
-        printf("Update allocate");
         ibo.allocate(indice,int(indicesCount* sizeof ( unsigned int)));
-        printf("Update  delete[]indice");
         delete[]indice;
-        printf("Update  indice = nullptr");
         indice = nullptr;
     }
-    printf("Update  int location = 0; location < MAX_VERTEX_ATTRIBUTES;++location");
+    printf("Update VertexAttribute \n");
+
     for (int location = 0; location < MAX_VERTEX_ATTRIBUTES;++location)
     {
-        printf("Update VertexAttribute &attribute");
         VertexAttribute &attribute = vertexFormat.attribute[location];
-        printf("Update attribute");
 
         if(attribute.enabled)
         {
-            printf("Update glEnableVertexAttribArray");
+            printf("Update glEnableVertexAttribArray\n");
             glFuncs->glEnableVertexAttribArray(GLuint(location));
-            printf("Update glVertexAttribPointer");
+            printf("Update glVertexAttribPointer\n");
             glFuncs->glVertexAttribPointer(GLuint(location),attribute.ncomp,GL_FLOAT,GL_FALSE,vertexFormat.size,(void*)(attribute.offset));
         }
     }
-    printf("Update VAO RELEASE");
+    printf("VAO RELEASE \n");
     vao.release();
-    printf("Update VBO RELEASE");
+    printf("VBO RELEASE \n");
     vbo.release();
-    printf("Update IBO IsCreated");
+
     if(ibo.isCreated())
     {
-        printf("Update IBO RELEASE");
+        printf("IBO RELEASE \n");
         ibo.release();
     }
 }
