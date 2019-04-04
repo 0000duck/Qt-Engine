@@ -3,7 +3,7 @@
 #include <QGLWidget>
 #include <QOpenGLShader>
 #include "Mesh/mesh.h"
-
+#include "QMatrix4x4"
 QOpenGLFunctions_3_3_Core *glFuncs;
 OpenGLScene::OpenGLScene(QWidget *parent) :
     QOpenGLWidget(parent)
@@ -43,15 +43,34 @@ void OpenGLScene::initializeGL()
 
     // Program
     program.create();
-    program.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/forwardshading_vert.vert");
-    program.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/forwardshading_frag.frag");
+    program.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/cameraShader.vert");
+    program.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/cameraShader.frag");
     program.link();
     program.bind();
+
+    qreal aspectRatio = qreal(this->width())/qreal(this->height());
+
+    QMatrix4x4 model;
+    QMatrix4x4 view;
+
+    view.lookAt(
+      QVector3D(0.0, 0.0, 10.0), // Eye
+      QVector3D(0.0, 0.0, 0.0), // Focal Point
+      QVector3D(0.0, 1.0, 0.0)); // Up vector
+
+    QMatrix4x4 proj;
+    // Window size is fixed at 800.0 by 600.0
+    proj.perspective(75.0,aspectRatio, 1.0, 1000.0);
+
+    QMatrix4x4 mvp = (proj * view * model);
+    GLuint MatrixID = program.uniformLocation("MVP");
+    glUniformMatrix4fv(MatrixID,1,GL_FALSE,mvp.data());
 
     if(mesh!=nullptr)
     {
        mesh->Update();
     }
+
     program.release();
 
 
@@ -62,15 +81,16 @@ void OpenGLScene::initializeGL()
 
 void OpenGLScene::resizeGL(int width, int height)
 {
-    // Resize textures
-}
+    makeCurrent();
 
+    glViewport(0,0,width,height);
+    // Resize textures;
+}
 void OpenGLScene::paintGL()
 {
     makeCurrent();
 
-    glClearDepth(1.0);
-    glClearColor(1.0f, 0.0f,0.0f,1.0f);
+    glClearColor(1.0f, 1.0f,1.0f,1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     if(mesh!=nullptr)
@@ -80,23 +100,34 @@ void OpenGLScene::paintGL()
         {
 
         mesh->Draw();
-        program.release();
+        //program.release();
 
         }
     }
+}
+/*
+void OpenGLScene::paintGL()
+{
+    makeCurrent();
+
+    glClearDepth(1.0);
+    glClearColor(1.0f, 0.0f,0.0f,1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+
     // Paint Triangle
-    /*
-    if(program.bind())
-    {
-        vao.bind();
-        glDrawArrays(GL_TRIANGLES, 0, 3);
-        vao.release();
-        program.release();
-    }
-    */
+
+   // if(program.bind())
+  //  {
+       // vao.bind();
+        //glDrawArrays(GL_TRIANGLES, 0, 3);
+      //  vao.release();
+    //    program.release();
+  //  }
+
 
 }
-
+*/
 void OpenGLScene::TakeScreenShot()
 {
    image= GetScreenShot();

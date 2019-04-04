@@ -41,6 +41,7 @@ SOURCES += \
     Scene/openglscene.cpp \
     Scene/scene.cpp \
     SceneWidget/scenewidget.cpp \
+    Render/camera.cpp
 
 
 HEADERS += \
@@ -59,7 +60,8 @@ HEADERS += \
     Mesh/vertexformat.h \
     Scene/openglscene.h \
     Scene/scene.h \
-    SceneWidget/scenewidget.h
+    SceneWidget/scenewidget.h \
+    Render/camera.h
 
 
 FORMS += \
@@ -81,7 +83,9 @@ RESOURCES += \
 
 DISTFILES += \
     Shaders/forwardshading_frag.frag \
-    Shaders/forwardshading_vert.vert
+    Shaders/forwardshading_vert.vert \
+    Shaders/cameraShader.frag \
+    Shaders/cameraShader.vert
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/ExternalLibrary/Assimp/lib/ -lassimp
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/ExternalLibrary/Assimp/lib/ -lassimpd
