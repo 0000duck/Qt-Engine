@@ -21,7 +21,7 @@ void OpenGLScene::initializeGL()
 {
     makeCurrent();
     mesh = new Mesh();
-    mesh->LoadModel("Models/sponza.obj");
+    mesh->LoadModel("Models/Patrick.obj");
     glFuncs = this;
     initializeOpenGLFunctions();
 
@@ -48,56 +48,37 @@ void OpenGLScene::initializeGL()
     program.link();
     program.bind();
 
-    qreal aspectRatio = qreal(this->width())/qreal(this->height());
-
     QMatrix4x4 model;
     QMatrix4x4 view;
-
-    view.lookAt(
-      QVector3D(0.0, 0.0, 10.0), // Eye
-      QVector3D(0.0, 0.0, 0.0), // Focal Point
-      QVector3D(0.0, 1.0, 0.0)); // Up vector
+    QMatrix4x4 modelView;
 
     QMatrix4x4 proj;
-    // Window size is fixed at 800.0 by 600.0
-    proj.perspective(75.0,aspectRatio, 1.0, 1000.0);
 
-    QMatrix4x4 mvp = (proj * view * model);
-    GLuint MatrixID = program.uniformLocation("MVP");
+    // Set Model Matrix
+    model.setToIdentity();
+    //model.rotate(90.0f, QVector3D(0.0, 1.0, 0.0));
 
+    // Set View Matrix
+    view.setToIdentity();
+    view.lookAt(
+      QVector3D(0.0, 0.0, 10.0), // Eye
+      QVector3D(0.0, 0.0, 0.0),  // Focal Point
+      QVector3D(0.0, 1.0, 0.0)); // Up vector  
+    //view.translate(0, 0, -30);
 
-    glUniformMatrix4fv(MatrixID,1,GL_FALSE,mvp.data());
-    // VBO
-    /*
-    QVector3D vertices[] =
-    {
-        QVector3D(-0.5f, -0.5f, 0.0f), QVector3D(1.0f, 0.0f, 0.0f), // V1
-        QVector3D( 0.5f, -0.5f, 0.0f), QVector3D(0.0f, 1.0f, 0.0f), // V2
-        QVector3D( 0.0f,  0.5f, 0.0f), QVector3D(0.0f, 0.0f, 1.0f)  // V3
-    };
-    vbo.create();
-    vbo.bind();
-    vbo.setUsagePattern(QOpenGLBuffer::UsagePattern::StaticDraw);
-    vbo.allocate(vertices, 6 * sizeof(QVector3D));
+    // Set ModelView Matrix
+    modelView = view * model;
 
-    // VAO: Captures the state of VBOs
-    vao.create();
-    vao.bind();
-    const GLint compCount = 3;
-    const int strideBytes = 2 * sizeof (QVector3D);
-    const int offsetBytes0 = 0;
-    const int offsetBytes1 = sizeof(QVector3D);
+    GLuint mvMatrix = program.uniformLocation("modelViewMat");
+    glUniformMatrix4fv(mvMatrix, 1, GL_FALSE, modelView.data());
 
-    glEnableVertexAttribArray(0);
-    glEnableVertexAttribArray(1);
+    // Set Projection Matrix
+    qreal aspectRatio = qreal(this->width())/qreal(this->height());
+    proj.setToIdentity();
+    proj.perspective(75.0, aspectRatio, 1.0, 1000.0);
 
-    glVertexAttribPointer(0, compCount, GL_FLOAT, GL_FALSE, strideBytes, (void*)(offsetBytes0));
-    glVertexAttribPointer(1, compCount, GL_FLOAT, GL_FALSE, strideBytes, (void*)(offsetBytes1)),
-
-    // Release
-    vao.release();
-    vbo.release();
-    */
+    GLuint pMatrix = program.uniformLocation("projectionMat");
+    glUniformMatrix4fv(pMatrix, 1, GL_FALSE, proj.data());
 
 
     if(mesh!=nullptr)
@@ -125,46 +106,19 @@ void OpenGLScene::paintGL()
 {
     makeCurrent();
 
-    glClearColor(1.0f, 1.0f,1.0f,1.0f);
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     if(mesh!=nullptr)
     {
-       //mesh->Update();
         if(program.bind())
         {
-           // vao.bind();
-            //glDrawArrays(GL_TRIANGLES, 0, 3);
-            //vao.release();
-        mesh->Draw();
-        program.release();
-
+            mesh->Draw();
+            program.release();
         }
     }
 }
-/*
-void OpenGLScene::paintGL()
-{
-    makeCurrent();
 
-    glClearDepth(1.0);
-    glClearColor(1.0f, 0.0f,0.0f,1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-
-    // Paint Triangle
-
-   // if(program.bind())
-  //  {
-       // vao.bind();
-        //glDrawArrays(GL_TRIANGLES, 0, 3);
-      //  vao.release();
-    //    program.release();
-  //  }
-
-
-}
-*/
 void OpenGLScene::TakeScreenShot()
 {
    image= GetScreenShot();
@@ -186,6 +140,7 @@ void OpenGLScene::finalizeGL()
     glClearColor(0.9f, 0.85f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 }
+
 bool OpenGLScene::GetScene(Scene *scenePointer)
 {
     if(scenePointer == nullptr)

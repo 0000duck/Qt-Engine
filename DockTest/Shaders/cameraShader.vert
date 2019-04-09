@@ -1,41 +1,22 @@
 #version 330 core
 
 layout(location=0) in vec3 position;
-//layout(location=1) in vec3 color;
-
 layout(location=1) in vec3 normal;
 
-/*
-out Data
-{
-    vec3 color;
-}VSOut;
-
-*/
-
+uniform mat4 projectionMat;
+uniform mat4 modelViewMat;
 
 out Data
 {
-    vec3 positionView;
-    vec3 normalView;
+    vec3 positionViewspace;
+    vec3 normalViewspace;
 
 }VSOut;
-
-
-
-uniform mat4 MVP;
-
-
 
 void main(void)
 {
-    /*
-    MVP*vec4(position,1.0);
-    VSOut.positionView = MVP*vec4(position,1.0);
-    VSOut.normalView = MVP*vec4(normal,1.0);
+    VSOut.positionViewspace = (modelViewMat * vec4(position, 1)).xyz;
+    VSOut.normalViewspace = (modelViewMat * vec4(normal, 0)).xyz;
 
-    */
-   // VSOut.color = color;
-
-    gl_Position = MVP*vec4(position,1.0);
+    gl_Position = projectionMat * vec4(VSOut.positionViewspace, 1.0);
 }
