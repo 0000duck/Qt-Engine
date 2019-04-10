@@ -23,3 +23,24 @@ mat4 LookAtRH( vec3 eye, vec3 target, vec3 up )
     return viewMatrix;
 }
 */
+QVector4D Camera::GetLeftRightBottomTop()
+{
+return QVector4D();
+}
+
+QVector3D Camera::ScreenPointToWorldRay(int x, int y)
+{
+    return QVector3D();
+
+}
+QVector3D Camera::ScreenDisplacementToWorldVector(int x0,int y0, int x1, int y1, const QVector3D &worldPoint)
+{
+    return QVector3D();
+
+}
+
+QVector2D Camera::WorldToSecrenPoint(const QVector3D &worldPoint)
+{
+    return QVector2D();
+
+}
