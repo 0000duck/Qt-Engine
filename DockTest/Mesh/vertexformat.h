@@ -2,6 +2,7 @@
 #define VERTEXFORMAT_H
 
 #define MAX_VERTEX_ATTRIBUTES 10
+
 struct VertexAttribute
 {
     bool enabled = false;

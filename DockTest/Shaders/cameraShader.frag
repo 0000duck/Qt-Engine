@@ -18,5 +18,4 @@ void main(void)
     outColor.a = 1.0;
 
     outColor.rgb = pow(outColor.rgb, vec3(1.0/2.4));
-    //outColor = vec4(N, 1);
 }

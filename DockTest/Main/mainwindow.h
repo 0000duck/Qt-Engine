@@ -13,6 +13,7 @@ class QListWidgetItem;
 class InspectorWidget;
 class HierarchyWidget;
 class ShapeRendererWidget;
+class MeshRendererWidget;
 class OpenGLScene;
 class Scene;
 class GameObject;

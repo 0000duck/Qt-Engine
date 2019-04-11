@@ -43,7 +43,8 @@ SOURCES += \
     Scene/scene.cpp \
     SceneWidget/scenewidget.cpp \
     Render/camera.cpp \
-    Input/input.cpp
+    Input/input.cpp \
+    ComponentWidget/meshrendererwidget.cpp
 
 
 HEADERS += \
@@ -64,7 +65,8 @@ HEADERS += \
     Scene/scene.h \
     SceneWidget/scenewidget.h \
     Render/camera.h \
-    Input/input.h
+    Input/input.h \
+    ComponentWidget/meshrendererwidget.h
 
 
 FORMS += \
@@ -73,7 +75,8 @@ FORMS += \
     transformwidget.ui \
     hierarchywidget.ui \
     shaperendererwidget.ui \
-    infowidget.ui
+    infowidget.ui \
+    ComponentWidget/meshrendererwidget.ui
 
 QT += opengl
 

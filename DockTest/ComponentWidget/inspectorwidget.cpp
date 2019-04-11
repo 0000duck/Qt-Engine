@@ -1,6 +1,7 @@
 #include "inspectorwidget.h"
 #include "transformwidget.h"
 #include "shaperendererwidget.h"
+#include "meshrendererwidget.h"
 #include "Component/infowidget.h"
 #include "GameObject/gameobject.h"
 #include "Component/component.h"
@@ -73,17 +74,16 @@ QWidget* InspectorWidget::GetWidget(Component* component)
     {
     case Type::COMP_TRANSFORM:
     {
-        TransformWidget* widget= new TransformWidget((Transform*)component);
-        connect(widget,SIGNAL(InspectorUpdate()),this,SIGNAL(MainUpdate()));
+        TransformWidget* widget = new TransformWidget((Transform*)component);
+        connect(widget, SIGNAL(InspectorUpdate()), this, SIGNAL(MainUpdate()));
         return widget;
     }
     case Type::COMP_MESH_RENDERER:
     {
-        ShapeRendererWidget* widget= new ShapeRendererWidget((ShapeRenderer*)component);
-        connect(widget,SIGNAL(InspectorUpdate()),this,SIGNAL(MainUpdate()));
+        MeshRendererWidget* widget = new MeshRendererWidget(nullptr);
+        connect(widget, SIGNAL(InspectorUpdate()), this, SIGNAL(MainUpdate()));
         return widget;
     }
-      //  return new ShapeRendererWidget((Transform*)component);
     default:
         break;
     }
