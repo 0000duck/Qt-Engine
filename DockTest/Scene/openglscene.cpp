@@ -20,10 +20,13 @@ OpenGLScene::~OpenGLScene()
 void OpenGLScene::initializeGL()
 {
     makeCurrent();
-    mesh = new Mesh();
-    mesh->LoadModel("Models/Patrick.obj");
+
     glFuncs = this;
     initializeOpenGLFunctions();
+
+    mesh = new Mesh();
+    mesh->LoadModel("Models/Patrick.obj");
+    //mesh->CreateSphere();
 
     // Depth Test
     if(enableZtest)

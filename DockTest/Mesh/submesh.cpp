@@ -1,38 +1,41 @@
 #include "submesh.h"
 #include "Scene/openglscene.h"
 #include <stdio.h>
-SubMesh::SubMesh(VertexFormat vertexFormat,void *data,int size) : ibo(QOpenGLBuffer::IndexBuffer)
+
+SubMesh::SubMesh(VertexFormat vertexFormat, void *data, int size) : ibo(QOpenGLBuffer::IndexBuffer)
 {
     this->vertexFormat = vertexFormat;
-    memcpy ( this->data, data,size );
+    memcpy(this->data, data,size);
     this->dataSize =size;
 }
-SubMesh::SubMesh(VertexFormat vertexFormat,void *data,int size,unsigned int *indices,int indicesCount): ibo(QOpenGLBuffer::IndexBuffer)
+
+SubMesh::SubMesh(VertexFormat vertexFormat, void *data, int size, unsigned int *indices,int indicesCount): ibo(QOpenGLBuffer::IndexBuffer)
 {
+    printf("Submesh Constructor\n");
+
     this->vertexFormat = vertexFormat;
 
-
-    int sizeData= size *sizeof (float);
+    int sizeData = size * sizeof (float);
     this->data = new unsigned char[sizeData];
-    memcpy ( this->data, data, sizeData );
+    memcpy(this->data, data, sizeData );
     this->dataSize = sizeData;
-
-
+    printf("Data\n");
 
     int sizeIndice = indicesCount * sizeof(unsigned int);
     this->indice = new unsigned int[sizeIndice];
-    memcpy (  this->indice, indices, sizeIndice );
+    memcpy(this->indice, indices, sizeIndice);
     this->indicesCount = indicesCount;
-
+    printf("Indices\n");
 
 }
+
 SubMesh::~SubMesh()
 {
 
 }
+
 void SubMesh::Update()
 {
-
     printf("VAO Create \n");
     vao.create();
     vao.bind();
@@ -79,6 +82,7 @@ void SubMesh::Update()
         ibo.release();
     }
 }
+
 void SubMesh::Draw()
 {
     int numVertices = dataSize/vertexFormat.size;
@@ -93,6 +97,7 @@ void SubMesh::Draw()
     }
     vao.release();
 }
+
 void SubMesh::Destroy()
 {
     if(vbo.isCreated())

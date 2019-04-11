@@ -129,7 +129,28 @@ void MainWindow::redo()
     printf("Redo\n");
 }
 
-void MainWindow:: createCube()
+void MainWindow::createCube()
+{
+    printf("Create Cube\n");
+
+    if(scene==nullptr)
+        return;
+
+    GameObject *go = new GameObject();
+    TryChangeName(*go);
+
+    go->AddMesh(Shape::CUBE);
+
+    scene->gameObjects.push_back(go);
+    uiHierarchy->UpdateHierarchy(scene);
+}
+
+void::MainWindow::createSphere()
+{
+
+}
+
+void::MainWindow::createPlane()
 {
 
 }
