@@ -44,3 +44,17 @@ QVector2D Camera::WorldToSecrenPoint(const QVector3D &worldPoint)
     return QVector2D();
 
 }
+
+void Camera::PrepareMatrices()
+{
+    worldMatrix.setToIdentity();
+    worldMatrix.translate(position);
+    worldMatrix.rotate(yaw,QVector3D(0.0,1.0,0.0));
+    worldMatrix.rotate(pitch,QVector3D(1.0,0.0,0.0));
+
+    viewMatrix = worldMatrix.inverted();
+
+    projectionMatrix.setToIdentity();
+    projectionMatrix.perspective(fovY,(float)ViewportWidth/(float)ViewportHeight,zNear,zFar);
+}
+

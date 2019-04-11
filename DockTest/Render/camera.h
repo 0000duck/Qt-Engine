@@ -1,10 +1,15 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+#define DEFAULT_CAMERA_FOV_Y 10.0f
+#define DEFAULT_CAMERA_Z_NEAR 10.0f
+#define DEFAULT_CAMERA_Z_FAR 10.0f
+#define DEFAULT_CAMERA_SPEED 10.0f
 
 #include "QVector4D"
 #include "QVector3D"
 #include "QVector2D"
+#include "QMatrix4x4"
 class Camera
 {
 public:
@@ -28,6 +33,14 @@ public:
 
     float yaw = 0.0f;
     float pitch = 0.0f;
+
+    QVector3D position;
+
+    float speed = DEFAULT_CAMERA_SPEED;
+
+    QMatrix4x4 worldMatrix;
+    QMatrix4x4 viewMatrix;
+    QMatrix4x4 projectionMatrix;
 
 };
 
