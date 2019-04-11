@@ -8,6 +8,8 @@
 #include <QOpenGLVertexArrayObject>
 class Scene;
 class Mesh;
+class ForwardRender;
+class Camera;
 extern QOpenGLFunctions_3_3_Core *glFuncs;
 
 class OpenGLScene : public QOpenGLWidget,
@@ -33,8 +35,10 @@ public slots:
 
 
 private :
+    Camera* camera = nullptr;
+    ForwardRender* renderer = nullptr;
     Scene* scene = nullptr;
-    Mesh* mesh = nullptr;
+   // Mesh* mesh = nullptr;
     QImage image;
     QOpenGLShaderProgram program;
     QOpenGLBuffer vbo;

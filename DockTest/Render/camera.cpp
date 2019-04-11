@@ -30,6 +30,7 @@ return QVector4D();
 
 QVector3D Camera::ScreenPointToWorldRay(int x, int y)
 {
+
     return QVector3D();
 
 }
@@ -44,17 +45,26 @@ QVector2D Camera::WorldToSecrenPoint(const QVector3D &worldPoint)
     return QVector2D();
 
 }
-
+void Camera::SetViewport(int width,int height)
+{
+    viewportWidth = width;
+    viewportHeight = height;
+}
 void Camera::PrepareMatrices()
 {
     worldMatrix.setToIdentity();
-    worldMatrix.translate(position);
-    worldMatrix.rotate(yaw,QVector3D(0.0,1.0,0.0));
-    worldMatrix.rotate(pitch,QVector3D(1.0,0.0,0.0));
+    //worldMatrix.translate(position);
+    //worldMatrix.rotate(yaw,QVector3D(0.0,1.0,0.0));
+    //worldMatrix.rotate(pitch,QVector3D(1.0,0.0,0.0));
 
-    viewMatrix = worldMatrix.inverted();
+    viewMatrix.setToIdentity();
+    viewMatrix.lookAt(
+         QVector3D(0.0, 0.0, 10.0), // Eye
+         QVector3D(0.0, 0.0, 0.0),  // Focal Point
+         QVector3D(0.0, 1.0, 0.0)); // Up vector
 
     projectionMatrix.setToIdentity();
-    projectionMatrix.perspective(fovY,(float)ViewportWidth/(float)ViewportHeight,zNear,zFar);
+
+    projectionMatrix.perspective(fovY,(float)viewportWidth/(float)viewportHeight,zNear,zFar);
 }
 
