@@ -31,20 +31,23 @@ SOURCES += \
     Component/transform.cpp \
     ComponentWidget/hierarchywidget.cpp \
     ComponentWidget/inspectorwidget.cpp \
+    ComponentWidget/meshrendererwidget.cpp \
     ComponentWidget/shaperendererwidget.cpp \
     ComponentWidget/transformwidget.cpp \
     GameObject/gameobject.cpp \
+    Input/input.cpp \
     Main/main.cpp \
     Main/mainwindow.cpp \
     Mesh/mesh.cpp \
     Mesh/submesh.cpp \
     Mesh/vertexformat.cpp \
+    Render/camera.cpp \
+    Render/deferredrender.cpp \
+    Render/forwardrender.cpp \
+    Render/render.cpp \
     Scene/openglscene.cpp \
     Scene/scene.cpp \
-    SceneWidget/scenewidget.cpp \
-    Render/camera.cpp \
-    Input/input.cpp \
-    ComponentWidget/meshrendererwidget.cpp
+    SceneWidget/scenewidget.cpp
 
 
 HEADERS += \
@@ -54,19 +57,23 @@ HEADERS += \
     Component/transform.h \
     ComponentWidget/hierarchywidget.h \
     ComponentWidget/inspectorwidget.h \
+    ComponentWidget/meshrendererwidget.h \
     ComponentWidget/shaperendererwidget.h \
     ComponentWidget/transformwidget.h \
     GameObject/gameobject.h \
+    Input/input.h \
     Main/mainwindow.h \
     Mesh/mesh.h \
     Mesh/submesh.h \
     Mesh/vertexformat.h \
+    Render/camera.h \
+    Render/deferredrender.h \
+    Render/forwardrender.h \
+    Render/render.h \
     Scene/openglscene.h \
     Scene/scene.h \
-    SceneWidget/scenewidget.h \
-    Render/camera.h \
-    Input/input.h \
-    ComponentWidget/meshrendererwidget.h
+    SceneWidget/scenewidget.h
+
 
 
 FORMS += \
