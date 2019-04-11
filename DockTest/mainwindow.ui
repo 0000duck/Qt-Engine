@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>884</width>
-    <height>528</height>
+    <width>997</width>
+    <height>545</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,7 +25,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>884</width>
+     <width>997</width>
      <height>21</height>
     </rect>
    </property>
@@ -38,7 +38,16 @@
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
+   <widget class="QMenu" name="menuCreate">
+    <property name="title">
+     <string>Create</string>
+    </property>
+    <addaction name="actionCube"/>
+    <addaction name="actionSphere"/>
+    <addaction name="actionPlane_2"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuCreate"/>
   </widget>
   <widget class="QDockWidget" name="Hierarchy">
    <property name="sizePolicy">
@@ -152,6 +161,21 @@
   <action name="actionAboutOpenGL">
    <property name="text">
     <string>OpenGL</string>
+   </property>
+  </action>
+  <action name="actionCube">
+   <property name="text">
+    <string>Cube</string>
+   </property>
+  </action>
+  <action name="actionSphere">
+   <property name="text">
+    <string>Sphere</string>
+   </property>
+  </action>
+  <action name="actionPlane_2">
+   <property name="text">
+    <string>Plane</string>
    </property>
   </action>
  </widget>

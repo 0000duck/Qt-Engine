@@ -44,7 +44,8 @@ SOURCES += \
     SceneWidget/scenewidget.cpp \
     Render/camera.cpp \
     Input/input.cpp \
-    ComponentWidget/meshrendererwidget.cpp
+    ComponentWidget/meshrendererwidget.cpp \
+    Component/meshrenderer.cpp
 
 
 HEADERS += \
@@ -66,7 +67,8 @@ HEADERS += \
     SceneWidget/scenewidget.h \
     Render/camera.h \
     Input/input.h \
-    ComponentWidget/meshrendererwidget.h
+    ComponentWidget/meshrendererwidget.h \
+    Component/meshrenderer.h
 
 
 FORMS += \

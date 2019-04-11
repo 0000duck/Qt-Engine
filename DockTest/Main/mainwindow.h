@@ -37,8 +37,15 @@ public slots:
     void saveProject();
     void undo();
     void redo();
+
     void addGameObject();
     void removeGameObject();
+
+    void createCube();
+    void createSphere();
+    void createPlane();
+
+
     void showGameObjectInspector(QListWidgetItem*);
     void updateMain();
 

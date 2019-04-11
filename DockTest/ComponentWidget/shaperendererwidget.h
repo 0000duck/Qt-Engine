@@ -25,6 +25,7 @@ private slots:
     void ChangeThickness(int);
     void ChangeShape(int);
     void ChangeStyle(int);
+
 signals:
     void InspectorUpdate();
 public:

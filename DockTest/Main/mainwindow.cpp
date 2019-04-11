@@ -129,6 +129,11 @@ void MainWindow::redo()
     printf("Redo\n");
 }
 
+void MainWindow:: createCube()
+{
+
+}
+
 void MainWindow::addGameObject()
 {
     printf("addGameObject\n");

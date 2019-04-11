@@ -1,9 +1,9 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
-#define DEFAULT_CAMERA_FOV_Y 70.0f
-#define DEFAULT_CAMERA_Z_NEAR 1.0f
-#define DEFAULT_CAMERA_Z_FAR 1000.0f
+#define DEFAULT_CAMERA_FOV_Y 10.0f
+#define DEFAULT_CAMERA_Z_NEAR 10.0f
+#define DEFAULT_CAMERA_Z_FAR 10.0f
 #define DEFAULT_CAMERA_SPEED 10.0f
 
 #include "QVector4D"
@@ -22,13 +22,10 @@ public:
 
     QVector2D WorldToSecrenPoint(const QVector3D &worldPoint);
 
-    void SetViewport(int width, int height);
     void PrepareMatrices();
-public:
 
-
-    int viewportWidth = 128;
-    int viewportHeight = 128;
+    int ViewportWidth = 128;
+    int ViewportHeight = 128;
 
     float fovY = DEFAULT_CAMERA_FOV_Y;
     float zNear = DEFAULT_CAMERA_Z_NEAR;
