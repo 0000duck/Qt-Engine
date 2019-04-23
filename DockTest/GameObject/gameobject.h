@@ -6,7 +6,6 @@
 #include <QList>
 
 class Transform;
-class Component;
 
 class GameObject
 {

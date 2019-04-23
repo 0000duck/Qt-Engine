@@ -46,10 +46,10 @@ void Mesh::AddSubMesh(VertexFormat vertexFormat, void *data, int size)
 {
 }
 
-void Mesh::AddSubMesh(VertexFormat vertexFormat, void *data, int size, unsigned int *index, int indicesCount)
+void Mesh::AddSubMesh(VertexFormat vertexFormat, void *data, int size, unsigned int *index, int indicesCount, DrawType drawType)
 {
     printf("Create Submesh\n");
-    SubMesh *subMesh = new SubMesh(vertexFormat, data, size, index, indicesCount);
+    SubMesh *subMesh = new SubMesh(vertexFormat, data, size, index, indicesCount, drawType);
     subMeshes.push_back(subMesh);
     printf("Created Submesh\n");
 }
@@ -147,7 +147,7 @@ SubMesh* Mesh::ProcessMesh(aiMesh *mesh, const aiScene* scene)
 
     return new SubMesh(vertexFormat,
                        &vertices[0],
-                       vertices.size(),
+                       vertices.size() * sizeof(float),
                        &indices[0],
                        indices.size());
 }
@@ -201,7 +201,7 @@ void Mesh::CreateSphere()
 
     printf("Vertex Format\n");
 
-    AddSubMesh(vFormat, sphere, sizeof(sphere), &indices[0][0][0], H*V*6);
+    AddSubMesh(vFormat, sphere, sizeof(sphere), &indices[0][0][0], H*V*6, DrawType::TRIANGLES_STRIP);
 }
 
 void Mesh::CreatePlane()

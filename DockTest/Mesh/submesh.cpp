@@ -5,20 +5,20 @@
 SubMesh::SubMesh(VertexFormat vertexFormat, void *data, int size) : ibo(QOpenGLBuffer::IndexBuffer)
 {
     this->vertexFormat = vertexFormat;
-    memcpy(this->data, data,size);
-    this->dataSize =size;
+    memcpy(this->data, data, size);
+    this->dataSize = size;
 }
 
-SubMesh::SubMesh(VertexFormat vertexFormat, void *data, int size, unsigned int *indices,int indicesCount): ibo(QOpenGLBuffer::IndexBuffer)
+SubMesh::SubMesh(VertexFormat vertexFormat, void *data, int size, unsigned int *indices,int indicesCount, DrawType drawType):
+    ibo(QOpenGLBuffer::IndexBuffer),
+    drawType(drawType)
 {
     printf("Submesh Constructor\n");
 
     this->vertexFormat = vertexFormat;
-
-    int sizeData = size * sizeof (float);
-    this->data = new unsigned char[sizeData];
-    memcpy(this->data, data, sizeData );
-    this->dataSize = sizeData;
+    this->data = new unsigned char[size];
+    memcpy(this->data, data, size);
+    this->dataSize = size;
     printf("Data\n");
 
     int sizeIndice = indicesCount * sizeof(unsigned int);
@@ -87,14 +87,23 @@ void SubMesh::Draw()
 {
     int numVertices = dataSize/vertexFormat.size;
     vao.bind();
-    if(indicesCount>0)
-    {
-        glFuncs->glDrawElements(GL_TRIANGLES,indicesCount,GL_UNSIGNED_INT,nullptr);
 
+    if (indicesCount > 0)
+    {
+        switch(drawType)
+        {
+            case DrawType::TRIANGLES:
+            glFuncs->glDrawElements(GL_TRIANGLES, indicesCount, GL_UNSIGNED_INT, nullptr);
+            break;
+
+            case DrawType::TRIANGLES_STRIP:
+            glFuncs->glDrawElements(GL_TRIANGLE_STRIP, indicesCount, GL_UNSIGNED_INT, nullptr);
+            break;
+        }
     }
-    else {
-        glFuncs->glDrawArrays(GL_TRIANGLES,0,numVertices);
-    }
+    else
+        glFuncs->glDrawArrays(GL_TRIANGLES, 0, numVertices);
+
     vao.release();
 }
 

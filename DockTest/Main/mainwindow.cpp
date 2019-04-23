@@ -7,6 +7,7 @@
 #include "ComponentWidget/shaperendererwidget.h"
 #include "Scene/scene.h"
 #include "GameObject/gameobject.h"
+#include "Component/meshrenderer.h"
 
 #include <QListWidget>
 #include <QJsonObject>
@@ -139,7 +140,7 @@ void MainWindow::createCube()
     GameObject *go = new GameObject();
     TryChangeName(*go);
 
-    go->AddMesh(Shape::CUBE);
+    go->AddMesh(Shape::SPHERE);
 
     scene->gameObjects.push_back(go);
     uiHierarchy->UpdateHierarchy(scene);

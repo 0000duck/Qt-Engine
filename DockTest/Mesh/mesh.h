@@ -1,12 +1,14 @@
 #ifndef MESH_H
 #define MESH_H
-#include"Mesh/vertexformat.h"
+
+#include "Mesh/vertexformat.h"
+#include "Mesh/submesh.h"
 #include "QVector"
 
-class SubMesh;
 struct aiNode;
 struct aiMesh;
 struct aiScene;
+
 class Mesh
 {
 public:
@@ -16,7 +18,7 @@ public:
     void Destroy();
 
     void AddSubMesh(VertexFormat vertexFormat, void *data, int size);
-    void AddSubMesh(VertexFormat vertexFormat, void *data, int size,unsigned int *index, int indicesCount);
+    void AddSubMesh(VertexFormat vertexFormat, void *data, int size,unsigned int *index, int indicesCount, DrawType drawType = DrawType::TRIANGLES);
 
     void LoadModel(const char* fileName);
     void CreateCube();

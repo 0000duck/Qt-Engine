@@ -67,7 +67,7 @@ void OpenGLScene::initializeGL()
       QVector3D(0.0, 0.0, 10.0), // Eye
       QVector3D(0.0, 0.0, 0.0),  // Focal Point
       QVector3D(0.0, 1.0, 0.0)); // Up vector  
-    //view.translate(0, 0, -30);
+    view.translate(0, 0, 5);
 
     // Set ModelView Matrix
     modelView = view * model;
