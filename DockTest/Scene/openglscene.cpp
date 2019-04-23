@@ -25,8 +25,9 @@ void OpenGLScene::initializeGL()
     initializeOpenGLFunctions();
 
     mesh = new Mesh();
-    mesh->LoadModel("Models/Patrick.obj");
+    //mesh->LoadModel("Models/Patrick.obj");
     //mesh->CreateSphere();
+    mesh->CreateCube();
 
     // Depth Test
     if(enableZtest)
@@ -67,7 +68,7 @@ void OpenGLScene::initializeGL()
       QVector3D(0.0, 0.0, 10.0), // Eye
       QVector3D(0.0, 0.0, 0.0),  // Focal Point
       QVector3D(0.0, 1.0, 0.0)); // Up vector  
-    view.translate(0, 0, 5);
+
 
     // Set ModelView Matrix
     modelView = view * model;
@@ -109,7 +110,7 @@ void OpenGLScene::paintGL()
 {
     makeCurrent();
 
-    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     if(mesh!=nullptr)

@@ -154,6 +154,54 @@ SubMesh* Mesh::ProcessMesh(aiMesh *mesh, const aiScene* scene)
 
 void Mesh::CreateCube()
 {
+    printf("Create Sphere\n");
+
+    // Vertices Creation
+    Vertex cube[8];
+
+    cube[0].pos = QVector3D(-1.0f, -1.0f, -1.0f);
+    cube[1].pos = QVector3D( 1.0f, -1.0f, -1.0f);
+    cube[2].pos = QVector3D(-1.0f,  1.0f, -1.0f);
+    cube[3].pos = QVector3D( 1.0f,  1.0f, -1.0f);
+
+    cube[4].pos = QVector3D(-1.0f, -1.0f, 1.0f);
+    cube[5].pos = QVector3D( 1.0f, -1.0f, 1.0f);
+    cube[6].pos = QVector3D(-1.0f,  1.0f, 1.0f);
+    cube[7].pos = QVector3D( 1.0f,  1.0f, 1.0f);
+
+    printf("Created Vertices\n");
+
+    //Indices Creation
+    unsigned int indices[36]=
+    {
+        // Front
+        0,1,2,
+        2,3,0,
+        // Back
+        6,5,4,
+        4,7,6,
+        // Left
+        0,3,7,
+        7,4,0,
+        // Right
+        1,5,6,
+        6,2,1,
+        // Up
+        3,2,6,
+        6,7,3,
+        // Down
+        5,1,0,
+        0,4,5
+    };
+
+
+    VertexFormat vFormat;
+    vFormat.SetVertexAttribute(0, 0, 3);
+    vFormat.SetVertexAttribute(1, sizeof(QVector3D), 3);
+
+    printf("Vertex Format\n");
+
+    AddSubMesh(vFormat, cube, sizeof(cube), &indices[0], 36 * sizeof(unsigned int));
 
 }
 
