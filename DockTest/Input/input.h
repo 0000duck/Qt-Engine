@@ -1,8 +1,10 @@
 #ifndef INPUT_H
 #define INPUT_H
 class QKeyEvent;
+class QMouseEvent;
 enum class InputState
 {
+    IDLE,
     DOWN,
     PRESSED,
     UP
@@ -12,13 +14,11 @@ class Input
 {
 public:
     Input();
-    void KeyPressedEvent(QKeyEvent *event);
     void KeyUpEvent(QKeyEvent *event);
     void KeyDownEvent(QKeyEvent *event);
 
-    void MouseButtonPressedEvent(QKeyEvent *event);
-    void MouseButtonUpEvent(QKeyEvent *event);
-    void MouseButtonDownEvent(QKeyEvent *event);
+    void MouseButtonUpEvent(QMouseEvent *event);
+    void MouseButtonDownEvent(QMouseEvent *event);
 
     bool GetKeyPressed(int key);
     bool GetKeyUp(int key);

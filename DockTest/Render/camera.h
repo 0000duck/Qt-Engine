@@ -2,7 +2,7 @@
 #define CAMERA_H
 
 #define DEFAULT_CAMERA_FOV_Y 70.0f
-#define DEFAULT_CAMERA_Z_NEAR 1.0f
+#define DEFAULT_CAMERA_Z_NEAR 0.1f
 #define DEFAULT_CAMERA_Z_FAR 1000.0f
 #define DEFAULT_CAMERA_SPEED 10.0f
 
@@ -37,7 +37,7 @@ public:
     float yaw = 0.0f;
     float pitch = 0.0f;
 
-    QVector3D position;
+    QVector3D position = QVector3D(0.0,0.0,-10.0);
 
     float speed = DEFAULT_CAMERA_SPEED;
 

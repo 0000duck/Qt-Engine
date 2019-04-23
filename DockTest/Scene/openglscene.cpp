@@ -6,10 +6,21 @@
 #include "QMatrix4x4"
 #include "Render/forwardrender.h"
 #include "Render/camera.h"
+#include "Input/input.h"
 QOpenGLFunctions_3_3_Core *glFuncs;
 OpenGLScene::OpenGLScene(QWidget *parent) :
     QOpenGLWidget(parent)
 {
+    setMouseTracking(true);
+    connect(&timer,SIGNAL(timeout()),this,SLOT(Frame()));
+    if(format().swapInterval()==-1)
+    {
+        timer.setInterval(17);
+    }
+    else {
+        timer.setInterval(0);
+    }
+    timer.start();
     setMinimumSize(QSize(256,256));
 }
 
@@ -22,7 +33,7 @@ OpenGLScene::~OpenGLScene()
 void OpenGLScene::initializeGL()
 {
     makeCurrent();
-
+    input = new Input();
     renderer = new ForwardRender();
     camera = new Camera();
     camera->SetViewport(this->width(),this->height());
@@ -52,7 +63,9 @@ void OpenGLScene::initializeGL()
 
 
     // Handle context destructions
+
     connect(context(), SIGNAL(aboutToBeDestroyed()), this, SLOT(finalizeGL()));
+
 
 }
 
@@ -72,9 +85,10 @@ void OpenGLScene::paintGL()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     camera->PrepareMatrices();
-
-    renderer->Render(camera);
-
+    if(renderer->mesh!=nullptr)
+    {
+        renderer->Render(camera);
+    }
 }
 
 void OpenGLScene::TakeScreenShot()
@@ -107,4 +121,37 @@ bool OpenGLScene::GetScene(Scene *scenePointer)
     scene = scenePointer;
     return true;
 }
+void OpenGLScene::Frame()
+{
 
+    input->PostUpdate();
+}
+
+void OpenGLScene::keyPressEvent(QKeyEvent* event)
+{
+    printf("KeyDown\n");
+    input->KeyDownEvent(event);
+}
+void OpenGLScene::keyReleaseEvent(QKeyEvent* event)
+{
+    printf("KeyUp\n");
+    input->KeyUpEvent(event);
+
+}
+void OpenGLScene::mousePressEvent(QMouseEvent* event)
+{
+    printf("MouseDown\n");
+    input->MouseButtonDownEvent(event);
+    setFocus();
+}
+void OpenGLScene::mouseReleaseEvent(QMouseEvent* event)
+{
+
+    printf("MouseUp\n");
+    input->MouseButtonUpEvent(event);
+
+}
+void OpenGLScene::mouseMoveEvent(QMouseEvent* event)
+{
+
+}

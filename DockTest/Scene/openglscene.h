@@ -6,10 +6,12 @@
 #include <QOpenGLShaderProgram>
 #include <QOpenGLBuffer>
 #include <QOpenGLVertexArrayObject>
+#include <QTimer>
 class Scene;
 class Mesh;
 class ForwardRender;
 class Camera;
+class Input;
 extern QOpenGLFunctions_3_3_Core *glFuncs;
 
 class OpenGLScene : public QOpenGLWidget,
@@ -32,9 +34,16 @@ private:
 public slots:
     void finalizeGL();
     void TakeScreenShot();
-
+    void Frame();
+    void keyPressEvent(QKeyEvent* event) override;
+    void keyReleaseEvent(QKeyEvent* event) override;
+    void mousePressEvent(QMouseEvent* event) override;
+    void mouseReleaseEvent(QMouseEvent* event) override;
+    void mouseMoveEvent(QMouseEvent* event) override;
 
 private :
+    QTimer timer;
+    Input* input = nullptr;
     Camera* camera = nullptr;
     ForwardRender* renderer = nullptr;
     Scene* scene = nullptr;

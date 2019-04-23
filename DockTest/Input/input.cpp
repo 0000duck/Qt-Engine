@@ -1,16 +1,11 @@
 #include "input.h"
 #include "QKeyEvent"
-
+#include "QMouseEvent"
 Input::Input()
 {
 
 }
-void Input::KeyPressedEvent(QKeyEvent *event)
-{
- if(event->key()<0 || event->key() > MAX_KEYS)
-     return;
-    keys[event->key()] = InputState::PRESSED;
-}
+
 void Input::KeyUpEvent(QKeyEvent *event)
 {
     if(event->key()<0 || event->key() > MAX_KEYS)
@@ -27,25 +22,19 @@ void Input::KeyDownEvent(QKeyEvent *event)
 
 }
 
-void Input::MouseButtonPressedEvent(QKeyEvent *event)
+
+void Input::MouseButtonUpEvent(QMouseEvent *event)
 {
-    if(event->key()<0 || event->key() > MAX_BUTTON)
+    if(event->button()<0 || event->button() > MAX_BUTTON)
         return;
-    mouseButtons[event->key()] = InputState::PRESSED;
+    mouseButtons[event->button()] = InputState::UP;
 
 }
-void Input::MouseButtonUpEvent(QKeyEvent *event)
+void Input::MouseButtonDownEvent(QMouseEvent *event)
 {
-    if(event->key()<0 || event->key() > MAX_BUTTON)
+    if(event->button()<0 || event->button() > MAX_BUTTON)
         return;
-    mouseButtons[event->key()] = InputState::UP;
-
-}
-void Input::MouseButtonDownEvent(QKeyEvent *event)
-{
-    if(event->key()<0 || event->key() > MAX_BUTTON)
-        return;
-    mouseButtons[event->key()] = InputState::DOWN;
+    mouseButtons[event->button()] = InputState::DOWN;
 
 }
 
@@ -93,7 +82,28 @@ bool Input::GetMouseButtonDown(int key)
 
 void Input::PostUpdate()
 {
-
+    for (int i = 0; i < MAX_KEYS; ++i)
+       {
+           if (keys[i] == InputState::DOWN)
+           {
+                keys[i] = InputState::PRESSED;
+           }
+           else if (keys[i] == InputState::UP)
+           {
+                keys[i] = InputState::IDLE;
+           }
+       }
+    for (int i = 0; i < MAX_BUTTON; ++i)
+       {
+           if (mouseButtons[i] == InputState::DOWN)
+           {
+                mouseButtons[i] = InputState::PRESSED;
+           }
+           else if (keys[i] == InputState::UP)
+           {
+                mouseButtons[i] = InputState::IDLE;
+           }
+       }
 }
 
 /*

@@ -25,12 +25,13 @@ void ForwardRender::InitProgram()
 }
 void ForwardRender::Render(Camera *camera)
 {
-
+    if(program.bind())
+    {
     QMatrix4x4 model;
     model.setToIdentity();
 
     QMatrix4x4 modelView;
-    modelView = camera->viewMatrix * model;
+    modelView = camera->worldMatrix * model;
     GLuint mvMatrix = program.uniformLocation("modelViewMat");
 
     glFuncs->glUniformMatrix4fv(mvMatrix, 1, GL_FALSE, modelView.data());
@@ -40,8 +41,7 @@ void ForwardRender::Render(Camera *camera)
     glFuncs->glUniformMatrix4fv(pMatrix, 1, GL_FALSE, camera->projectionMatrix.data());
 
 
-    if(program.bind())
-    {
+
         mesh->Draw();
         program.release();
     }

@@ -53,15 +53,12 @@ void Camera::SetViewport(int width,int height)
 void Camera::PrepareMatrices()
 {
     worldMatrix.setToIdentity();
-    //worldMatrix.translate(position);
-    //worldMatrix.rotate(yaw,QVector3D(0.0,1.0,0.0));
-    //worldMatrix.rotate(pitch,QVector3D(1.0,0.0,0.0));
 
-    viewMatrix.setToIdentity();
-    viewMatrix.lookAt(
-         QVector3D(0.0, 0.0, 10.0), // Eye
-         QVector3D(0.0, 0.0, 0.0),  // Focal Point
-         QVector3D(0.0, 1.0, 0.0)); // Up vector
+    worldMatrix.translate(position);
+    worldMatrix.rotate(yaw,QVector3D(0.0,1.0,0.0));
+    worldMatrix.rotate(pitch,QVector3D(1.0,0.0,0.0));
+
+    viewMatrix = worldMatrix.inverted();
 
     projectionMatrix.setToIdentity();
 
