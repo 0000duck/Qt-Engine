@@ -57,7 +57,6 @@ MainWindow::~MainWindow()
     delete uiMainWindow;
 }
 
-
 void MainWindow::openProject()
 {
     printf("Open project\n");

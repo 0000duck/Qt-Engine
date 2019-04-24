@@ -4,7 +4,9 @@
 #include <QOpenGLShader>
 #include "Mesh/mesh.h"
 #include "QMatrix4x4"
+
 QOpenGLFunctions_3_3_Core *glFuncs;
+
 OpenGLScene::OpenGLScene(QWidget *parent) :
     QOpenGLWidget(parent)
 {
@@ -27,7 +29,8 @@ void OpenGLScene::initializeGL()
     mesh = new Mesh();
     //mesh->LoadModel("Models/Patrick.obj");
     //mesh->CreateSphere();
-    mesh->CreateCube();
+    //mesh->CreateCube();
+    mesh->CreatePlane();
 
     // Depth Test
     if(enableZtest)
@@ -61,7 +64,7 @@ void OpenGLScene::initializeGL()
     // Set Model Matrix
     model.setToIdentity();
     //model.rotate(180.0f, QVector3D(0.0, 1.0, 0.0));
-    model.rotate(-45.0f, QVector3D(0.0, 1.0, 0.0));
+    model.rotate(90.0f, QVector3D(1.0, 0.0, 0.0));
 
     // Set View Matrix
     view.setToIdentity();
@@ -84,14 +87,12 @@ void OpenGLScene::initializeGL()
     GLuint pMatrix = program.uniformLocation("projectionMat");
     glUniformMatrix4fv(pMatrix, 1, GL_FALSE, proj.data());
 
-
     if(mesh!=nullptr)
     {
        mesh->Update();
     }
 
     program.release();
-
 
     // Handle context destructions
     connect(context(), SIGNAL(aboutToBeDestroyed()), this, SLOT(finalizeGL()));
@@ -125,7 +126,7 @@ void OpenGLScene::paintGL()
 
 void OpenGLScene::TakeScreenShot()
 {
-   image= GetScreenShot();
+   image = GetScreenShot();
    image.save("Escriptori.png");
 }
 
