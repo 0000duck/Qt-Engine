@@ -157,17 +157,43 @@ void Mesh::CreateCube()
     printf("Create Sphere\n");
 
     // Vertices Creation
-    Vertex cube[8];
+    Vertex cube[24];
 
-    cube[0].pos = QVector3D(-1.0f, -1.0f, -1.0f);
-    cube[1].pos = QVector3D( 1.0f, -1.0f, -1.0f);
-    cube[2].pos = QVector3D(-1.0f,  1.0f, -1.0f);
-    cube[3].pos = QVector3D( 1.0f,  1.0f, -1.0f);
+    // Front
+    cube[0].pos = QVector3D(-1.0f, -1.0f, -1.0f); cube[0].norm = QVector3D(0.0f, 0.0f, -1.0f);
+    cube[1].pos = QVector3D( 1.0f, -1.0f, -1.0f); cube[1].norm = QVector3D(0.0f, 0.0f, -1.0f);
+    cube[2].pos = QVector3D( 1.0f,  1.0f, -1.0f); cube[2].norm = QVector3D(0.0f, 0.0f, -1.0f);
+    cube[3].pos = QVector3D(-1.0f,  1.0f, -1.0f); cube[3].norm = QVector3D(0.0f, 0.0f, -1.0f);
 
-    cube[4].pos = QVector3D(-1.0f, -1.0f, 1.0f);
-    cube[5].pos = QVector3D( 1.0f, -1.0f, 1.0f);
-    cube[6].pos = QVector3D(-1.0f,  1.0f, 1.0f);
-    cube[7].pos = QVector3D( 1.0f,  1.0f, 1.0f);
+    // Back
+    cube[4].pos = QVector3D(-1.0f, -1.0f, 1.0f); cube[4].norm = QVector3D(0.0f, 0.0f, 1.0f);
+    cube[5].pos = QVector3D( 1.0f, -1.0f, 1.0f); cube[5].norm = QVector3D(0.0f, 0.0f, 1.0f);
+    cube[6].pos = QVector3D( 1.0f,  1.0f, 1.0f); cube[6].norm = QVector3D(0.0f, 0.0f, 1.0f);
+    cube[7].pos = QVector3D(-1.0f,  1.0f, 1.0f); cube[7].norm = QVector3D(0.0f, 0.0f, 1.0f);
+
+    // Right
+    cube[8].pos =  QVector3D( 1.0f, -1.0f, -1.0f); cube[8].norm =  QVector3D(1.0f, 0.0f, 0.0f);
+    cube[9].pos =  QVector3D( 1.0f, -1.0f,  1.0f); cube[9].norm =  QVector3D(1.0f, 0.0f, 0.0f);
+    cube[10].pos = QVector3D( 1.0f,  1.0f,  1.0f); cube[10].norm = QVector3D(1.0f, 0.0f, 0.0f);
+    cube[11].pos = QVector3D( 1.0f,  1.0f, -1.0f); cube[11].norm = QVector3D(1.0f, 0.0f, 0.0f);
+
+    // Left
+    cube[12].pos = QVector3D(-1.0f, -1.0f, -1.0f);  cube[12].norm = QVector3D(-1.0f, 0.0f, 0.0f);
+    cube[13].pos = QVector3D(-1.0f, -1.0f,  1.0f);  cube[13].norm = QVector3D(-1.0f, 0.0f, 0.0f);
+    cube[14].pos = QVector3D(-1.0f,  1.0f,  1.0f);  cube[14].norm = QVector3D( 1.0f, 0.0f, 0.0f);
+    cube[15].pos = QVector3D(-1.0f,  1.0f, -1.0f);  cube[15].norm = QVector3D(-1.0f, 0.0f, 0.0f);
+
+    // Top
+    cube[16].pos = QVector3D(-1.0f,  1.0f, -1.0f);  cube[16].norm = QVector3D(0.0f,  1.0f, 0.0f);
+    cube[17].pos = QVector3D( 1.0f,  1.0f, -1.0f);  cube[17].norm = QVector3D(0.0f,  1.0f, 0.0f);
+    cube[18].pos = QVector3D( 1.0f,  1.0f,  1.0f);  cube[18].norm = QVector3D(0.0f,  1.0f, 0.0f);
+    cube[19].pos = QVector3D(-1.0f,  1.0f,  1.0f);  cube[19].norm = QVector3D(0.0f,  1.0f, 0.0f);
+
+    // Bottom
+    cube[20].pos = QVector3D(-1.0f, -1.0f, -1.0f);  cube[20].norm = QVector3D(0.0f, -1.0f, 0.0f);
+    cube[21].pos = QVector3D( 1.0f, -1.0f, -1.0f);  cube[21].norm = QVector3D(0.0f, -1.0f, 0.0f);
+    cube[22].pos = QVector3D( 1.0f, -1.0f,  1.0f);  cube[22].norm = QVector3D(0.0f, -1.0f, 0.0f);
+    cube[23].pos = QVector3D(-1.0f, -1.0f,  1.0f);  cube[23].norm = QVector3D(0.0f, -1.0f, 0.0f);
 
     printf("Created Vertices\n");
 
@@ -181,17 +207,17 @@ void Mesh::CreateCube()
         6,5,4,
         4,7,6,
         // Left
-        0,3,7,
-        7,4,0,
+        12,13,14,
+        14,15,12,
         // Right
-        1,5,6,
-        6,2,1,
+        8,9,10,
+        10,11,8,
         // Up
-        3,2,6,
-        6,7,3,
+        16,17,18,
+        18,19,16,
         // Down
-        5,1,0,
-        0,4,5
+        23,22,21,
+        21,20,23
     };
 
 

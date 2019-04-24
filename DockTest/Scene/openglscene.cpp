@@ -60,7 +60,8 @@ void OpenGLScene::initializeGL()
 
     // Set Model Matrix
     model.setToIdentity();
-    //model.rotate(90.0f, QVector3D(0.0, 1.0, 0.0));
+    //model.rotate(180.0f, QVector3D(0.0, 1.0, 0.0));
+    model.rotate(-45.0f, QVector3D(0.0, 1.0, 0.0));
 
     // Set View Matrix
     view.setToIdentity();
@@ -68,7 +69,6 @@ void OpenGLScene::initializeGL()
       QVector3D(0.0, 0.0, 10.0), // Eye
       QVector3D(0.0, 0.0, 0.0),  // Focal Point
       QVector3D(0.0, 1.0, 0.0)); // Up vector  
-
 
     // Set ModelView Matrix
     modelView = view * model;
@@ -110,7 +110,7 @@ void OpenGLScene::paintGL()
 {
     makeCurrent();
 
-    glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
+    glClearColor(1.0f, 0.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     if(mesh!=nullptr)
