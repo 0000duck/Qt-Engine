@@ -9,7 +9,7 @@ public:
     DeferredRender();
     ~DeferredRender() override;
 
-    void Render(Camera* camera) override;
+    void Render(Camera* camera, Scene* scene) override;
 
 };
 

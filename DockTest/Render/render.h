@@ -8,15 +8,17 @@
 
 class Camera;
 class Mesh;
+class GameObject;
+class Scene;
+
 class Renderer
 {
 public:
     Renderer();
     virtual ~Renderer();
-    virtual void Render(Camera* camera);
+    virtual void Render(Camera* camera, Scene* scene);
 
 public:
-    Mesh* mesh = nullptr;
 
 protected:
     QOpenGLShaderProgram program;

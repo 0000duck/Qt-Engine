@@ -10,7 +10,7 @@ Renderer::~Renderer()
 
 }
 
-void Renderer::Render(Camera *camera)
+void Renderer::Render(Camera *camera, Scene* scene)
 {
 
 }

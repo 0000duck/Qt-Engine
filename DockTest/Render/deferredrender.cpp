@@ -8,7 +8,7 @@ DeferredRender::~DeferredRender()
 {
 
 }
-void DeferredRender::Render(Camera *camera)
+void DeferredRender::Render(Camera *camera, Scene* scene)
 {
 
 }

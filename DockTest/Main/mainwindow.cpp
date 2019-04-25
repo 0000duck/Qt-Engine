@@ -42,10 +42,16 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(uiMainWindow->actionOpenProject, SIGNAL(triggered()), this, SLOT(openProject()));
     connect(uiMainWindow->actionSaveProject, SIGNAL(triggered()), this, SLOT(saveProject()));
     connect(uiMainWindow->actionExit, SIGNAL(triggered()), qApp, SLOT(quit()));
-    connect(uiHierarchy->uiHierarchy->AddEntity,SIGNAL(clicked()),this,SLOT(addGameObject()));
+    connect(uiHierarchy->uiHierarchy->AddEntity, SIGNAL(clicked()),this,SLOT(addGameObject()));
     connect(uiHierarchy->uiHierarchy->RemoveEntity,SIGNAL(clicked()),this,SLOT(removeGameObject()));
     connect(uiHierarchy->uiHierarchy->listWidget,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(showGameObjectInspector(QListWidgetItem*)));
     connect(uiInspector,SIGNAL(MainUpdate()),this,SLOT(updateMain()));
+
+
+    connect(uiMainWindow->actionCube, SIGNAL(triggered()),this, SLOT(createCube()));
+    connect(uiMainWindow->actionSphere, SIGNAL(triggered()),this, SLOT(createSphere()));
+    connect(uiMainWindow->actionPlane, SIGNAL(triggered()),this, SLOT(createPlane()));
+
 
     //connect(uiMainWindow->actionSaveScreenShot,SIGNAL(triggered()),uiMainWindow->widget, SLOT(TakeScreenShot()));
     //connect(uiMainWindow->actionUndo, SIGNAL(triggered()), this, SLOT(undo()));
@@ -147,12 +153,34 @@ void MainWindow::createCube()
 
 void::MainWindow::createSphere()
 {
+    printf("Create Sphere\n");
 
+    if(scene==nullptr)
+        return;
+
+    GameObject *go = new GameObject();
+    TryChangeName(*go);
+
+    go->AddMesh(Shape::SPHERE);
+
+    scene->gameObjects.push_back(go);
+    uiHierarchy->UpdateHierarchy(scene);
 }
 
 void::MainWindow::createPlane()
 {
+    printf("Create Plane\n");
 
+    if(scene==nullptr)
+        return;
+
+    GameObject *go = new GameObject();
+    TryChangeName(*go);
+
+    go->AddMesh(Shape::PLANE);
+
+    scene->gameObjects.push_back(go);
+    uiHierarchy->UpdateHierarchy(scene);
 }
 
 void MainWindow::addGameObject()

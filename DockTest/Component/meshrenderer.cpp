@@ -4,6 +4,7 @@
 MeshRenderer::MeshRenderer(GameObject *myGO, Shape shape):Component(myGO, Type::COMP_MESH_RENDERER)
 {
     mesh = new Mesh();
+    this->shape = shape;
 
     // HANDLE PRIMITIVE CREATION
     switch(shape)
@@ -30,5 +31,11 @@ MeshRenderer::MeshRenderer(GameObject *myGO, Shape shape):Component(myGO, Type::
     default:
         break;
     }
+}
+
+void MeshRenderer::Draw()
+{
+    mesh->Update();
+    mesh->Draw();
 }
 

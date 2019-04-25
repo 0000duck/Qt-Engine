@@ -63,17 +63,17 @@
           </property>
           <item>
            <property name="text">
-            <string>Plane</string>
-           </property>
-          </item>
-          <item>
-           <property name="text">
             <string>Cube</string>
            </property>
           </item>
           <item>
            <property name="text">
             <string>Sphere</string>
+           </property>
+          </item>
+          <item>
+           <property name="text">
+            <string>Plane</string>
            </property>
           </item>
          </widget>

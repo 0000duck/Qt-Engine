@@ -44,7 +44,7 @@
     </property>
     <addaction name="actionCube"/>
     <addaction name="actionSphere"/>
-    <addaction name="actionPlane_2"/>
+    <addaction name="actionPlane"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuCreate"/>
@@ -173,7 +173,7 @@
     <string>Sphere</string>
    </property>
   </action>
-  <action name="actionPlane_2">
+  <action name="actionPlane">
    <property name="text">
     <string>Plane</string>
    </property>

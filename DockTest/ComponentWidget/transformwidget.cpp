@@ -2,7 +2,7 @@
 #include "transformwidget.h"
 #include "Component/transform.h"
 
-TransformWidget::TransformWidget(Transform* transform,QWidget *parent) :
+TransformWidget::TransformWidget(Transform* transform, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::TransformWidget)
 {

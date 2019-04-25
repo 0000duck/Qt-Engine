@@ -1,11 +1,16 @@
 #include "forwardrender.h"
 #include "camera.h"
 #include "Scene/openglscene.h"
+#include "Scene/scene.h"
 #include "Mesh/mesh.h"
+#include "GameObject/gameobject.h"
+#include "Component/transform.h"
+#include "Component/meshrenderer.h"
+
 ForwardRender::ForwardRender()
 {
-
 }
+
 ForwardRender::~ForwardRender()
 {
 
@@ -19,31 +24,45 @@ void ForwardRender::InitProgram()
     program.bind();
 
 
-    mesh->Update();
+    //mesh->Update();
     program.release();
 
 }
-void ForwardRender::Render(Camera *camera)
+void ForwardRender::Render(Camera *camera, Scene* scene)
 {
     if(program.bind())
     {
-    QMatrix4x4 model;
-    model.setToIdentity();
+        if(scene!= nullptr)
+        {
+            foreach(GameObject* go, scene->gameObjects)
+            {
 
-    QMatrix4x4 modelView;
-    modelView = camera->worldMatrix * model;
-    GLuint mvMatrix = program.uniformLocation("modelViewMat");
+                QMatrix4x4 model;
+                model.setToIdentity();
 
-    glFuncs->glUniformMatrix4fv(mvMatrix, 1, GL_FALSE, modelView.data());
+                Transform* transform = (Transform*)go->GetComponent(Type::COMP_TRANSFORM);
 
-    GLuint pMatrix = program.uniformLocation("projectionMat");
+                model.translate(transform->position.x(), transform->position.y(),transform->position.z());
+                model.rotate(transform->rotation.x(), transform->rotation.y(),transform->rotation.z());
+                model.scale(transform->scale.x(), transform->scale.y(),transform->scale.z());
 
-    glFuncs->glUniformMatrix4fv(pMatrix, 1, GL_FALSE, camera->projectionMatrix.data());
+                QMatrix4x4 modelView;
+                modelView = camera->worldMatrix * model;
+                GLuint mvMatrix = program.uniformLocation("modelViewMat");
+
+                glFuncs->glUniformMatrix4fv(mvMatrix, 1, GL_FALSE, modelView.data());
+
+                GLuint pMatrix = program.uniformLocation("projectionMat");
+
+                glFuncs->glUniformMatrix4fv(pMatrix, 1, GL_FALSE, camera->projectionMatrix.data());
 
 
+                ((MeshRenderer*)go->GetComponent(Type::COMP_MESH_RENDERER))->Draw();
 
-        mesh->Draw();
-        program.release();
+            }
+        }
     }
+
+    program.release();
 
 }

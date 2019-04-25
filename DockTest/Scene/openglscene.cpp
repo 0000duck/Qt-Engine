@@ -43,8 +43,6 @@ void OpenGLScene::initializeGL()
     camera->SetViewport(this->width(),this->height());
     interaction->input = input;
     interaction->mainCamera = camera;
-    renderer->mesh = new Mesh();
-    renderer->mesh->CreateCube();
 
     glFuncs = this;
     initializeOpenGLFunctions();
@@ -143,9 +141,9 @@ void OpenGLScene::paintGL()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     camera->PrepareMatrices();
-    if(renderer->mesh!=nullptr)
+    if(scene!=nullptr)
     {
-        renderer->Render(camera);
+        renderer->Render(camera, scene);
     }
 }
 

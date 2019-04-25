@@ -80,7 +80,7 @@ QWidget* InspectorWidget::GetWidget(Component* component)
     }
     case Type::COMP_MESH_RENDERER:
     {
-        MeshRendererWidget* widget = new MeshRendererWidget(nullptr);
+        MeshRendererWidget* widget = new MeshRendererWidget((MeshRenderer*)component);
         connect(widget, SIGNAL(InspectorUpdate()), this, SIGNAL(MainUpdate()));
         return widget;
     }

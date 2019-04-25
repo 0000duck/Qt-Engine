@@ -50,7 +50,6 @@ private :
     Camera* camera = nullptr;
     ForwardRender* renderer = nullptr;
     Scene* scene = nullptr;
-    Mesh* mesh = nullptr;
     QImage image;
     QOpenGLShaderProgram program;
     QOpenGLBuffer vbo;
