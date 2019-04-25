@@ -70,7 +70,8 @@ SOURCES += \
     Render/render.cpp \
     Scene/openglscene.cpp \
     Scene/scene.cpp \
-    SceneWidget/scenewidget.cpp
+    SceneWidget/scenewidget.cpp \
+    Input/interation.cpp
 
 
 HEADERS += \
@@ -116,7 +117,8 @@ HEADERS += \
     Render/render.h \
     Scene/openglscene.h \
     Scene/scene.h \
-    SceneWidget/scenewidget.h
+    SceneWidget/scenewidget.h \
+    Input/interation.h
 
 
 

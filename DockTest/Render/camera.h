@@ -37,7 +37,8 @@ public:
     float pitch = 0.0f;
 
     QVector3D position = QVector3D(0.0,0.0,-10.0);
-
+    QVector3D cameraFront = QVector3D(0.0f, 0.0f, -1.0f);
+    QVector3D cameraUp    = QVector3D(0.0f, 1.0f,  0.0f);
     float speed = DEFAULT_CAMERA_SPEED;
 
     QMatrix4x4 worldMatrix;

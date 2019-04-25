@@ -13,7 +13,7 @@ class Mesh;
 class ForwardRender;
 class Camera;
 class Input;
-
+class Interaction;
 extern QOpenGLFunctions_3_3_Core *glFuncs;
 
 class OpenGLScene : public QOpenGLWidget,
@@ -46,6 +46,7 @@ public slots:
 private :
     QTimer timer;
     Input* input = nullptr;
+    Interaction* interaction = nullptr;
     Camera* camera = nullptr;
     ForwardRender* renderer = nullptr;
     Scene* scene = nullptr;

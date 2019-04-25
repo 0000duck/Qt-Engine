@@ -7,8 +7,9 @@
 #include "Render/forwardrender.h"
 #include "Render/camera.h"
 #include "Input/input.h"
-
+#include "Input/interation.h"
 QOpenGLFunctions_3_3_Core *glFuncs;
+
 
 OpenGLScene::OpenGLScene(QWidget *parent) :
     QOpenGLWidget(parent)
@@ -36,11 +37,12 @@ void OpenGLScene::initializeGL()
 {
     makeCurrent();
     input = new Input();
+    interaction = new Interaction();
     renderer = new ForwardRender();
     camera = new Camera();
-
     camera->SetViewport(this->width(),this->height());
-
+    interaction->input = input;
+    interaction->mainCamera = camera;
     renderer->mesh = new Mesh();
     renderer->mesh->CreateCube();
 
@@ -179,6 +181,11 @@ bool OpenGLScene::GetScene(Scene *scenePointer)
 }
 void OpenGLScene::Frame()
 {
+    bool needUpdate = interaction->Update();
+    if(needUpdate)
+    {
+        update();
+    }
 
     input->PostUpdate();
 }
@@ -209,5 +216,5 @@ void OpenGLScene::mouseReleaseEvent(QMouseEvent* event)
 }
 void OpenGLScene::mouseMoveEvent(QMouseEvent* event)
 {
-
+    input->MouseMoveEvent(event);
 }

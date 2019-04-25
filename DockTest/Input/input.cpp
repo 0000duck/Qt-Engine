@@ -1,6 +1,7 @@
 #include "input.h"
 #include "QKeyEvent"
 #include "QMouseEvent"
+
 Input::Input()
 {
 
@@ -28,6 +29,15 @@ void Input::MouseButtonUpEvent(QMouseEvent *event)
     if(event->button()<0 || event->button() > MAX_BUTTON)
         return;
     mouseButtons[event->button()] = InputState::UP;
+
+}
+void Input::MouseMoveEvent(QMouseEvent *event)
+{
+    mouseXPrev = mouseX;
+    mouseYPrev = mouseY;
+
+    mouseX = event->x();
+    mouseY = event->y();
 
 }
 void Input::MouseButtonDownEvent(QMouseEvent *event)
@@ -97,6 +107,7 @@ void Input::PostUpdate()
        {
            if (mouseButtons[i] == InputState::DOWN)
            {
+               printf("mousePresed");
                 mouseButtons[i] = InputState::PRESSED;
            }
            else if (keys[i] == InputState::UP)

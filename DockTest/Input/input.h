@@ -18,6 +18,8 @@ public:
     void KeyDownEvent(QKeyEvent *event);
 
     void MouseButtonUpEvent(QMouseEvent *event);
+    void MouseMoveEvent(QMouseEvent *event);
+
     void MouseButtonDownEvent(QMouseEvent *event);
 
     bool GetKeyPressed(int key);
@@ -34,14 +36,16 @@ public:
         MAX_KEYS = 300,
         MAX_BUTTON = 10
     };
-private:
-    InputState keys[MAX_KEYS];
-    InputState mouseButtons[MAX_BUTTON];
+public:
 
     int mouseX = 0;
     int mouseY = 0;
     int mouseXPrev = 0;
     int mouseYPrev = 0;
+
+private:
+    InputState keys[MAX_KEYS];
+    InputState mouseButtons[MAX_BUTTON];
 
 };
 
