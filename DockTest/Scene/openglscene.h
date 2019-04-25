@@ -7,11 +7,13 @@
 #include <QOpenGLBuffer>
 #include <QOpenGLVertexArrayObject>
 #include <QTimer>
+
 class Scene;
 class Mesh;
 class ForwardRender;
 class Camera;
 class Input;
+
 extern QOpenGLFunctions_3_3_Core *glFuncs;
 
 class OpenGLScene : public QOpenGLWidget,
@@ -47,7 +49,7 @@ private :
     Camera* camera = nullptr;
     ForwardRender* renderer = nullptr;
     Scene* scene = nullptr;
-   // Mesh* mesh = nullptr;
+    Mesh* mesh = nullptr;
     QImage image;
     QOpenGLShaderProgram program;
     QOpenGLBuffer vbo;

@@ -10,6 +10,7 @@
 #include "QVector3D"
 #include "QVector2D"
 #include "QMatrix4x4"
+
 class Camera
 {
 public:
@@ -22,10 +23,8 @@ public:
 
     QVector2D WorldToSecrenPoint(const QVector3D &worldPoint);
 
-    void SetViewport(int width, int height);
     void PrepareMatrices();
-public:
-
+    void SetViewport(int width, int height);
 
     int viewportWidth = 128;
     int viewportHeight = 128;

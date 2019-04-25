@@ -4,7 +4,7 @@
 Component::Component(GameObject* myGO,Type type)
 {
     this->myGO = myGO;
-    this->type=type;
+    this->type = type;
 }
 
 Component::~Component(){}

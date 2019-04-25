@@ -1,6 +1,7 @@
 #include "gameobject.h"
 #include "Component/transform.h"
 #include "Component/shaperenderer.h"
+#include "Component/meshrenderer.h"
 #include <QJsonArray>
 #include <QJsonObject>
 
@@ -9,10 +10,10 @@ GameObject::GameObject()
 {
     name = "GameObject";
     Transform *myTransform = new Transform(this);
-    ShapeRenderer *myShapeRenderer = new ShapeRenderer(this);
+    //ShapeRenderer *myShapeRenderer = new ShapeRenderer(this);
 
     components.push_back(myTransform);
-    components.push_back(myShapeRenderer);
+    //components.push_back(myShapeRenderer);
 }
 
 void GameObject::Read(const QJsonObject &json)
@@ -49,6 +50,14 @@ void GameObject::Write(QJsonObject &json) const
     json["isVisible"] = visible;
 }
 
+
+MeshRenderer* GameObject::AddMesh(Shape shape)
+{
+     MeshRenderer *myMeshRenderer = new MeshRenderer(this, shape);
+     components.push_back(myMeshRenderer);
+
+     return myMeshRenderer;
+}
 
 Transform* GameObject::GetTransform()
 {

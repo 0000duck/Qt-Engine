@@ -7,6 +7,7 @@
 #include "ComponentWidget/shaperendererwidget.h"
 #include "Scene/scene.h"
 #include "GameObject/gameobject.h"
+#include "Component/meshrenderer.h"
 
 #include <QListWidget>
 #include <QJsonObject>
@@ -127,6 +128,32 @@ void MainWindow::undo()
 void MainWindow::redo()
 {
     printf("Redo\n");
+}
+
+void MainWindow::createCube()
+{
+    printf("Create Cube\n");
+
+    if(scene==nullptr)
+        return;
+
+    GameObject *go = new GameObject();
+    TryChangeName(*go);
+
+    go->AddMesh(Shape::SPHERE);
+
+    scene->gameObjects.push_back(go);
+    uiHierarchy->UpdateHierarchy(scene);
+}
+
+void::MainWindow::createSphere()
+{
+
+}
+
+void::MainWindow::createPlane()
+{
+
 }
 
 void MainWindow::addGameObject()

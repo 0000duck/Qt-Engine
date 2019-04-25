@@ -30,7 +30,6 @@ return QVector4D();
 
 QVector3D Camera::ScreenPointToWorldRay(int x, int y)
 {
-
     return QVector3D();
 
 }
@@ -58,10 +57,10 @@ void Camera::PrepareMatrices()
     worldMatrix.rotate(yaw,QVector3D(0.0,1.0,0.0));
     worldMatrix.rotate(pitch,QVector3D(1.0,0.0,0.0));
 
+
     viewMatrix = worldMatrix.inverted();
 
     projectionMatrix.setToIdentity();
-
     projectionMatrix.perspective(fovY,(float)viewportWidth/(float)viewportHeight,zNear,zFar);
 }
 

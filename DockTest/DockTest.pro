@@ -27,6 +27,29 @@ DEFINES += QT_DEPRECATED_WARNINGS
 SOURCES += \
     Component/component.cpp \
     Component/infowidget.cpp \
+    Component/meshrenderer.cpp \
+    Component/shaperenderer.cpp \
+    Component/transform.cpp \
+    ComponentWidget/hierarchywidget.cpp \
+    ComponentWidget/inspectorwidget.cpp \
+    ComponentWidget/meshrendererwidget.cpp \
+    ComponentWidget/shaperendererwidget.cpp \
+    ComponentWidget/transformwidget.cpp \
+    GameObject/gameobject.cpp \
+    Input/input.cpp \
+    Main/main.cpp \
+    Main/mainwindow.cpp \
+    Mesh/mesh.cpp \
+    Mesh/submesh.cpp \
+    Mesh/vertexformat.cpp \
+    Render/camera.cpp \
+    Render/forwardrender.cpp \
+    Scene/openglscene.cpp \
+    Scene/scene.cpp \
+    SceneWidget/scenewidget.cpp \
+    Component/component.cpp \
+    Component/infowidget.cpp \
+    Component/meshrenderer.cpp \
     Component/shaperenderer.cpp \
     Component/transform.cpp \
     ComponentWidget/hierarchywidget.cpp \
@@ -53,6 +76,27 @@ SOURCES += \
 HEADERS += \
     Component/component.h \
     Component/infowidget.h \
+    Component/meshrenderer.h \
+    Component/shaperenderer.h \
+    Component/transform.h \
+    ComponentWidget/hierarchywidget.h \
+    ComponentWidget/inspectorwidget.h \
+    ComponentWidget/meshrendererwidget.h \
+    ComponentWidget/shaperendererwidget.h \
+    ComponentWidget/transformwidget.h \
+    GameObject/gameobject.h \
+    Input/input.h \
+    Main/mainwindow.h \
+    Mesh/mesh.h \
+    Mesh/submesh.h \
+    Mesh/vertexformat.h \
+    Render/camera.h \
+    Scene/openglscene.h \
+    Scene/scene.h \
+    SceneWidget/scenewidget.h \
+    Component/component.h \
+    Component/infowidget.h \
+    Component/meshrenderer.h \
     Component/shaperenderer.h \
     Component/transform.h \
     ComponentWidget/hierarchywidget.h \

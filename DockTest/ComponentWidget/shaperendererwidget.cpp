@@ -4,14 +4,14 @@
 #include <QColorDialog>
 #include <QColor>
 
-ShapeRendererWidget::ShapeRendererWidget(ShapeRenderer* shapeRenderer,QWidget *parent) :
+ShapeRendererWidget::ShapeRendererWidget(ShapeRenderer* shapeRenderer, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::ShapeRendererWidget)
 {
     ui->setupUi(this);
-    this->shapeRenderer =shapeRenderer;
+    this->shapeRenderer = shapeRenderer;
 
-    if(this->shapeRenderer!=nullptr)
+    if(this->shapeRenderer != nullptr)
     {
         QString fillColor = QString("background-color:%1").arg(this->shapeRenderer->fillColor.name());
         ui->fillButton->setStyleSheet(fillColor);

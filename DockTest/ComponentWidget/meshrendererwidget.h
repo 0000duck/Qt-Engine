@@ -3,7 +3,10 @@
 
 #include <QWidget>
 
-namespace Ui {
+class MeshRenderer;
+
+namespace Ui
+{
 class MeshRendererWidget;
 }
 
@@ -12,13 +15,13 @@ class MeshRendererWidget : public QWidget
     Q_OBJECT
 
 public:
-    explicit MeshRendererWidget(QWidget *parent = nullptr);
+    explicit MeshRendererWidget(MeshRenderer *meshRenderer, QWidget *parent = nullptr);
     ~MeshRendererWidget();
 
 signals:
     void InspectorUpdate();
 public:
-    //MeshRenderer *meshRenderer = nullptr;
+    MeshRenderer *meshRenderer = nullptr;
 private:
     Ui::MeshRendererWidget *ui;
 };

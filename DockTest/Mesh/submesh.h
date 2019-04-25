@@ -3,19 +3,27 @@
 #include "Mesh/vertexformat.h"
 #include "QOpenGLBuffer"
 #include "QOpenGLVertexArrayObject"
+
+enum DrawType
+{
+    TRIANGLES,
+    TRIANGLES_STRIP
+};
+
 class SubMesh
 {
 public:
-    SubMesh(VertexFormat vertexFormat,void *data,int size);
-    SubMesh(VertexFormat vertexFormat,void *data,int size,unsigned int *indices,int indicesCount);
+    SubMesh(VertexFormat vertexFormat, void *data, int size);
+    SubMesh(VertexFormat vertexFormat, void *data, int size,unsigned int *indices, int indicesCount, DrawType draw = DrawType::TRIANGLES);
     ~SubMesh();
-
 
     void Update();
     void Draw();
     void Destroy();
 
 private:
+    DrawType drawType;
+
     unsigned char *data = nullptr;
     size_t dataSize = 0;
 
