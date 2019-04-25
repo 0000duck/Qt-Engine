@@ -47,8 +47,6 @@ void OpenGLScene::initializeGL()
     glFuncs = this;
     initializeOpenGLFunctions();
 
-
-
     // Depth Test
     if(enableZtest)
     {
@@ -66,62 +64,9 @@ void OpenGLScene::initializeGL()
     }
 
     renderer->InitProgram();
-/*
-    // Program
-    program.create();
-    program.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/cameraShader.vert");
-    program.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/cameraShader.frag");
-    program.link();
-    program.bind();
-
-    QMatrix4x4 model;
-    QMatrix4x4 view;
-    QMatrix4x4 modelView;
-
-    QMatrix4x4 proj;
-
-
-    // Set Model Matrix
-    model.setToIdentity();
-    //model.rotate(180.0f, QVector3D(0.0, 1.0, 0.0));
-    model.rotate(90.0f, QVector3D(1.0, 0.0, 0.0));
-
-    // Set View Matrix
-    view.setToIdentity();
-    view.lookAt(
-      QVector3D(0.0, 0.0, 10.0), // Eye
-      QVector3D(0.0, 0.0, 0.0),  // Focal Point
-      QVector3D(0.0, 1.0, 0.0)); // Up vector  
-
-    // Set ModelView Matrix
-    modelView = view * model;
-
-    GLuint mvMatrix = program.uniformLocation("modelViewMat");
-    glUniformMatrix4fv(mvMatrix, 1, GL_FALSE, modelView.data());
-
-    // Set Projection Matrix
-    qreal aspectRatio = qreal(this->width())/qreal(this->height());
-    proj.setToIdentity();
-    proj.perspective(75.0, aspectRatio, 1.0, 1000.0);
-
-    GLuint pMatrix = program.uniformLocation("projectionMat");
-    glUniformMatrix4fv(pMatrix, 1, GL_FALSE, proj.data());
-
-    if(mesh!=nullptr)
-    {
-       mesh->Update();
-    }
-
-    program.release();
-
-<<<<<<< HEAD
-*/
 
     // Handle context destructions
-
     connect(context(), SIGNAL(aboutToBeDestroyed()), this, SLOT(finalizeGL()));
-
-
 }
 
 void OpenGLScene::resizeGL(int width, int height)
@@ -129,6 +74,8 @@ void OpenGLScene::resizeGL(int width, int height)
     makeCurrent();
 
     glViewport(0,0,width,height);
+    camera->SetViewport(width, height);
+
     // Resize textures;
 }
 
@@ -141,6 +88,7 @@ void OpenGLScene::paintGL()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     camera->PrepareMatrices();
+
     if(scene!=nullptr)
     {
         renderer->Render(camera, scene);

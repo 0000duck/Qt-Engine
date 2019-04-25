@@ -4,6 +4,7 @@ Camera::Camera()
 {
 
 }
+
 //https://www.3dgep.com/understanding-the-view-matrix/
 /*
 mat4 LookAtRH( vec3 eye, vec3 target, vec3 up )
@@ -23,6 +24,7 @@ mat4 LookAtRH( vec3 eye, vec3 target, vec3 up )
     return viewMatrix;
 }
 */
+
 QVector4D Camera::GetLeftRightBottomTop()
 {
 return QVector4D();
@@ -33,6 +35,7 @@ QVector3D Camera::ScreenPointToWorldRay(int x, int y)
     return QVector3D();
 
 }
+
 QVector3D Camera::ScreenDisplacementToWorldVector(int x0,int y0, int x1, int y1, const QVector3D &worldPoint)
 {
     return QVector3D();
@@ -44,11 +47,13 @@ QVector2D Camera::WorldToSecrenPoint(const QVector3D &worldPoint)
     return QVector2D();
 
 }
+
 void Camera::SetViewport(int width,int height)
 {
     viewportWidth = width;
     viewportHeight = height;
 }
+
 void Camera::PrepareMatrices()
 {
     worldMatrix.setToIdentity();
@@ -57,10 +62,9 @@ void Camera::PrepareMatrices()
     worldMatrix.rotate(yaw,QVector3D(0.0,1.0,0.0));
     worldMatrix.rotate(pitch,QVector3D(1.0,0.0,0.0));
 
-
     viewMatrix = worldMatrix.inverted();
 
     projectionMatrix.setToIdentity();
-    projectionMatrix.perspective(fovY,(float)viewportWidth/(float)viewportHeight,zNear,zFar);
+    projectionMatrix.perspective(fovY,(float)viewportWidth/(float)viewportHeight * (16/9),zNear,zFar);
 }
 

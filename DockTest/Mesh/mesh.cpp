@@ -180,7 +180,7 @@ void Mesh::CreateCube()
     // Left
     cube[12].pos = QVector3D(-1.0f, -1.0f, -1.0f);  cube[12].norm = QVector3D(-1.0f, 0.0f, 0.0f);
     cube[13].pos = QVector3D(-1.0f, -1.0f,  1.0f);  cube[13].norm = QVector3D(-1.0f, 0.0f, 0.0f);
-    cube[14].pos = QVector3D(-1.0f,  1.0f,  1.0f);  cube[14].norm = QVector3D( 1.0f, 0.0f, 0.0f);
+    cube[14].pos = QVector3D(-1.0f,  1.0f,  1.0f);  cube[14].norm = QVector3D(-1.0f, 0.0f, 0.0f);
     cube[15].pos = QVector3D(-1.0f,  1.0f, -1.0f);  cube[15].norm = QVector3D(-1.0f, 0.0f, 0.0f);
 
     // Top
@@ -207,8 +207,8 @@ void Mesh::CreateCube()
         6,5,4,
         4,7,6,
         // Left
-        12,13,14,
-        14,15,12,
+        12,15,14,
+        14,13,12,
         // Right
         8,9,10,
         10,11,8,

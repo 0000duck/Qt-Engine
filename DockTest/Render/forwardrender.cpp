@@ -28,6 +28,7 @@ void ForwardRender::InitProgram()
     program.release();
 
 }
+
 void ForwardRender::Render(Camera *camera, Scene* scene)
 {
     if(program.bind())
@@ -58,6 +59,7 @@ void ForwardRender::Render(Camera *camera, Scene* scene)
 
 
                 ((MeshRenderer*)go->GetComponent(Type::COMP_MESH_RENDERER))->Draw();
+                printf("Draw");
 
             }
         }

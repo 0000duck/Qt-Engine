@@ -23,7 +23,6 @@ void Input::KeyDownEvent(QKeyEvent *event)
 
 }
 
-
 void Input::MouseButtonUpEvent(QMouseEvent *event)
 {
     if(event->button()<0 || event->button() > MAX_BUTTON)
@@ -40,12 +39,12 @@ void Input::MouseMoveEvent(QMouseEvent *event)
     mouseY = event->y();
 
 }
+
 void Input::MouseButtonDownEvent(QMouseEvent *event)
 {
     if(event->button()<0 || event->button() > MAX_BUTTON)
         return;
     mouseButtons[event->button()] = InputState::DOWN;
-
 }
 
 
