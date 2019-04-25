@@ -57,7 +57,6 @@ MainWindow::~MainWindow()
     delete uiMainWindow;
 }
 
-
 void MainWindow::openProject()
 {
     printf("Open project\n");
@@ -140,7 +139,7 @@ void MainWindow::createCube()
     GameObject *go = new GameObject();
     TryChangeName(*go);
 
-    go->AddMesh(Shape::SPHERE);
+    go->AddMesh(Shape::CUBE);
 
     scene->gameObjects.push_back(go);
     uiHierarchy->UpdateHierarchy(scene);

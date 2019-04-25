@@ -154,6 +154,80 @@ SubMesh* Mesh::ProcessMesh(aiMesh *mesh, const aiScene* scene)
 
 void Mesh::CreateCube()
 {
+    printf("Create Cube\n");
+
+    // Vertices Creation
+    Vertex cube[24];
+
+    // Front
+    cube[0].pos = QVector3D(-1.0f, -1.0f, -1.0f); cube[0].norm = QVector3D(0.0f, 0.0f, -1.0f);
+    cube[1].pos = QVector3D( 1.0f, -1.0f, -1.0f); cube[1].norm = QVector3D(0.0f, 0.0f, -1.0f);
+    cube[2].pos = QVector3D( 1.0f,  1.0f, -1.0f); cube[2].norm = QVector3D(0.0f, 0.0f, -1.0f);
+    cube[3].pos = QVector3D(-1.0f,  1.0f, -1.0f); cube[3].norm = QVector3D(0.0f, 0.0f, -1.0f);
+
+    // Back
+    cube[4].pos = QVector3D(-1.0f, -1.0f, 1.0f); cube[4].norm = QVector3D(0.0f, 0.0f, 1.0f);
+    cube[5].pos = QVector3D( 1.0f, -1.0f, 1.0f); cube[5].norm = QVector3D(0.0f, 0.0f, 1.0f);
+    cube[6].pos = QVector3D( 1.0f,  1.0f, 1.0f); cube[6].norm = QVector3D(0.0f, 0.0f, 1.0f);
+    cube[7].pos = QVector3D(-1.0f,  1.0f, 1.0f); cube[7].norm = QVector3D(0.0f, 0.0f, 1.0f);
+
+    // Right
+    cube[8].pos =  QVector3D( 1.0f, -1.0f, -1.0f); cube[8].norm =  QVector3D(1.0f, 0.0f, 0.0f);
+    cube[9].pos =  QVector3D( 1.0f, -1.0f,  1.0f); cube[9].norm =  QVector3D(1.0f, 0.0f, 0.0f);
+    cube[10].pos = QVector3D( 1.0f,  1.0f,  1.0f); cube[10].norm = QVector3D(1.0f, 0.0f, 0.0f);
+    cube[11].pos = QVector3D( 1.0f,  1.0f, -1.0f); cube[11].norm = QVector3D(1.0f, 0.0f, 0.0f);
+
+    // Left
+    cube[12].pos = QVector3D(-1.0f, -1.0f, -1.0f);  cube[12].norm = QVector3D(-1.0f, 0.0f, 0.0f);
+    cube[13].pos = QVector3D(-1.0f, -1.0f,  1.0f);  cube[13].norm = QVector3D(-1.0f, 0.0f, 0.0f);
+    cube[14].pos = QVector3D(-1.0f,  1.0f,  1.0f);  cube[14].norm = QVector3D( 1.0f, 0.0f, 0.0f);
+    cube[15].pos = QVector3D(-1.0f,  1.0f, -1.0f);  cube[15].norm = QVector3D(-1.0f, 0.0f, 0.0f);
+
+    // Top
+    cube[16].pos = QVector3D(-1.0f,  1.0f, -1.0f);  cube[16].norm = QVector3D(0.0f,  1.0f, 0.0f);
+    cube[17].pos = QVector3D( 1.0f,  1.0f, -1.0f);  cube[17].norm = QVector3D(0.0f,  1.0f, 0.0f);
+    cube[18].pos = QVector3D( 1.0f,  1.0f,  1.0f);  cube[18].norm = QVector3D(0.0f,  1.0f, 0.0f);
+    cube[19].pos = QVector3D(-1.0f,  1.0f,  1.0f);  cube[19].norm = QVector3D(0.0f,  1.0f, 0.0f);
+
+    // Bottom
+    cube[20].pos = QVector3D(-1.0f, -1.0f, -1.0f);  cube[20].norm = QVector3D(0.0f, -1.0f, 0.0f);
+    cube[21].pos = QVector3D( 1.0f, -1.0f, -1.0f);  cube[21].norm = QVector3D(0.0f, -1.0f, 0.0f);
+    cube[22].pos = QVector3D( 1.0f, -1.0f,  1.0f);  cube[22].norm = QVector3D(0.0f, -1.0f, 0.0f);
+    cube[23].pos = QVector3D(-1.0f, -1.0f,  1.0f);  cube[23].norm = QVector3D(0.0f, -1.0f, 0.0f);
+
+    printf("Created Vertices\n");
+
+    //Indices Creation
+    unsigned int indices[36]=
+    {
+        // Front
+        0,1,2,
+        2,3,0,
+        // Back
+        6,5,4,
+        4,7,6,
+        // Left
+        12,13,14,
+        14,15,12,
+        // Right
+        8,9,10,
+        10,11,8,
+        // Up
+        16,17,18,
+        18,19,16,
+        // Down
+        23,22,21,
+        21,20,23
+    };
+
+
+    VertexFormat vFormat;
+    vFormat.SetVertexAttribute(0, 0, 3);
+    vFormat.SetVertexAttribute(1, sizeof(QVector3D), 3);
+
+    printf("Vertex Format\n");
+
+    AddSubMesh(vFormat, cube, sizeof(cube), &indices[0], 36 * sizeof(unsigned int));
 
 }
 
@@ -206,5 +280,29 @@ void Mesh::CreateSphere()
 
 void Mesh::CreatePlane()
 {
+    printf("Create Cube\n");
 
+    // Vertices Creation
+    Vertex plane[4];
+
+    // Front
+    plane[0].pos = QVector3D(-3.0f,  0.0f, -3.0f);  plane[0].norm = QVector3D(0.0f,  1.0f, 0.0f);
+    plane[1].pos = QVector3D( 3.0f,  0.0f, -3.0f);  plane[1].norm = QVector3D(0.0f,  1.0f, 0.0f);
+    plane[2].pos = QVector3D( 3.0f,  0.0f,  3.0f);  plane[2].norm = QVector3D(0.0f,  1.0f, 0.0f);
+    plane[3].pos = QVector3D(-3.0f,  0.0f,  3.0f);  plane[3].norm = QVector3D(0.0f,  1.0f, 0.0f);
+
+    //Indices Creation
+    unsigned int indices[6]
+    {
+        0,1,2,
+        2,3,0
+    };
+
+   VertexFormat vFormat;
+    vFormat.SetVertexAttribute(0, 0, 3);
+    vFormat.SetVertexAttribute(1, sizeof(QVector3D), 3);
+
+    printf("Vertex Format\n");
+
+    AddSubMesh(vFormat, plane, sizeof(plane), &indices[0], 6 * sizeof(unsigned int));
 }
