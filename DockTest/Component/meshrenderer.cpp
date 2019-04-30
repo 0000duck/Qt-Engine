@@ -52,7 +52,10 @@ void MeshRenderer::ChangeShape(const QString &meshName)
     {
         mesh->CreateSphere();
     }
-
+    else
+    {
+        mesh->LoadModel(meshName.toStdString().c_str());
+    }
 }
 
 void MeshRenderer::Draw()

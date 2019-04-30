@@ -1,6 +1,7 @@
 #include "meshrendererwidget.h"
 #include "Component/meshrenderer.h"
 #include "ui_meshrendererwidget.h"
+#include <QDir>
 
 MeshRendererWidget::MeshRendererWidget(MeshRenderer* meshRenderer, QWidget *parent) :
     QWidget(parent),
@@ -28,6 +29,16 @@ MeshRendererWidget::MeshRendererWidget(MeshRenderer* meshRenderer, QWidget *pare
         break;
         }
     }
+
+
+    // Get Models
+    QDir dir;
+    dir.setPath("Models");
+    dir.setNameFilters(QStringList("*.obj"));
+    dir.setFilter(QDir::Files | QDir::NoDotAndDotDot | QDir::NoSymLinks);
+
+    models = dir.entryList();
+    ui->comboBox->addItems(models);
 
     connect(ui->comboBox, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(changeMesh(const QString&)));
 

@@ -30,6 +30,7 @@ public slots:
 
 public:
     MeshRenderer *meshRenderer = nullptr;
+    QStringList models;
 
 private:
     Ui::MeshRendererWidget *ui;

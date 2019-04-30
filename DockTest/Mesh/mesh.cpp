@@ -62,11 +62,11 @@ void Mesh::AddSubMesh(VertexFormat vertexFormat, void *data, int size, unsigned 
 void Mesh::LoadModel(const char* fileName)
 {
     Assimp::Importer import;
-
-    QFile file(fileName);
+    std::string path = "Models/";
+    path += fileName;
+    QFile file(path.c_str());
     if(!file.open(QIODevice::ReadOnly))
     {
-
         return;
     }
     QByteArray data = file.readAll();
