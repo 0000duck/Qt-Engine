@@ -10,6 +10,13 @@
 #include "QVector3D"
 #include "QVector2D"
 #include "QMatrix4x4"
+enum CameraMovement
+{
+    FORWARD,
+    BACKWARD,
+    LEFT,
+    RIGHT
+};
 
 class Camera
 {
@@ -26,6 +33,12 @@ public:
     void PrepareMatrices();
     void SetViewport(int width, int height);
 
+
+    void ProcessKeyboard(CameraMovement directon,float deltaTime);
+    void ProcessMouseMovement(float offsetX,float offsetY,bool limit);
+    void ProcessScrollMovement(float offsetX);
+public:
+
     int viewportWidth = 128;
     int viewportHeight = 128;
 
@@ -36,14 +49,21 @@ public:
     float yaw = 0.0f;
     float pitch = 0.0f;
 
-    QVector3D position = QVector3D(0.0,0.0,-10.0);
+    QVector3D position = QVector3D(0.0,0.0,10.0);
+
     QVector3D cameraFront = QVector3D(0.0f, 0.0f, -1.0f);
+
+    QVector3D cameraRight = QVector3D(0.0f, 0.0f, -1.0f);
+
     QVector3D cameraUp    = QVector3D(0.0f, 1.0f,  0.0f);
+
     float speed = DEFAULT_CAMERA_SPEED;
 
     QMatrix4x4 worldMatrix;
     QMatrix4x4 viewMatrix;
     QMatrix4x4 projectionMatrix;
+private:
+    void UpdateCameraVectors();
 
 };
 

@@ -166,3 +166,8 @@ void OpenGLScene::mouseMoveEvent(QMouseEvent* event)
 {
     input->MouseMoveEvent(event);
 }
+void OpenGLScene::wheelEvent(QWheelEvent* event)
+{
+    input->MouseWheelEvent(event);
+}
+

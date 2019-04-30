@@ -2,6 +2,7 @@
 #define INPUT_H
 class QKeyEvent;
 class QMouseEvent;
+class QWheelEvent;
 enum class InputState
 {
     IDLE,
@@ -19,6 +20,7 @@ public:
 
     void MouseButtonUpEvent(QMouseEvent *event);
     void MouseMoveEvent(QMouseEvent *event);
+    void MouseWheelEvent(QWheelEvent *event);
 
     void MouseButtonDownEvent(QMouseEvent *event);
 
@@ -42,7 +44,7 @@ public:
     int mouseY = 0;
     int mouseXPrev = 0;
     int mouseYPrev = 0;
-
+    int mouseWheel = 0;
 private:
     InputState keys[MAX_KEYS];
     InputState mouseButtons[MAX_BUTTON];

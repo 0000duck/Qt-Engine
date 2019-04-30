@@ -1,8 +1,9 @@
 #include "camera.h"
+#include "QtMath"
 
 Camera::Camera()
 {
-
+ UpdateCameraVectors();
 }
 
 //https://www.3dgep.com/understanding-the-view-matrix/
@@ -68,3 +69,77 @@ void Camera::PrepareMatrices()
     projectionMatrix.perspective(fovY,(float)viewportWidth/(float)viewportHeight * (16/9),zNear,zFar);
 }
 
+void Camera::ProcessKeyboard(CameraMovement direction,float deltaTime)
+{
+
+    float velocity =  speed * deltaTime;
+
+    if (direction == CameraMovement::FORWARD)
+        position += cameraFront * velocity;
+    if (direction == CameraMovement::BACKWARD)
+        position -= cameraFront * velocity;
+    if (direction == CameraMovement::LEFT)
+        position += cameraRight * velocity;
+    if (direction == CameraMovement::RIGHT)
+        position -= cameraRight * velocity;
+
+}
+
+void Camera::ProcessMouseMovement(float xoffset, float yoffset, bool constrainPitch = true)
+   {
+       xoffset *= 0.3;
+       yoffset *= 0.3;
+
+       yaw   += xoffset;
+       pitch += yoffset;
+
+       // Make sure that when pitch is out of bounds, screen doesn't get flipped
+       if (constrainPitch)
+       {
+           if (pitch > 89.0f)
+               pitch = 89.0f;
+           if (pitch < -89.0f)
+               pitch = -89.0f;
+       }
+
+       // Update Front, Right and Up Vectors using the updated Euler angles
+       UpdateCameraVectors();
+   }
+void Camera::ProcessScrollMovement(float yoffset)
+   {
+    if (fovY >= 20.0f && fovY <= 145.0f)
+             fovY -= yoffset;
+         if (fovY <= 20.0f)
+             fovY = 20.0f;
+         if (fovY >= 145.0f)
+             fovY = 145.0f;
+
+         printf("fovY %i\n",fovY);
+
+   }
+void Camera::UpdateCameraVectors()
+{
+    QVector3D front(sinf(qDegreesToRadians(yaw)) * cosf(qDegreesToRadians(pitch)),
+                    sinf(qDegreesToRadians(pitch)),
+                    cosf(qDegreesToRadians(yaw)) * cosf(qDegreesToRadians(pitch)));
+
+
+    cameraFront = front.normalized();
+    cameraRight = QVector3D::crossProduct(cameraFront,QVector3D(0,1,0)).normalized();
+    cameraUp = QVector3D::crossProduct(cameraRight,cameraFront).normalized();
+
+}
+
+
+
+/*
+ *
+
+ glm::vec3 front;
+        front.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+        front.y = sin(glm::radians(Pitch));
+        front.z = sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+        Front = glm::normalize(front);
+        // Also re-calculate the Right and Up vector
+        Right = glm::normalize(glm::cross(Front, WorldUp));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
+        Up    = glm::normalize(glm::cross(Right, Front));*/

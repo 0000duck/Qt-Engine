@@ -2,6 +2,8 @@
 #include "Input/input.h"
 #include "Render/camera.h"
 #include "QtMath"
+
+#include "QTime"
 Interaction::Interaction()
 {
 
@@ -29,6 +31,8 @@ bool Interaction::Update()
 
 bool Interaction::Idle()
 {
+    bool cameraChange = false;
+
     if(input->GetMouseButtonPressed(Qt::RightButton))
     {
 
@@ -39,6 +43,13 @@ bool Interaction::Idle()
         return true;
     }
     else {
+        int wheel = input->mouseWheel;
+        if(wheel!=0)
+        {
+            mainCamera->ProcessScrollMovement(wheel);
+            cameraChange=true;
+
+        }
         if(input->GetKeyDown(Qt::Key_F))
         {
 
@@ -56,7 +67,7 @@ bool Interaction::Idle()
 
         }
     }
-    return false;
+    return cameraChange;
 }
 bool Interaction::Navigation()
 {
@@ -67,72 +78,54 @@ bool Interaction::Navigation()
     }
 
     bool cameraChange = false;
-    float &yaw = mainCamera->yaw;
-    float &pitch = mainCamera->pitch;
 
-    int mouseXDelta = input->mouseX - input->mouseXPrev;
-    int mouseYDelta = input->mouseYPrev -input->mouseY;
+
+    int mouseXDelta = input->mouseXPrev - input->mouseX;
+    int mouseYDelta = input->mouseYPrev - input->mouseY;
 
     printf( "input->mouseX %i \n",input->mouseX);
     printf( "input->mouseXPrev %i \n",input->mouseXPrev);
     printf( "input->mouseY %i \n",input->mouseY);
     printf( "input->mouseYPrev %i \n", input->mouseYPrev);
-    if(mouseXDelta !=0||mouseYDelta!=0)
+
+
+    if(qAbs(mouseXDelta) > 1||qAbs(mouseYDelta) > 1)
     {
-        printf( "mouseXDelta %i \n",mouseXDelta);
-        printf( "mouseYDelta %i \n",mouseYDelta);
-
-
+        mainCamera->ProcessMouseMovement(mouseXDelta,mouseYDelta,true);
         cameraChange = true;
-        yaw -=0.3f*mouseXDelta;
-        pitch -=0.3f*mouseYDelta;
-        while(yaw <0.0f)
-            yaw +=360.0f;
-        while(yaw>360.0f)
-            yaw-=360.0f;
-        if(pitch > 89.0f)
-            pitch = 89.0f;
-        if(pitch < -89.0f)
-            pitch = -89.0f;
-
-        QVector3D front(cosf(qDegreesToRadians(yaw)) * cosf(qDegreesToRadians(pitch)),
-                        sinf(qDegreesToRadians(pitch)),
-                        sin(qDegreesToRadians(yaw)) * cosf(qDegreesToRadians(pitch)));
-        mainCamera->cameraFront = front.normalized();
     }
+
     QVector3D movement;
 
     if(input->GetKeyPressed(Qt::Key_W))
     {
-        movement = +mainCamera->speed *mainCamera->cameraFront;
-
+        mainCamera->ProcessKeyboard(CameraMovement::FORWARD,0.01);
+        cameraChange=true;
     }
     if(input->GetKeyPressed(Qt::Key_S))
     {
-        movement = -mainCamera->speed * mainCamera->cameraFront;
+        mainCamera->ProcessKeyboard(CameraMovement::BACKWARD,0.01);
+        cameraChange=true;
 
     }
     if(input->GetKeyPressed(Qt::Key_A))
     {
-        movement = -QVector3D::crossProduct( mainCamera->cameraFront, mainCamera->cameraUp)*mainCamera->speed;
-        movement.normalize();
+        mainCamera->ProcessKeyboard(CameraMovement::LEFT,0.01);
+        cameraChange=true;
+
+
     }
     if(input->GetKeyPressed(Qt::Key_D))
     {
-        movement = QVector3D::crossProduct( mainCamera->cameraFront, mainCamera->cameraUp)*mainCamera->speed;
-        movement.normalize();
+        mainCamera->ProcessKeyboard(CameraMovement::RIGHT,0.01);
+        cameraChange=true;
+
     }
 
-    if(movement.length()!=0)
-    {
-        cameraChange = true;
-        movement/=60.0f;
-        mainCamera->position+=movement;
-    }
 
-    /*
 
-       */
+
+
 
     return cameraChange;
 }

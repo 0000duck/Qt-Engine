@@ -48,7 +48,7 @@ void ForwardRender::Render(Camera *camera, Scene* scene)
                 model.scale(transform->scale.x(), transform->scale.y(),transform->scale.z());
 
                 QMatrix4x4 modelView;
-                modelView = camera->worldMatrix * model;
+                modelView = camera->viewMatrix * model;
                 GLuint mvMatrix = program.uniformLocation("modelViewMat");
 
                 glFuncs->glUniformMatrix4fv(mvMatrix, 1, GL_FALSE, modelView.data());

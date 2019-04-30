@@ -1,6 +1,7 @@
 #include "input.h"
 #include "QKeyEvent"
 #include "QMouseEvent"
+#include "QWheelEvent"
 
 Input::Input()
 {
@@ -39,7 +40,13 @@ void Input::MouseMoveEvent(QMouseEvent *event)
     mouseY = event->y();
 
 }
+void Input::MouseWheelEvent(QWheelEvent *event)
+{
+    mouseWheel = event->delta()/120;
+    printf("MouseWheel %i\n",mouseWheel);
 
+
+}
 void Input::MouseButtonDownEvent(QMouseEvent *event)
 {
     if(event->button()<0 || event->button() > MAX_BUTTON)
@@ -114,6 +121,7 @@ void Input::PostUpdate()
                 mouseButtons[i] = InputState::IDLE;
            }
        }
+    mouseWheel=0;
 }
 
 /*
