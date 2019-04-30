@@ -89,6 +89,9 @@
             <bold>false</bold>
            </font>
           </property>
+          <property name="minimum">
+           <number>-9999</number>
+          </property>
           <property name="maximum">
            <number>9999</number>
           </property>
@@ -130,6 +133,9 @@
             <bold>false</bold>
            </font>
           </property>
+          <property name="minimum">
+           <number>-9999</number>
+          </property>
           <property name="maximum">
            <number>9999</number>
           </property>
@@ -164,12 +170,15 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="TranslationY_2">
+         <widget class="QSpinBox" name="TranslationZ">
           <property name="font">
            <font>
             <weight>50</weight>
             <bold>false</bold>
            </font>
+          </property>
+          <property name="minimum">
+           <number>-9999</number>
           </property>
           <property name="maximum">
            <number>9999</number>
@@ -234,12 +243,15 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="TranslationX_2">
+         <widget class="QSpinBox" name="RotationX">
           <property name="font">
            <font>
             <weight>50</weight>
             <bold>false</bold>
            </font>
+          </property>
+          <property name="minimum">
+           <number>-9999</number>
           </property>
           <property name="maximum">
            <number>9999</number>
@@ -275,12 +287,15 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="TranslationY_3">
+         <widget class="QSpinBox" name="RotationY">
           <property name="font">
            <font>
             <weight>50</weight>
             <bold>false</bold>
            </font>
+          </property>
+          <property name="minimum">
+           <number>-9999</number>
           </property>
           <property name="maximum">
            <number>9999</number>
@@ -316,12 +331,15 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="TranslationY_4">
+         <widget class="QSpinBox" name="RotationZ">
           <property name="font">
            <font>
             <weight>50</weight>
             <bold>false</bold>
            </font>
+          </property>
+          <property name="minimum">
+           <number>-9999</number>
           </property>
           <property name="maximum">
            <number>9999</number>
@@ -386,7 +404,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="TranslationX_3">
+         <widget class="QSpinBox" name="ScaleX">
           <property name="font">
            <font>
             <weight>50</weight>
@@ -427,7 +445,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="TranslationY_5">
+         <widget class="QSpinBox" name="ScaleY">
           <property name="font">
            <font>
             <weight>50</weight>
@@ -468,7 +486,7 @@
          </widget>
         </item>
         <item>
-         <widget class="QSpinBox" name="TranslationY_6">
+         <widget class="QSpinBox" name="ScaleZ">
           <property name="font">
            <font>
             <weight>50</weight>

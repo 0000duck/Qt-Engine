@@ -128,9 +128,11 @@ bool OpenGLScene::GetScene(Scene *scenePointer)
 void OpenGLScene::Frame()
 {
     bool needUpdate = interaction->Update();
-    if(needUpdate)
+
+    if(needsUpdate)
     {
         update();
+        needsUpdate = false;
     }
 
     input->PostUpdate();

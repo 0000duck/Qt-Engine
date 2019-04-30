@@ -20,10 +20,13 @@ public:
 public slots:
     void ChangeTranslationX(int value);
     void ChangeTranslationY(int value);
+    void ChangeTranslationZ(int value);
     void ChangeRotationX(int value);
     void ChangeRotationY(int value);
+    void ChangeRotationZ(int value);
     void ChangeScaleX(int value);
     void ChangeScaleY(int value);
+    void ChangeScaleZ(int value);
 
 signals:
     void InspectorUpdate();

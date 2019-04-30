@@ -2,6 +2,7 @@
 #define MESHRENDERERWIDGET_H
 
 #include <QWidget>
+#include <QString>
 
 class MeshRenderer;
 
@@ -18,10 +19,18 @@ public:
     explicit MeshRendererWidget(MeshRenderer *meshRenderer, QWidget *parent = nullptr);
     ~MeshRendererWidget();
 
+    void Clear();
+
 signals:
     void InspectorUpdate();
+
+public slots:
+    void changeMesh(const QString& mesh);
+
+
 public:
     MeshRenderer *meshRenderer = nullptr;
+
 private:
     Ui::MeshRendererWidget *ui;
 };

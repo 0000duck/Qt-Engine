@@ -39,7 +39,12 @@ void Mesh::Update()
 
 void Mesh::Destroy()
 {
+    foreach(SubMesh* subMesh, subMeshes)
+    {
+        subMesh->Destroy();
+    }
 
+    subMeshes.clear();
 }
 
 void Mesh::AddSubMesh(VertexFormat vertexFormat, void *data, int size)

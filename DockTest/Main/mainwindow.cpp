@@ -34,9 +34,13 @@ MainWindow::MainWindow(QWidget *parent) :
     // Create the Hierarchy Widget and add it to the Hierarchy
     uiHierarchy = new HierarchyWidget();
     uiMainWindow->Hierarchy->setWidget(uiHierarchy);
-    scene = new Scene();
 
-    uiMainWindow->openGLWidget->GetScene(scene);
+    // Get Scenes
+    scene = new Scene();
+    openGLScene = uiMainWindow->openGLWidget;
+
+    openGLScene->GetScene(scene);
+
 
     // Connect all the actions
     connect(uiMainWindow->actionOpenProject, SIGNAL(triggered()), this, SLOT(openProject()));
@@ -148,7 +152,7 @@ void MainWindow::createCube()
     go->AddMesh(Shape::CUBE);
 
     scene->gameObjects.push_back(go);
-    uiHierarchy->UpdateHierarchy(scene);
+    updateMain();
 }
 
 void::MainWindow::createSphere()
@@ -164,7 +168,7 @@ void::MainWindow::createSphere()
     go->AddMesh(Shape::SPHERE);
 
     scene->gameObjects.push_back(go);
-    uiHierarchy->UpdateHierarchy(scene);
+    updateMain();
 }
 
 void::MainWindow::createPlane()
@@ -180,7 +184,7 @@ void::MainWindow::createPlane()
     go->AddMesh(Shape::PLANE);
 
     scene->gameObjects.push_back(go);
-    uiHierarchy->UpdateHierarchy(scene);
+    updateMain();
 }
 
 void MainWindow::addGameObject()
@@ -238,6 +242,7 @@ bool MainWindow::ChangeName(GameObject &go, int num)
 void MainWindow::updateMain()
 {
     uiHierarchy->UpdateHierarchy(scene);
+    openGLScene->needsUpdate = true;
 
 }
 void MainWindow::showGameObjectInspector(QListWidgetItem* item)

@@ -43,6 +43,10 @@ public slots:
     void mouseReleaseEvent(QMouseEvent* event) override;
     void mouseMoveEvent(QMouseEvent* event) override;
 
+public:
+    bool needsUpdate = false;
+
+
 private :
     QTimer timer;
     Input* input = nullptr;

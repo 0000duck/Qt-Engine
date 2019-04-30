@@ -19,7 +19,9 @@ class MeshRenderer : public Component
 {
 public:
     MeshRenderer(GameObject* myGO = nullptr, Shape shape = Shape::NONE);
-    void Draw();
+    void Draw();    
+    void Clear();
+    void ChangeShape(const QString& meshName);
 
 private:
     Mesh* mesh = nullptr;

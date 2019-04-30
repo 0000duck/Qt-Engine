@@ -33,6 +33,28 @@ MeshRenderer::MeshRenderer(GameObject *myGO, Shape shape):Component(myGO, Type::
     }
 }
 
+void MeshRenderer::Clear()
+{
+    mesh->Destroy();
+}
+
+void MeshRenderer::ChangeShape(const QString &meshName)
+{
+    if(meshName == "Cube")
+    {
+        mesh->CreateCube();
+    }
+    else if(meshName == "Plane")
+    {
+        mesh->CreatePlane();
+    }
+    else if(meshName == "Sphere")
+    {
+        mesh->CreateSphere();
+    }
+
+}
+
 void MeshRenderer::Draw()
 {
     mesh->Update();
