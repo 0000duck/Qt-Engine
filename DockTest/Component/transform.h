@@ -3,6 +3,7 @@
 
 #include "Component/component.h"
 #include <QVector3D>
+#include <QQuaternion>
 
 class GameObject;
 
@@ -23,6 +24,7 @@ public:
 
     QVector3D position;
     QVector3D rotation;
+    QQuaternion quatRotation;
     QVector3D scale;
 
 };

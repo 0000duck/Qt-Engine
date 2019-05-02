@@ -6,6 +6,7 @@
 #include "GameObject/gameobject.h"
 #include "Component/transform.h"
 #include "Component/meshrenderer.h"
+#include <QVector3D>
 
 ForwardRender::ForwardRender()
 {
@@ -42,9 +43,8 @@ void ForwardRender::Render(Camera *camera, Scene* scene)
                 model.setToIdentity();
 
                 Transform* transform = (Transform*)go->GetComponent(Type::COMP_TRANSFORM);
-
                 model.translate(transform->position.x(), transform->position.y(),transform->position.z());
-                model.rotate(transform->rotation.x(), transform->rotation.y(),transform->rotation.z());
+                model.rotate(transform->quatRotation);
                 model.scale(transform->scale.x(), transform->scale.y(),transform->scale.z());
 
                 QMatrix4x4 modelView;

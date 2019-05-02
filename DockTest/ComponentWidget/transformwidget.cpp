@@ -86,6 +86,7 @@ void TransformWidget::ChangeRotationX(int value)
         return;
     }
     transform->rotation.setX(value);
+    transform->quatRotation = QQuaternion::fromEulerAngles(transform->rotation);
     emit InspectorUpdate();
 }
 
@@ -97,6 +98,8 @@ void TransformWidget::ChangeRotationY(int value)
         return;
     }
     transform->rotation.setY(value);
+    transform->quatRotation = QQuaternion::fromEulerAngles(transform->rotation);
+
     emit InspectorUpdate();
 }
 
@@ -108,6 +111,7 @@ void TransformWidget::ChangeRotationZ(int value)
         return;
     }
     transform->rotation.setZ(value);
+    transform->quatRotation = QQuaternion::fromEulerAngles(transform->rotation);
     emit InspectorUpdate();
 }
 
