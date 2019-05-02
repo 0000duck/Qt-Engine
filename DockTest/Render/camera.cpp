@@ -63,10 +63,55 @@ void Camera::PrepareMatrices()
     worldMatrix.rotate(yaw,QVector3D(0.0,1.0,0.0));
     worldMatrix.rotate(pitch,QVector3D(1.0,0.0,0.0));
 
+    //worldMatrix.lookAt(position,position+cameraFront,cameraUp);
+
+   // viewMatrix.lookAt(position,QVector3D(0.0,0.0,0.0),QVector3D(0.0,1.0,0.0));
+
+    printf("----------|\n");
+    printf("%f ",viewMatrix.data()[0]);
+    printf("%f ",viewMatrix.data()[1]);
+    printf("%f ",viewMatrix.data()[2]);
+    printf("%f \n",viewMatrix.data()[3]);
+    printf("%f ",viewMatrix.data()[4]);
+    printf("%f ",viewMatrix.data()[5]);
+    printf("%f ",viewMatrix.data()[6]);
+    printf("%f \n",viewMatrix.data()[7]);
+    printf("%f ",viewMatrix.data()[8]);
+    printf("%f ",viewMatrix.data()[9]);
+    printf("%f ",viewMatrix.data()[10]);
+    printf("%f \n",viewMatrix.data()[11]);
+    printf("%f ",viewMatrix.data()[12]);
+    printf("%f ",viewMatrix.data()[13]);
+    printf("%f ",viewMatrix.data()[14]);
+    printf("%f \n",viewMatrix.data()[15]);
+
+
+    printf("----------|\n");
+
     viewMatrix = worldMatrix.inverted();
 
+    printf("----------|\n");
+    printf("%f ",viewMatrix.data()[0]);
+    printf("%f ",viewMatrix.data()[1]);
+    printf("%f ",viewMatrix.data()[2]);
+    printf("%f \n",viewMatrix.data()[3]);
+    printf("%f ",viewMatrix.data()[4]);
+    printf("%f ",viewMatrix.data()[5]);
+    printf("%f ",viewMatrix.data()[6]);
+    printf("%f \n",viewMatrix.data()[7]);
+    printf("%f ",viewMatrix.data()[8]);
+    printf("%f ",viewMatrix.data()[9]);
+    printf("%f ",viewMatrix.data()[10]);
+    printf("%f \n",viewMatrix.data()[11]);
+    printf("%f ",viewMatrix.data()[12]);
+    printf("%f ",viewMatrix.data()[13]);
+    printf("%f ",viewMatrix.data()[14]);
+    printf("%f \n",viewMatrix.data()[15]);
+
+
+    printf("----------|\n");
     projectionMatrix.setToIdentity();
-    projectionMatrix.perspective(fovY,(float)viewportWidth/(float)viewportHeight * (16/9),zNear,zFar);
+    projectionMatrix.perspective(fovY,(float)viewportWidth/(float)viewportHeight,zNear,zFar);
 }
 
 void Camera::ProcessKeyboard(CameraMovement direction,float deltaTime)
@@ -79,9 +124,9 @@ void Camera::ProcessKeyboard(CameraMovement direction,float deltaTime)
     if (direction == CameraMovement::BACKWARD)
         position -= cameraFront * velocity;
     if (direction == CameraMovement::LEFT)
-        position += cameraRight * velocity;
-    if (direction == CameraMovement::RIGHT)
         position -= cameraRight * velocity;
+    if (direction == CameraMovement::RIGHT)
+        position += cameraRight * velocity;
 
 }
 
@@ -119,12 +164,15 @@ void Camera::ProcessScrollMovement(float yoffset)
    }
 void Camera::UpdateCameraVectors()
 {
-    QVector3D front(sinf(qDegreesToRadians(yaw)) * cosf(qDegreesToRadians(pitch)),
-                    sinf(qDegreesToRadians(pitch)),
-                    cosf(qDegreesToRadians(yaw)) * cosf(qDegreesToRadians(pitch)));
+    QVector3D front;
 
+    front.setX(-sinf(qDegreesToRadians(yaw)) * cosf(qDegreesToRadians(pitch)));
+    front.setY(sinf(qDegreesToRadians(pitch)));
+    front.setZ(-cosf(qDegreesToRadians(yaw)) * cosf(qDegreesToRadians(pitch)));
 
     cameraFront = front.normalized();
+
+
     cameraRight = QVector3D::crossProduct(cameraFront,QVector3D(0,1,0)).normalized();
     cameraUp = QVector3D::crossProduct(cameraRight,cameraFront).normalized();
 

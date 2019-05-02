@@ -129,7 +129,7 @@ void OpenGLScene::Frame()
 {
     bool needUpdate = interaction->Update();
 
-    if(needsUpdate)
+    if(needUpdate||needsUpdate)
     {
         update();
         needsUpdate = false;

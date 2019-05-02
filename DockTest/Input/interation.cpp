@@ -83,12 +83,6 @@ bool Interaction::Navigation()
     int mouseXDelta = input->mouseXPrev - input->mouseX;
     int mouseYDelta = input->mouseYPrev - input->mouseY;
 
-    printf( "input->mouseX %i \n",input->mouseX);
-    printf( "input->mouseXPrev %i \n",input->mouseXPrev);
-    printf( "input->mouseY %i \n",input->mouseY);
-    printf( "input->mouseYPrev %i \n", input->mouseYPrev);
-
-
     if(qAbs(mouseXDelta) > 1||qAbs(mouseYDelta) > 1)
     {
         mainCamera->ProcessMouseMovement(mouseXDelta,mouseYDelta,true);
