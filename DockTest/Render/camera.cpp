@@ -28,12 +28,29 @@ mat4 LookAtRH( vec3 eye, vec3 target, vec3 up )
 
 QVector4D Camera::GetLeftRightBottomTop()
 {
-return QVector4D();
+float aspectRatio = float(viewportWidth)/float(viewportHeight);
+float alpha = qDegreesToRadians(fovY*0.5);
+float top = zNear*qTan(alpha);
+float bottom = -top;
+float right = top*aspectRatio;
+float left = -right;
+
+return QVector4D(left,right,bottom,top);
 }
 
 QVector3D Camera::ScreenPointToWorldRay(int x, int y)
 {
-    return QVector3D();
+    QVector4D lrbt = GetLeftRightBottomTop();
+    float rayX = lrbt.x()*(lrbt.y()-lrbt.x()) * x/viewportWidth;
+    float rayY = lrbt.z()*(lrbt.w()-lrbt.z()) * (viewportHeight-y-1)/viewportHeight;
+    float rayZ = -zNear;
+
+    QVector3D rayViewspace = QVector3D(rayX,rayY,rayZ);
+
+    PrepareMatrices();
+    QVector3D rayWorldspace = QVector3D(worldMatrix*QVector4D(rayViewspace,0.0f));
+
+    return rayWorldspace;
 
 }
 
@@ -63,53 +80,13 @@ void Camera::PrepareMatrices()
     worldMatrix.rotate(yaw,QVector3D(0.0,1.0,0.0));
     worldMatrix.rotate(pitch,QVector3D(1.0,0.0,0.0));
 
-    //worldMatrix.lookAt(position,position+cameraFront,cameraUp);
-
-   // viewMatrix.lookAt(position,QVector3D(0.0,0.0,0.0),QVector3D(0.0,1.0,0.0));
-
-    printf("----------|\n");
-    printf("%f ",viewMatrix.data()[0]);
-    printf("%f ",viewMatrix.data()[1]);
-    printf("%f ",viewMatrix.data()[2]);
-    printf("%f \n",viewMatrix.data()[3]);
-    printf("%f ",viewMatrix.data()[4]);
-    printf("%f ",viewMatrix.data()[5]);
-    printf("%f ",viewMatrix.data()[6]);
-    printf("%f \n",viewMatrix.data()[7]);
-    printf("%f ",viewMatrix.data()[8]);
-    printf("%f ",viewMatrix.data()[9]);
-    printf("%f ",viewMatrix.data()[10]);
-    printf("%f \n",viewMatrix.data()[11]);
-    printf("%f ",viewMatrix.data()[12]);
-    printf("%f ",viewMatrix.data()[13]);
-    printf("%f ",viewMatrix.data()[14]);
-    printf("%f \n",viewMatrix.data()[15]);
 
 
-    printf("----------|\n");
+
 
     viewMatrix = worldMatrix.inverted();
 
-    printf("----------|\n");
-    printf("%f ",viewMatrix.data()[0]);
-    printf("%f ",viewMatrix.data()[1]);
-    printf("%f ",viewMatrix.data()[2]);
-    printf("%f \n",viewMatrix.data()[3]);
-    printf("%f ",viewMatrix.data()[4]);
-    printf("%f ",viewMatrix.data()[5]);
-    printf("%f ",viewMatrix.data()[6]);
-    printf("%f \n",viewMatrix.data()[7]);
-    printf("%f ",viewMatrix.data()[8]);
-    printf("%f ",viewMatrix.data()[9]);
-    printf("%f ",viewMatrix.data()[10]);
-    printf("%f \n",viewMatrix.data()[11]);
-    printf("%f ",viewMatrix.data()[12]);
-    printf("%f ",viewMatrix.data()[13]);
-    printf("%f ",viewMatrix.data()[14]);
-    printf("%f \n",viewMatrix.data()[15]);
 
-
-    printf("----------|\n");
     projectionMatrix.setToIdentity();
     projectionMatrix.perspective(fovY,(float)viewportWidth/(float)viewportHeight,zNear,zFar);
 }
