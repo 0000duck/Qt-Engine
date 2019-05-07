@@ -1,5 +1,7 @@
 #include "mesh.h"
 #include "Mesh/submesh.h"
+#include "Scene/openglscene.h"
+
 #include <qfile.h>
 #include <assimp/Importer.hpp>
 #include <assimp/scene.h>

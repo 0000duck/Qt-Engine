@@ -8,6 +8,7 @@
 #include <QComboBox>
 #include <QLineEdit>
 #include <QVBoxLayout>
+#include <QOpenGLTexture>
 
 MeshRendererWidget::MeshRendererWidget(MeshRenderer* meshRenderer, QWidget *parent) :
     QWidget(parent),
@@ -46,7 +47,7 @@ MeshRendererWidget::MeshRendererWidget(MeshRenderer* meshRenderer, QWidget *pare
     models = dir.entryList();
     ui->comboBox->addItems(models);
 
-    connect(ui->comboBox, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(changeMesh(const QString&)));
+    connect(ui->comboBox, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(ChangeMesh(const QString&)));
 
     // --------- TEXTURE MANAGEMENT ---------
     UpdateTextures();
@@ -80,12 +81,21 @@ void MeshRendererWidget::UpdateTextures()
         cb->setStyleSheet("font-style: normal");
         ui->SubmeshesLayout->addWidget(cb);
 
-        //connect(cb, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(changeTexture(const QString&)));
-
+        connect(cb, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(ChangeTexture(int id, const QString&)));
     }
 }
 
-void MeshRendererWidget::changeMesh(const QString& meshName)
+void MeshRendererWidget::ChangeTexture(int index, const QString &texture)
+{
+    std::string path = "Textures/";
+    path += texture.toStdString();
+
+    delete meshRenderer->GetMesh()->GetSubMeshes().at(index)->texture;
+    meshRenderer->GetMesh()->GetSubMeshes().at(index)->texture = new QOpenGLTexture(QImage(path.c_str()));
+}
+
+
+void MeshRendererWidget::ChangeMesh(const QString& meshName)
 {
     meshRenderer->Clear();
     meshRenderer->ChangeShape(meshName);

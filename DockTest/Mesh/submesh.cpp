@@ -1,6 +1,7 @@
 #include "submesh.h"
 #include "Scene/openglscene.h"
 #include <stdio.h>
+#include <QOpenGLTexture>
 
 SubMesh::SubMesh(VertexFormat vertexFormat, void *data, int size) : ibo(QOpenGLBuffer::IndexBuffer)
 {
@@ -87,6 +88,9 @@ void SubMesh::Update()
 
 void SubMesh::Draw()
 {
+    if(texture != nullptr)
+        glFuncs->glBindTexture(GL_TEXTURE_2D, texture->textureId());
+
     int numVertices = dataSize/vertexFormat.size;
     vao.bind();
 
@@ -107,6 +111,9 @@ void SubMesh::Draw()
         glFuncs->glDrawArrays(GL_TRIANGLES, 0, numVertices);
 
     vao.release();
+
+    if(texture != nullptr)
+        glFuncs->glBindTexture(GL_TEXTURE_2D, 0);
 }
 
 void SubMesh::Destroy()

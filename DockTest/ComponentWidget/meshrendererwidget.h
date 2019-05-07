@@ -26,7 +26,8 @@ signals:
     void InspectorUpdate();
 
 public slots:
-    void changeMesh(const QString& mesh);
+    void ChangeMesh(const QString& mesh);
+    void ChangeTexture(int index, const QString& texture);
 
 
 public:

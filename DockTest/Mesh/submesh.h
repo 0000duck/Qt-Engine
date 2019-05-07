@@ -26,7 +26,7 @@ public:
     const unsigned char* GetData()const;
     const unsigned int* GetIndice()const;
 
-    QOpenGLTexture *textureOpenGL = nullptr;
+    QOpenGLTexture *texture = nullptr;
 
 
 private:
