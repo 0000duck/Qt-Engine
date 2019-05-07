@@ -140,25 +140,25 @@ void OpenGLScene::Frame()
 
 void OpenGLScene::keyPressEvent(QKeyEvent* event)
 {
-    printf("KeyDown\n");
+    //printf("KeyDown\n");
     input->KeyDownEvent(event);
 }
 void OpenGLScene::keyReleaseEvent(QKeyEvent* event)
 {
-    printf("KeyUp\n");
+    //printf("KeyUp\n");
     input->KeyUpEvent(event);
 
 }
 void OpenGLScene::mousePressEvent(QMouseEvent* event)
 {
-    printf("MouseDown\n");
+    //printf("MouseDown\n");
     input->MouseButtonDownEvent(event);
     setFocus();
 }
 void OpenGLScene::mouseReleaseEvent(QMouseEvent* event)
 {
 
-    printf("MouseUp\n");
+    //printf("MouseUp\n");
     input->MouseButtonUpEvent(event);
 
 }

@@ -98,7 +98,7 @@ void Camera::LookAt(const QVector3D &target)
 
     */
 
-    printf("LookAt\n");
+    /*printf("LookAt\n");
     printf("\n-----position-----|\n");
 
     printf("position.x = %f \n",position.x());
@@ -111,28 +111,28 @@ void Camera::LookAt(const QVector3D &target)
     printf("target.x = %f \n",target.x());
     printf("target.y = %f \n",target.y());
     printf("target.z = %f \n",target.z());
-    printf("------------|\n");
+    printf("------------|\n");*/
 
     QVector3D direction = (target-position).normalized();
 
-    printf("\n----direction------|\n");
+    /*printf("\n----direction------|\n");
 
     printf("direction.x = %f \n",direction.x());
     printf("direction.y = %f \n",direction.y());
     printf("direction.z = %f \n",direction.z());
-    printf("------------|\n");
+    printf("------------|\n");*/
 
     float r = qSqrt( target.x()*target.x() + target.z()*target.z());
-    printf("\n----r------|\n");
-    printf("r = %f \n",r);
-    printf("------------|\n");
+    //printf("\n----r------|\n");
+    //printf("r = %f \n",r);
+    //printf("------------|\n");
     pitch = -qAtan2( target.y(), r);
     yaw = qAtan2( target.x(), target.z());
 
-    printf("\n----pitch&yaw------|\n");
-    printf("pitch = %f \n",pitch);
-    printf("yaw = %f \n",yaw);
-    printf("------------|\n");
+    //printf("\n----pitch&yaw------|\n");
+    //printf("pitch = %f \n",pitch);
+    //printf("yaw = %f \n",yaw);
+    //printf("------------|\n");
     //https://math.stackexchange.com/questions/470112/calculate-camera-pitch-yaw-to-face-point
 
 
@@ -184,11 +184,11 @@ void Camera::ProcessMouseMovement(float xoffset, float yoffset, bool constrainPi
            if (pitch < -89.0f)
                pitch = -89.0f;
        }
-       printf("\n----pitch&yaw------|\n");
+       /*printf("\n----pitch&yaw------|\n");
 
        printf("pitch = %f \n",pitch);
        printf("yaw = %f \n",yaw);
-       printf("------------|\n");
+       printf("------------|\n");*/
 
        // Update Front, Right and Up Vectors using the updated Euler angles
        UpdateCameraVectors();

@@ -123,9 +123,10 @@ SubMesh* Mesh::ProcessMesh(aiMesh *mesh, const aiScene* scene)
 
         if(mesh->mTextureCoords[0])
         {
+            printf("TexCoords\n");
             hasTexCoordenates = true;
-            vertices.push_back(mesh->mTextureCoords[0][i].z);
-            vertices.push_back(mesh->mTextureCoords[0][i].z);
+            vertices.push_back(mesh->mTextureCoords[0][i].x);
+            vertices.push_back(mesh->mTextureCoords[0][i].y);
         }
     }
 

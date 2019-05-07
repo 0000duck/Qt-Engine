@@ -43,12 +43,11 @@ bool Interaction::Idle()
     else if(scene->input->GetMouseButtonDown(Qt::LeftButton))
     {
         QVector3D rayWorldspace = scene->camera->ScreenPointToWorldRay(scene->input->mouseX,scene->input->mouseY);
-        printf("\n----------|\n");
-
+        /*printf("\n----------|\n");
         printf("rayWorldspace.x = %f \n",rayWorldspace.x());
         printf("rayWorldspace.y = %f \n",rayWorldspace.y());
         printf("rayWorldspace.z = %f \n",rayWorldspace.z());
-        printf("----------|\n");
+        printf("----------|\n");*/
         return true;
     }
     else {

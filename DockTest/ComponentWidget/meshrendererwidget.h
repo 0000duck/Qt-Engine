@@ -27,7 +27,7 @@ signals:
 
 public slots:
     void ChangeMesh(const QString& mesh);
-    void ChangeTexture(int index, const QString& texture);
+    void ChangeTexture(const QString& texture);
 
 
 public:

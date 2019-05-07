@@ -20,7 +20,7 @@ void ForwardRender::InitProgram()
 {
     program.create();
     program.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/cameraShader.vert");
-    program.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/cameraShader.frag");
+    program.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/cameraShader_tex.frag");
     program.link();
     program.bind();
 
@@ -59,7 +59,7 @@ void ForwardRender::Render(Camera *camera, Scene* scene)
 
 
                 ((MeshRenderer*)go->GetComponent(Type::COMP_MESH_RENDERER))->Draw();
-                printf("Draw");
+                //printf("Draw");
 
             }
         }

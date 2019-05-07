@@ -77,21 +77,27 @@ void MeshRendererWidget::UpdateTextures()
     {
         auto cb = new QComboBox();
 
+        cb->setObjectName(QString::fromStdString(std::to_string(i)));
         cb->addItems(models);
         cb->setStyleSheet("font-style: normal");
-        ui->SubmeshesLayout->addWidget(cb);
 
-        connect(cb, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(ChangeTexture(int id, const QString&)));
+        connect(cb, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(ChangeTexture(const QString&)));
+
+        ui->SubmeshesLayout->addWidget(cb);
     }
 }
 
-void MeshRendererWidget::ChangeTexture(int index, const QString &texture)
+void MeshRendererWidget::ChangeTexture(const QString &texture)
 {
+    printf("Changing TEXTURE\n");
+    int index = std::stoi(sender()->objectName().toStdString());
+
     std::string path = "Textures/";
     path += texture.toStdString();
 
     delete meshRenderer->GetMesh()->GetSubMeshes().at(index)->texture;
     meshRenderer->GetMesh()->GetSubMeshes().at(index)->texture = new QOpenGLTexture(QImage(path.c_str()));
+    printf("Changed TEXTURE\n");
 }
 
 
