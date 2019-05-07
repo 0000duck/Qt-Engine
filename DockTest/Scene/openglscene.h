@@ -14,6 +14,7 @@ class ForwardRender;
 class Camera;
 class Input;
 class Interaction;
+class GameObject;
 extern QOpenGLFunctions_3_3_Core *glFuncs;
 
 class OpenGLScene : public QOpenGLWidget,
@@ -46,13 +47,15 @@ public slots:
 
 public:
     bool needsUpdate = false;
-
+    Camera* camera = nullptr;
+    Input* input = nullptr;
+    GameObject* selected = nullptr;
 
 private :
     QTimer timer;
-    Input* input = nullptr;
+
     Interaction* interaction = nullptr;
-    Camera* camera = nullptr;
+
     ForwardRender* renderer = nullptr;
     Scene* scene = nullptr;
     QImage image;

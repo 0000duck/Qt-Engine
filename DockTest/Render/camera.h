@@ -32,6 +32,7 @@ public:
 
     void PrepareMatrices();
     void SetViewport(int width, int height);
+    void LookAt(const QVector3D &target);
 
 
     void ProcessKeyboard(CameraMovement directon,float deltaTime);
@@ -46,7 +47,7 @@ public:
     float zNear = DEFAULT_CAMERA_Z_NEAR;
     float zFar = DEFAULT_CAMERA_Z_FAR;
 
-    float yaw = -90.0f;
+    float yaw = 0.0f;
     float pitch = 0.0f;
 
     QVector3D position = QVector3D(0.0,0.0,10.0);

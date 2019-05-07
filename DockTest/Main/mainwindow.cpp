@@ -257,7 +257,8 @@ void MainWindow::showGameObjectInspector(QListWidgetItem* item)
         printf("Index out of bounds\n");
         return;
     }
-    uiInspector->UpdateInspector(scene->gameObjects[item->listWidget()->currentRow()]);
+    openGLScene->selected = scene->gameObjects[item->listWidget()->currentRow()];
+    uiInspector->UpdateInspector(openGLScene->selected);
 }
 void MainWindow::CreateUndoView()
 {

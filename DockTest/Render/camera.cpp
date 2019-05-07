@@ -71,18 +71,79 @@ void Camera::SetViewport(int width,int height)
     viewportWidth = width;
     viewportHeight = height;
 }
+void Camera::LookAt(const QVector3D &target)
+{
+    /*
+    printf("LookAt\n");
+    printf("\n-----position-----|\n");
 
+    printf("position.x = %f \n",position.x());
+    printf("position.y = %f \n",position.y());
+    printf("position.z = %f \n",position.z());
+    printf("------------|\n");
+
+    printf("\n----target------|\n");
+
+    printf("target.x = %f \n",target.x());
+    printf("target.y = %f \n",target.y());
+    printf("target.z = %f \n",target.z());
+    printf("------------|\n");
+
+
+
+    pitch = asin(qDegreesToRadians(direction.y()));
+    yaw = atan2(qDegreesToRadians(direction.x()), qDegreesToRadians(direction.z()));
+
+
+
+    */
+
+    printf("LookAt\n");
+    printf("\n-----position-----|\n");
+
+    printf("position.x = %f \n",position.x());
+    printf("position.y = %f \n",position.y());
+    printf("position.z = %f \n",position.z());
+    printf("------------|\n");
+
+    printf("\n----target------|\n");
+
+    printf("target.x = %f \n",target.x());
+    printf("target.y = %f \n",target.y());
+    printf("target.z = %f \n",target.z());
+    printf("------------|\n");
+
+    QVector3D direction = (target-position).normalized();
+
+    printf("\n----direction------|\n");
+
+    printf("direction.x = %f \n",direction.x());
+    printf("direction.y = %f \n",direction.y());
+    printf("direction.z = %f \n",direction.z());
+    printf("------------|\n");
+
+    float r = qSqrt( target.x()*target.x() + target.z()*target.z());
+    printf("\n----r------|\n");
+    printf("r = %f \n",r);
+    printf("------------|\n");
+    pitch = -qAtan2( target.y(), r);
+    yaw = qAtan2( target.x(), target.z());
+
+    printf("\n----pitch&yaw------|\n");
+    printf("pitch = %f \n",pitch);
+    printf("yaw = %f \n",yaw);
+    printf("------------|\n");
+    //https://math.stackexchange.com/questions/470112/calculate-camera-pitch-yaw-to-face-point
+
+
+}
 void Camera::PrepareMatrices()
 {
     worldMatrix.setToIdentity();
 
     worldMatrix.translate(position);
-    worldMatrix.rotate(yaw,QVector3D(0.0,1.0,0.0));
-    worldMatrix.rotate(pitch,QVector3D(1.0,0.0,0.0));
-
-
-
-
+    worldMatrix.rotate(yaw,cameraUp);
+    worldMatrix.rotate(pitch,cameraRight);
 
     viewMatrix = worldMatrix.inverted();
 
@@ -123,6 +184,11 @@ void Camera::ProcessMouseMovement(float xoffset, float yoffset, bool constrainPi
            if (pitch < -89.0f)
                pitch = -89.0f;
        }
+       printf("\n----pitch&yaw------|\n");
+
+       printf("pitch = %f \n",pitch);
+       printf("yaw = %f \n",yaw);
+       printf("------------|\n");
 
        // Update Front, Right and Up Vectors using the updated Euler angles
        UpdateCameraVectors();

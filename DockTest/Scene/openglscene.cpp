@@ -38,11 +38,11 @@ void OpenGLScene::initializeGL()
     makeCurrent();
     input = new Input();
     interaction = new Interaction();
+    interaction->scene = this;
     renderer = new ForwardRender();
     camera = new Camera();
     camera->SetViewport(this->width(),this->height());
-    interaction->input = input;
-    interaction->mainCamera = camera;
+
 
     glFuncs = this;
     initializeOpenGLFunctions();

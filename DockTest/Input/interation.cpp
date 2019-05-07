@@ -1,8 +1,10 @@
 #include "interation.h"
+#include "Scene/openglscene.h"
 #include "Input/input.h"
 #include "Render/camera.h"
 #include "QtMath"
-
+#include "GameObject/gameobject.h"
+#include "Component/transform.h"
 #include "QTime"
 Interaction::Interaction()
 {
@@ -33,14 +35,14 @@ bool Interaction::Idle()
 {
     bool cameraChange = false;
 
-    if(input->GetMouseButtonPressed(Qt::RightButton))
+    if(scene->input->GetMouseButtonPressed(Qt::RightButton))
     {
 
         state = State::NAVIGATION;
     }
-    else if(input->GetMouseButtonDown(Qt::LeftButton))
+    else if(scene->input->GetMouseButtonDown(Qt::LeftButton))
     {
-        QVector3D rayWorldspace = mainCamera->ScreenPointToWorldRay(input->mouseX,input->mouseY);
+        QVector3D rayWorldspace = scene->camera->ScreenPointToWorldRay(scene->input->mouseX,scene->input->mouseY);
         printf("\n----------|\n");
 
         printf("rayWorldspace.x = %f \n",rayWorldspace.x());
@@ -50,26 +52,31 @@ bool Interaction::Idle()
         return true;
     }
     else {
-        int wheel = input->mouseWheel;
+        int wheel = scene->input->mouseWheel;
         if(wheel!=0)
         {
-            mainCamera->ProcessScrollMovement(wheel);
+            scene->camera->ProcessScrollMovement(wheel);
             cameraChange=true;
 
         }
-        if(input->GetKeyDown(Qt::Key_F))
+        if(scene->input->GetKeyDown(Qt::Key_F))
+        {
+            if(scene->selected!=nullptr)
+            {
+                scene->camera->LookAt(scene->selected->GetTransform()->position);
+                cameraChange=true;
+
+            }
+        }
+        if(scene->input->GetKeyDown(Qt::Key_T))
         {
 
         }
-        if(input->GetKeyDown(Qt::Key_T))
+        if(scene->input->GetKeyDown(Qt::Key_R))
         {
 
         }
-        if(input->GetKeyDown(Qt::Key_R))
-        {
-
-        }
-        if(input->GetKeyDown(Qt::Key_S))
+        if(scene->input->GetKeyDown(Qt::Key_S))
         {
 
         }
@@ -78,7 +85,7 @@ bool Interaction::Idle()
 }
 bool Interaction::Navigation()
 {
-    if(!input->GetMouseButtonPressed(Qt::RightButton))
+    if(!scene->input->GetMouseButtonPressed(Qt::RightButton))
     {
         state = State::IDLE;
         return false;
@@ -87,38 +94,38 @@ bool Interaction::Navigation()
     bool cameraChange = false;
 
 
-    int mouseXDelta = input->mouseXPrev - input->mouseX;
-    int mouseYDelta = input->mouseYPrev - input->mouseY;
+    int mouseXDelta = scene->input->mouseXPrev - scene->input->mouseX;
+    int mouseYDelta = scene->input->mouseYPrev - scene->input->mouseY;
 
     if(qAbs(mouseXDelta) > 1||qAbs(mouseYDelta) > 1)
     {
-        mainCamera->ProcessMouseMovement(mouseXDelta,mouseYDelta,true);
+        scene->camera->ProcessMouseMovement(mouseXDelta,mouseYDelta,true);
         cameraChange = true;
     }
 
     QVector3D movement;
 
-    if(input->GetKeyPressed(Qt::Key_W))
+    if(scene->input->GetKeyPressed(Qt::Key_W))
     {
-        mainCamera->ProcessKeyboard(CameraMovement::FORWARD,0.01);
+        scene->camera->ProcessKeyboard(CameraMovement::FORWARD,0.01);
         cameraChange=true;
     }
-    if(input->GetKeyPressed(Qt::Key_S))
+    if(scene->input->GetKeyPressed(Qt::Key_S))
     {
-        mainCamera->ProcessKeyboard(CameraMovement::BACKWARD,0.01);
+        scene->camera->ProcessKeyboard(CameraMovement::BACKWARD,0.01);
         cameraChange=true;
 
     }
-    if(input->GetKeyPressed(Qt::Key_A))
+    if(scene->input->GetKeyPressed(Qt::Key_A))
     {
-        mainCamera->ProcessKeyboard(CameraMovement::LEFT,0.01);
+        scene->camera->ProcessKeyboard(CameraMovement::LEFT,0.01);
         cameraChange=true;
 
 
     }
-    if(input->GetKeyPressed(Qt::Key_D))
+    if(scene->input->GetKeyPressed(Qt::Key_D))
     {
-        mainCamera->ProcessKeyboard(CameraMovement::RIGHT,0.01);
+        scene->camera->ProcessKeyboard(CameraMovement::RIGHT,0.01);
         cameraChange=true;
 
     }

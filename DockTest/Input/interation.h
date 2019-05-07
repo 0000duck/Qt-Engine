@@ -5,6 +5,7 @@
 class GameObject;
 class Camera;
 class Input;
+class OpenGLScene;
 class Interaction
 {
 public:
@@ -20,8 +21,8 @@ private:
     bool RayCast(const QVector3D &positionWorldSpace, const QVector3D & directionWorldSpace,GameObject** hit);
 
 public:
-    Camera* mainCamera = nullptr;
-    Input* input = nullptr;
+
+    OpenGLScene* scene = nullptr;
 private:
     enum State
     {
