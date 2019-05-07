@@ -20,6 +20,8 @@ public:
     void Update();
     void Draw();
     void Destroy();
+    const unsigned char* GetData()const;
+    const unsigned int* GetIndice()const;
 
 private:
     DrawType drawType;

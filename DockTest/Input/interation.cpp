@@ -122,11 +122,21 @@ bool Interaction::Navigation()
         cameraChange=true;
 
     }
-
-
-
-
-
-
     return cameraChange;
 }
+bool Interaction::RayCast(const QVector3D &positionWorldSpace, const QVector3D & directionWorldSpace,GameObject** hit)
+{
+    /*
+    foreach(GameObject go in scene.gameobjects)
+        {
+           MeshRenderer* meshRenderer = (MeshRenderer*)go.GetComponent(COMP_MESH_RENDERER);
+
+           foreach(SubMesh* subMesh in meshRenderer->mesh->GetSubMeshes())
+           {
+
+           }
+        }
+        */
+    return true;
+}
+

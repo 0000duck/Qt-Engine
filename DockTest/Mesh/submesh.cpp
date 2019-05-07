@@ -116,3 +116,11 @@ void SubMesh::Destroy()
     if(vao.isCreated())
         vbo.destroy();
 }
+const unsigned char* SubMesh::GetData()const
+{
+    return data;
+}
+const unsigned int* SubMesh::GetIndice()const
+{
+    return indice;
+}

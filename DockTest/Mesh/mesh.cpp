@@ -311,3 +311,7 @@ void Mesh::CreatePlane()
 
     AddSubMesh(vFormat, plane, sizeof(plane), &indices[0], 6 * sizeof(unsigned int));
 }
+    const QVector<SubMesh*> Mesh::GetSubMeshes() const
+    {
+        return subMeshes;
+    }
