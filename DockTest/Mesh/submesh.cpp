@@ -37,20 +37,24 @@ SubMesh::~SubMesh()
 void SubMesh::Update()
 {
     printf("VAO Create \n");
-    vao.create();
+    if(!vao.isCreated())
+        vao.create();
     vao.bind();
 
     printf("VBO Create \n");
-    vbo.create();
+    if(!vbo.isCreated())
+        vbo.create();
     vbo.bind();
     vbo.setUsagePattern(QOpenGLBuffer::UsagePattern::StaticDraw);
     vbo.allocate(data,int(dataSize));
     delete[] data;
     data = nullptr;
+
     if(indice!=nullptr)
     {
         printf("Update IBO Create \n");
-        ibo.create();
+        if(!ibo.isCreated())
+           ibo.create();
         ibo.bind();
         ibo.setUsagePattern(QOpenGLBuffer::UsagePattern::StaticDraw);
         ibo.allocate(indice,int(indicesCount* sizeof ( unsigned int)));
@@ -59,15 +63,13 @@ void SubMesh::Update()
     }
     printf("Update VertexAttribute \n");
 
-    for (int location = 0; location < MAX_VERTEX_ATTRIBUTES;++location)
+    for (int location = 0; location < MAX_VERTEX_ATTRIBUTES; ++location)
     {
         VertexAttribute &attribute = vertexFormat.attribute[location];
 
         if(attribute.enabled)
         {
-            printf("Update glEnableVertexAttribArray\n");
             glFuncs->glEnableVertexAttribArray(GLuint(location));
-            printf("Update glVertexAttribPointer\n");
             glFuncs->glVertexAttribPointer(GLuint(location),attribute.ncomp,GL_FLOAT,GL_FALSE,vertexFormat.size,(void*)(attribute.offset));
         }
     }

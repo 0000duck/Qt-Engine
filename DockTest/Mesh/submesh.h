@@ -1,8 +1,11 @@
 #ifndef SUBMESH_H
 #define SUBMESH_H
+
 #include "Mesh/vertexformat.h"
 #include "QOpenGLBuffer"
 #include "QOpenGLVertexArrayObject"
+
+class QOpenGLTexture;
 
 enum DrawType
 {
@@ -23,6 +26,9 @@ public:
     const unsigned char* GetData()const;
     const unsigned int* GetIndice()const;
 
+    QOpenGLTexture *textureOpenGL = nullptr;
+
+
 private:
     DrawType drawType;
 
@@ -36,6 +42,8 @@ private:
     QOpenGLBuffer vbo;
     QOpenGLBuffer ibo;
     QOpenGLVertexArrayObject vao;
+
+
 
 
 };

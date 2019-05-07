@@ -144,7 +144,8 @@ DISTFILES += \
     Shaders/forwardshading_frag.frag \
     Shaders/forwardshading_vert.vert \
     Shaders/cameraShader.frag \
-    Shaders/cameraShader.vert
+    Shaders/cameraShader.vert \
+    Shaders/cameraShader_tex.frag
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/ExternalLibrary/Assimp/lib/ -lassimp
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/ExternalLibrary/Assimp/lib/ -lassimpd
