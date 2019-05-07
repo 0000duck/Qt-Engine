@@ -20,6 +20,7 @@ public:
     ~MeshRendererWidget();
 
     void Clear();
+    void UpdateTextures();
 
 signals:
     void InspectorUpdate();

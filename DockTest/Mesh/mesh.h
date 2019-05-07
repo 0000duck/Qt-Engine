@@ -24,6 +24,7 @@ public:
     void CreateCube();
     void CreateSphere();
     void CreatePlane();
+
     const QVector<SubMesh*> GetSubMeshes()const;
 public:
     QVector<SubMesh*> subMeshes;

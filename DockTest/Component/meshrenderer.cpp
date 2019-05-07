@@ -1,5 +1,7 @@
 #include "meshrenderer.h"
 #include "Mesh/mesh.h"
+#include "Mesh/submesh.h"
+#include<QVector>
 
 MeshRenderer::MeshRenderer(GameObject *myGO, Shape shape):Component(myGO, Type::COMP_MESH_RENDERER)
 {
@@ -31,6 +33,11 @@ MeshRenderer::MeshRenderer(GameObject *myGO, Shape shape):Component(myGO, Type::
     default:
         break;
     }
+}
+
+Mesh* MeshRenderer::GetMesh()
+{
+    return mesh;
 }
 
 void MeshRenderer::Clear()

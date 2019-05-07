@@ -97,6 +97,8 @@ void ShapeRendererWidget::ChangeShape(int index)
         return;
 
     shapeRenderer->form = static_cast<ShapeForm>(index);
+
+
     emit InspectorUpdate();
 }
 

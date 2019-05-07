@@ -5,6 +5,7 @@
 
 class GameObject;
 class Mesh;
+class Submesh;
 
 enum Shape
 {
@@ -23,7 +24,9 @@ public:
     void Clear();
     void ChangeShape(const QString& meshName);
 
-private:
+    Mesh* GetMesh();
+
+public:
     Mesh* mesh = nullptr;
 
 public:
