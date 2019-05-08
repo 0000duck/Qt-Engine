@@ -96,7 +96,7 @@ bool Interaction::Navigation()
     int mouseXDelta = scene->input->mouseXPrev - scene->input->mouseX;
     int mouseYDelta = scene->input->mouseYPrev - scene->input->mouseY;
 
-    if(qAbs(mouseXDelta) > 1||qAbs(mouseYDelta) > 1)
+    if(mouseXDelta != 0 || mouseYDelta != 0)
     {
         scene->camera->ProcessMouseMovement(mouseXDelta,mouseYDelta,true);
         cameraChange = true;
