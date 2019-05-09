@@ -15,7 +15,10 @@ enum CameraMovement
     FORWARD,
     BACKWARD,
     LEFT,
-    RIGHT
+    RIGHT,
+    UP,
+    DOWN
+
 };
 
 class Camera
@@ -34,7 +37,7 @@ public:
     void SetViewport(int width, int height);
     void LookAt(const QVector3D &target);
 
-
+    void ProcessCameraUpDown(CameraMovement directon,float deltaTime);
     void ProcessKeyboard(CameraMovement directon,float deltaTime);
     void ProcessMouseMovement(float offsetX,float offsetY,bool limit);
     void ProcessScrollMovement(float offsetX);

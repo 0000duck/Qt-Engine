@@ -94,7 +94,28 @@ void Camera::PrepareMatrices()
     projectionMatrix.setToIdentity();
     projectionMatrix.perspective(fovY,(float)viewportWidth/(float)viewportHeight,zNear,zFar);
 }
+void Camera::ProcessCameraUpDown(CameraMovement direction,float deltaTime)
+{
+    float velocity =  speed * deltaTime;
+/*
+    printf("\n-----cameraUp-----|\n");
 
+      printf("position.x = %f \n",cameraUp.x());
+      printf("position.y = %f \n",cameraUp.y());
+      printf("position.z = %f \n",cameraUp.z());
+      printf("------------|\n");
+      */
+    if (direction == CameraMovement::UP)
+    {
+        position += cameraUp * velocity;
+
+    }
+    if (direction == CameraMovement::DOWN)
+    {
+        position -= cameraUp * velocity;
+
+    }
+}
 void Camera::ProcessKeyboard(CameraMovement direction,float deltaTime)
 {
 

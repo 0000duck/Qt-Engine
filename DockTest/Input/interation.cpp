@@ -70,11 +70,13 @@ bool Interaction::Idle()
         }
         if(scene->input->GetKeyDown(Qt::Key_T))
         {
-
+            scene->camera->ProcessCameraUpDown(CameraMovement::DOWN,0.01);
+            cameraChange=true;
         }
         if(scene->input->GetKeyDown(Qt::Key_R))
         {
-
+            scene->camera->ProcessCameraUpDown(CameraMovement::UP,0.01);
+            cameraChange=true;
         }
         if(scene->input->GetKeyDown(Qt::Key_S))
         {
