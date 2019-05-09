@@ -33,12 +33,8 @@ void Input::MouseButtonUpEvent(QMouseEvent *event)
 }
 void Input::MouseMoveEvent(QMouseEvent *event)
 {
-    mouseXPrev = mouseX;
-    mouseYPrev = mouseY;
-
-    mouseX = event->x();
-    mouseY = event->y();
-
+    mouseX = event->pos().x();
+    mouseY = event->pos().y();
 }
 void Input::MouseWheelEvent(QWheelEvent *event)
 {

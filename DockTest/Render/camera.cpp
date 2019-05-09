@@ -73,77 +73,12 @@ void Camera::SetViewport(int width,int height)
 }
 void Camera::LookAt(const QVector3D &target)
 {
-    /*
-    printf("LookAt\n");
-    printf("\n-----position-----|\n");
-
-    printf("position.x = %f \n",position.x());
-    printf("position.y = %f \n",position.y());
-    printf("position.z = %f \n",position.z());
-    printf("------------|\n");
-
-    printf("\n----target------|\n");
-
-    printf("target.x = %f \n",target.x());
-    printf("target.y = %f \n",target.y());
-    printf("target.z = %f \n",target.z());
-    printf("------------|\n");
-
-
-
-    pitch = asin(qDegreesToRadians(direction.y()));
-    yaw = atan2(qDegreesToRadians(direction.x()), qDegreesToRadians(direction.z()));
-
-
-
-    */
-/*
-    printf("LookAt\n");
-    printf("\n-----position-----|\n");
-
-    printf("position.x = %f \n",position.x());
-    printf("position.y = %f \n",position.y());
-    printf("position.z = %f \n",position.z());
-    printf("------------|\n");
-
-    printf("\n----target------|\n");
-
-    printf("target.x = %f \n",target.x());
-    printf("target.y = %f \n",target.y());
-    printf("target.z = %f \n",target.z());
-    printf("------------|\n");
-*/
     QVector3D direction = (position-target).normalized();
 
-    /*
-    printf("\n----direction------|\n");
-
-    printf("direction.x = %f \n",direction.x());
-    printf("direction.y = %f \n",direction.y());
-    printf("direction.z = %f \n",direction.z());
-    printf("------------|\n");
-    */
-
     float r = qSqrt( direction.x()*direction.x() + direction.z()*direction.z());
-    /*
-    printf("\n----r------|\n");
-    printf("r = %f \n",r);
-    printf("------------|\n");
 
-*/
-
-
-
-    pitch = - qRadiansToDegrees( qAtan(r/direction.z()));
-
-
-    pitch = qRadiansToDegrees(- qAtan2(direction.y(),r));
-    yaw = qRadiansToDegrees(qAtan2(direction.z(),direction.x()))-90;
-    yaw = - qRadiansToDegrees(qAtan(direction.x()/-direction.z()));
-
-    //https://math.stackexchange.com/questions/470112/calculate-camera-pitch-yaw-to-face-point
-
-
+    pitch = -qRadiansToDegrees(qAtan2(direction.y(),r));
+    yaw = qRadiansToDegrees(qAtan2(direction.x(),direction.z()));
 }
 void Camera::PrepareMatrices()
 {
@@ -178,8 +113,7 @@ void Camera::ProcessKeyboard(CameraMovement direction,float deltaTime)
 
 void Camera::ProcessMouseMovement(float xoffset, float yoffset, bool constrainPitch = true)
    {
-    if(xoffset ==0.0f ||yoffset == 0.0f)
-        return;
+
        xoffset *= 0.3;
        yoffset *= 0.3;
 

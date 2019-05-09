@@ -37,7 +37,8 @@ bool Interaction::Idle()
 
     if(scene->input->GetMouseButtonPressed(Qt::RightButton))
     {
-
+        scene->input->mouseXPrev = scene->input->mouseX;
+        scene->input->mouseYPrev = scene->input->mouseY;
         state = State::NAVIGATION;
     }
     else if(scene->input->GetMouseButtonDown(Qt::LeftButton))
@@ -93,11 +94,15 @@ bool Interaction::Navigation()
     bool cameraChange = false;
 
 
+
     int mouseXDelta = scene->input->mouseXPrev - scene->input->mouseX;
     int mouseYDelta = scene->input->mouseYPrev - scene->input->mouseY;
 
+    scene->input->mouseXPrev = scene->input->mouseX;
+    scene->input->mouseYPrev = scene->input->mouseY;
     if(mouseXDelta != 0 || mouseYDelta != 0)
     {
+
         scene->camera->ProcessMouseMovement(mouseXDelta,mouseYDelta,true);
         cameraChange = true;
     }
