@@ -44,6 +44,7 @@ public slots:
     void createCube();
     void createSphere();
     void createPlane();
+    void createPatrick();
 
 
     void showGameObjectInspector(QListWidgetItem*);
@@ -54,6 +55,7 @@ private:
     bool ChangeName(GameObject &go, int num);
     void CreateAction();
     void CreateUndoView();
+
 
 private:
     Ui::MainWindow *uiMainWindow;

@@ -3,7 +3,7 @@
 #include "Mesh/submesh.h"
 #include<QVector>
 
-MeshRenderer::MeshRenderer(GameObject *myGO, Shape shape):Component(myGO, Type::COMP_MESH_RENDERER)
+MeshRenderer::MeshRenderer(GameObject *myGO, Shape shape, const char* model):Component(myGO, Type::COMP_MESH_RENDERER)
 {
     mesh = new Mesh();
     this->shape = shape;
@@ -28,6 +28,8 @@ MeshRenderer::MeshRenderer(GameObject *myGO, Shape shape):Component(myGO, Type::
     }
     case Shape::CUSTOM:
     {
+        if(model!= nullptr)
+            mesh->LoadModel(model);
         break;
     }
     default:

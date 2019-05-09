@@ -55,6 +55,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(uiMainWindow->actionCube, SIGNAL(triggered()),this, SLOT(createCube()));
     connect(uiMainWindow->actionSphere, SIGNAL(triggered()),this, SLOT(createSphere()));
     connect(uiMainWindow->actionPlane, SIGNAL(triggered()),this, SLOT(createPlane()));
+    connect(uiMainWindow->actionPatrick, SIGNAL(triggered()),this, SLOT(createPatrick()));
 
 
     //connect(uiMainWindow->actionSaveScreenShot,SIGNAL(triggered()),uiMainWindow->widget, SLOT(TakeScreenShot()));
@@ -186,6 +187,23 @@ void::MainWindow::createPlane()
     scene->gameObjects.push_back(go);
     updateMain();
 }
+
+void::MainWindow::createPatrick()
+{
+    printf("Create Patrick\n");
+
+    if(scene==nullptr)
+        return;
+
+    GameObject *go = new GameObject();
+    TryChangeName(*go);
+
+    go->AddMesh(Shape::CUSTOM, "Patrick.obj");
+
+    scene->gameObjects.push_back(go);
+    updateMain();
+}
+
 
 void MainWindow::addGameObject()
 {

@@ -45,6 +45,8 @@
     <addaction name="actionCube"/>
     <addaction name="actionSphere"/>
     <addaction name="actionPlane"/>
+    <addaction name="actionPatrick"/>
+    <addaction name="actionPalm_Tree"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuCreate"/>
@@ -176,6 +178,16 @@
   <action name="actionPlane">
    <property name="text">
     <string>Plane</string>
+   </property>
+  </action>
+  <action name="actionPatrick">
+   <property name="text">
+    <string>Patrick</string>
+   </property>
+  </action>
+  <action name="actionPalm_Tree">
+   <property name="text">
+    <string>Palm Tree</string>
    </property>
   </action>
  </widget>

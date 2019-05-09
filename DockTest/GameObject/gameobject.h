@@ -15,7 +15,7 @@ public:
     void Read(const QJsonObject &json);
     void Write(QJsonObject &json) const;
 
-    MeshRenderer* AddMesh(Shape shape);
+    MeshRenderer* AddMesh(Shape shape, const char* model = nullptr);
     Transform* GetTransform();
     Component* GetComponent(Type type);
 

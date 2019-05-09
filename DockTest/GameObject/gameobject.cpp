@@ -51,9 +51,9 @@ void GameObject::Write(QJsonObject &json) const
 }
 
 
-MeshRenderer* GameObject::AddMesh(Shape shape)
+MeshRenderer* GameObject::AddMesh(Shape shape, const char* model)
 {
-     MeshRenderer *myMeshRenderer = new MeshRenderer(this, shape);
+     MeshRenderer *myMeshRenderer = new MeshRenderer(this, shape, model);
      components.push_back(myMeshRenderer);
 
      return myMeshRenderer;

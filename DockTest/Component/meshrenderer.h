@@ -19,7 +19,7 @@ enum Shape
 class MeshRenderer : public Component
 {
 public:
-    MeshRenderer(GameObject* myGO = nullptr, Shape shape = Shape::NONE);
+    MeshRenderer(GameObject* myGO = nullptr, Shape shape = Shape::NONE, const char* model = nullptr);
     void Draw();    
     void Clear();
     void ChangeShape(const QString& meshName);
