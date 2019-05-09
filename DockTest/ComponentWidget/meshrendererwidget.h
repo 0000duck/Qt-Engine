@@ -29,7 +29,6 @@ public slots:
     void ChangeMesh(const QString& mesh);
     void ChangeTexture(const QString& texture);
 
-
 public:
     MeshRenderer *meshRenderer = nullptr;
     QStringList models;

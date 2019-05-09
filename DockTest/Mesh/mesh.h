@@ -18,7 +18,7 @@ public:
     void Destroy();
 
     void AddSubMesh(VertexFormat vertexFormat, void *data, int size);
-    void AddSubMesh(VertexFormat vertexFormat, void *data, int size,unsigned int *index, int indicesCount, DrawType drawType = DrawType::TRIANGLES);
+    void AddSubMesh(VertexFormat vertexFormat, void *data, int size,unsigned int *index, int indicesCount, const char* name, DrawType drawType = DrawType::TRIANGLES);
 
     void LoadModel(const char* fileName);
     void CreateCube();

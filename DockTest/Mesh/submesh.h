@@ -17,7 +17,7 @@ class SubMesh
 {
 public:
     SubMesh(VertexFormat vertexFormat, void *data, int size);
-    SubMesh(VertexFormat vertexFormat, void *data, int size,unsigned int *indices, int indicesCount, DrawType draw = DrawType::TRIANGLES);
+    SubMesh(VertexFormat vertexFormat, void *data, int size, unsigned int *indices, int indicesCount, const char* name, DrawType draw = DrawType::TRIANGLES);
     ~SubMesh();
 
     void Update();
@@ -26,8 +26,13 @@ public:
     const unsigned char* GetData()const;
     const unsigned int* GetIndice()const;
 
+    void SetName(const char* name);
+
     QOpenGLTexture *texture = nullptr;
 
+public:
+    std::string textureName = "-";
+    std::string meshName = "";
 
 private:
     DrawType drawType;
@@ -42,10 +47,6 @@ private:
     QOpenGLBuffer vbo;
     QOpenGLBuffer ibo;
     QOpenGLVertexArrayObject vao;
-
-
-
-
 };
 
 #endif // SUBMESH_H

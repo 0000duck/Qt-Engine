@@ -83,7 +83,7 @@ void OpenGLScene::paintGL()
 {
     makeCurrent();
 
-    glClearColor(1.0f, 0.0f, 0.0f, 1.0f);
+    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glActiveTexture(GL_TEXTURE0);
 
@@ -113,7 +113,7 @@ void OpenGLScene::finalizeGL()
 {
     std::cout<<"finalizeGL()"<<std::endl;
 
-    glClearColor(0.9f, 0.85f, 1.0f, 1.0f);
+    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 }
 

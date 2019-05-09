@@ -53,10 +53,10 @@ void Mesh::AddSubMesh(VertexFormat vertexFormat, void *data, int size)
 {
 }
 
-void Mesh::AddSubMesh(VertexFormat vertexFormat, void *data, int size, unsigned int *index, int indicesCount, DrawType drawType)
+void Mesh::AddSubMesh(VertexFormat vertexFormat, void *data, int size, unsigned int *index, int indicesCount, const char* name, DrawType drawType)
 {
     printf("Create Submesh\n");
-    SubMesh *subMesh = new SubMesh(vertexFormat, data, size, index, indicesCount, drawType);
+    SubMesh *subMesh = new SubMesh(vertexFormat, data, size, index, indicesCount, name, drawType);
     subMeshes.push_back(subMesh);
     printf("Created Submesh\n");
 }
@@ -123,7 +123,6 @@ SubMesh* Mesh::ProcessMesh(aiMesh *mesh, const aiScene* scene)
 
         if(mesh->mTextureCoords[0])
         {
-            printf("TexCoords\n");
             hasTexCoordenates = true;
             vertices.push_back(mesh->mTextureCoords[0][i].x);
             vertices.push_back(mesh->mTextureCoords[0][i].y);
@@ -157,7 +156,8 @@ SubMesh* Mesh::ProcessMesh(aiMesh *mesh, const aiScene* scene)
                        &vertices[0],
                        vertices.size() * sizeof(float),
                        &indices[0],
-                       indices.size());
+                       indices.size(),
+                       mesh->mName.C_Str());
 }
 
 void Mesh::CreateCube()
@@ -235,7 +235,7 @@ void Mesh::CreateCube()
 
     printf("Vertex Format\n");
 
-    AddSubMesh(vFormat, cube, sizeof(cube), &indices[0], 36 * sizeof(unsigned int));
+    AddSubMesh(vFormat, cube, sizeof(cube), &indices[0], 36 * sizeof(unsigned int), "Cube");
 
 }
 
@@ -283,7 +283,7 @@ void Mesh::CreateSphere()
 
     printf("Vertex Format\n");
 
-    AddSubMesh(vFormat, sphere, sizeof(sphere), &indices[0][0][0], H*V*6, DrawType::TRIANGLES_STRIP);
+    AddSubMesh(vFormat, sphere, sizeof(sphere), &indices[0][0][0], H*V*6, "Sphere", DrawType::TRIANGLES_STRIP);
 }
 
 void Mesh::CreatePlane()
@@ -312,7 +312,7 @@ void Mesh::CreatePlane()
 
     printf("Vertex Format\n");
 
-    AddSubMesh(vFormat, plane, sizeof(plane), &indices[0], 6 * sizeof(unsigned int));
+    AddSubMesh(vFormat, plane, sizeof(plane), &indices[0], 6 * sizeof(unsigned int), "Plane");
 }
     const QVector<SubMesh*> Mesh::GetSubMeshes() const
     {

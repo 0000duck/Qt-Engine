@@ -63,6 +63,8 @@ void MeshRenderer::ChangeShape(const QString &meshName)
     {
         mesh->LoadModel(meshName.toStdString().c_str());
     }
+
+    this->meshName = meshName.toStdString();
 }
 
 void MeshRenderer::Draw()

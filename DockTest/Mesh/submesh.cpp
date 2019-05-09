@@ -10,7 +10,7 @@ SubMesh::SubMesh(VertexFormat vertexFormat, void *data, int size) : ibo(QOpenGLB
     this->dataSize = size;
 }
 
-SubMesh::SubMesh(VertexFormat vertexFormat, void *data, int size, unsigned int *indices,int indicesCount, DrawType drawType):
+SubMesh::SubMesh(VertexFormat vertexFormat, void *data, int size, unsigned int *indices, int indicesCount, const char* name, DrawType drawType):
     ibo(QOpenGLBuffer::IndexBuffer),
     drawType(drawType)
 {
@@ -27,6 +27,8 @@ SubMesh::SubMesh(VertexFormat vertexFormat, void *data, int size, unsigned int *
     memcpy(this->indice, indices, sizeIndice);
     this->indicesCount = indicesCount;
     printf("Indices\n");
+
+    meshName = name;
 
 }
 
@@ -69,7 +71,7 @@ void SubMesh::Update()
         VertexAttribute &attribute = vertexFormat.attribute[location];
         if(attribute.enabled)
         {
-            printf("%i ", location);
+            //printf("%i ", location);
             glFuncs->glEnableVertexAttribArray(GLuint(location));
             glFuncs->glVertexAttribPointer(GLuint(location),attribute.ncomp,GL_FLOAT,GL_FALSE,vertexFormat.size,(void*)(attribute.offset));
         }

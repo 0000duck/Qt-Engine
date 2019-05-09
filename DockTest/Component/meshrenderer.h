@@ -31,6 +31,7 @@ public:
 
 public:
     Shape shape = Shape::NONE;
+    std::string meshName = "";
 };
 
 #endif // MESHRENDERER_H
