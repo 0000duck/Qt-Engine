@@ -1,22 +1,11 @@
 #version 330 core
+out vec4 FragColor;
 
-in Data
+in vec2 TexCoords;
+
+uniform sampler2D screenTexture;
+
+void main()
 {
-    vec3 positionViewspace;
-    vec3 normalViewspace;
-    vec2 texCoord;
-}FSIn;
-
-out vec4 outColor;
-
-void main(void)
-{
-    vec3 L = -normalize(FSIn.positionViewspace);
-    vec3 N = normalize(FSIn.normalViewspace);
-    vec3 albedo = vec3(1.0);
-    float kD = max(0.0, dot(L, N));
-    outColor.rgb = albedo * kD;
-    outColor.a = 1.0;
-
-    outColor.rgb = pow(outColor.rgb, vec3(1.0/2.4));
+    FragColor = texture(screenTexture, TexCoords);
 }
