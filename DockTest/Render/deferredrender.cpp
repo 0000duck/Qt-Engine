@@ -77,24 +77,24 @@ void DeferredRender::InitProgram(int width,int height)
     glFuncs->glBindFramebuffer(GL_FRAMEBUFFER,0);
     */
 
-    program.create();
-    program.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/cameraShader.vert");
-    program.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/cameraShader_tex.frag");
-    program.link();
-    program.bind();
+//    program.create();
+//    program.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/cameraShader.vert");
+//    program.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/cameraShader_tex.frag");
+//    program.link();
+//    program.bind();
+//    program.release();
 
     screenProgram.create();
     screenProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/screenRender.vert");
     screenProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/screenRender.frag");
     screenProgram.link();
     screenProgram.bind();
-
-    //mesh->Update();
-    program.release();
     screenProgram.release();
+
 }
 void DeferredRender::Render(Camera *camera, Scene* scene)
 {
+    return;
     glFuncs->glBindFramebuffer(GL_FRAMEBUFFER,gBuffer);
 
     glFuncs->glClearDepth(1.0f);
@@ -137,8 +137,39 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
         glFuncs->glActiveTexture(GL_TEXTURE0);
         glFuncs->glBindTexture(GL_TEXTURE,gColor);
 
+        RenderQuad();
+
     }
     screenProgram.release();
+
+}
+
+void DeferredRender::RenderQuad()
+{
+    if (quadVAO == 0)
+     {
+         float quadVertices[] = {
+             // positions        // texture Coords
+             -1.0f,  1.0f, 0.0f, 0.0f, 1.0f,
+             -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
+              1.0f,  1.0f, 0.0f, 1.0f, 1.0f,
+              1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+         };
+         // setup plane VAO
+         glFuncs->glGenVertexArrays(1, &quadVAO);
+         glFuncs->glGenBuffers(1, &quadVBO);
+         glFuncs->glBindVertexArray(quadVAO);
+         glFuncs->glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
+         glFuncs->glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
+         glFuncs->glEnableVertexAttribArray(0);
+         glFuncs->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+         glFuncs->glEnableVertexAttribArray(1);
+         glFuncs->glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+     }
+
+    glFuncs->glBindVertexArray(quadVAO);
+    glFuncs->glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    glFuncs->glBindVertexArray(0);
 
 }
 

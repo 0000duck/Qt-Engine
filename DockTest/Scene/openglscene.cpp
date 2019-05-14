@@ -40,8 +40,8 @@ void OpenGLScene::initializeGL()
     input = new Input();
     interaction = new Interaction();
     interaction->scene = this;
-    renderer = new ForwardRender();
-    //renderer = new DeferredRender();
+    //renderer = new ForwardRender();
+    renderer = new DeferredRender();
     camera = new Camera();
     camera->SetViewport(this->width(),this->height());
 
@@ -65,8 +65,8 @@ void OpenGLScene::initializeGL()
         glDisable(GL_DEPTH_TEST);
     }
 
-    renderer->InitProgram();
-    //renderer->InitProgram(this->width(),this->height());
+    //renderer->InitProgram();
+    renderer->InitProgram(this->width(),this->height());
     // Handle context destructions
     connect(context(), SIGNAL(aboutToBeDestroyed()), this, SLOT(finalizeGL()));
 }
@@ -78,7 +78,7 @@ void OpenGLScene::resizeGL(int width, int height)
     glViewport(0,0,width,height);
     camera->SetViewport(width, height);
 
-    //renderer->InitProgram(width,height);
+    renderer->InitProgram(width,height);
     // Resize textures;
 }
 

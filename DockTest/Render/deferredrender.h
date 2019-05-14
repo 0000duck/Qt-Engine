@@ -11,7 +11,7 @@ public:
     void InitProgram(int width,int height);
 
     void Render(Camera* camera, Scene* scene) override;
-
+    void RenderQuad();
 
 public:
 
@@ -24,6 +24,8 @@ public:
 
     unsigned int attachments[2];
 
+    unsigned int quadVAO = 0;
+    unsigned int quadVBO;
 };
 
 #endif // DEFERREDRENDER_H

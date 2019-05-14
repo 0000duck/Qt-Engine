@@ -57,8 +57,8 @@ private :
 
     Interaction* interaction = nullptr;
 
-    ForwardRender* renderer = nullptr;
-    //DeferredRender* renderer = nullptr;
+    //ForwardRender* renderer = nullptr;
+    DeferredRender* renderer = nullptr;
 
     Scene* scene = nullptr;
     QImage image;
