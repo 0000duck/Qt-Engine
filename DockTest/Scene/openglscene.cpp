@@ -5,6 +5,7 @@
 #include "Mesh/mesh.h"
 #include "QMatrix4x4"
 #include "Render/forwardrender.h"
+#include "Render/deferredrender.h"
 #include "Render/camera.h"
 #include "Input/input.h"
 #include "Input/interation.h"
@@ -40,6 +41,7 @@ void OpenGLScene::initializeGL()
     interaction = new Interaction();
     interaction->scene = this;
     renderer = new ForwardRender();
+    //renderer = new DeferredRender();
     camera = new Camera();
     camera->SetViewport(this->width(),this->height());
 
@@ -64,7 +66,7 @@ void OpenGLScene::initializeGL()
     }
 
     renderer->InitProgram();
-
+    //renderer->InitProgram(this->width(),this->height());
     // Handle context destructions
     connect(context(), SIGNAL(aboutToBeDestroyed()), this, SLOT(finalizeGL()));
 }
@@ -76,6 +78,7 @@ void OpenGLScene::resizeGL(int width, int height)
     glViewport(0,0,width,height);
     camera->SetViewport(width, height);
 
+    //renderer->InitProgram(width,height);
     // Resize textures;
 }
 

@@ -15,6 +15,7 @@ class Camera;
 class Input;
 class Interaction;
 class GameObject;
+class DeferredRender;
 extern QOpenGLFunctions_3_3_Core *glFuncs;
 
 class OpenGLScene : public QOpenGLWidget,
@@ -57,6 +58,8 @@ private :
     Interaction* interaction = nullptr;
 
     ForwardRender* renderer = nullptr;
+    //DeferredRender* renderer = nullptr;
+
     Scene* scene = nullptr;
     QImage image;
     QOpenGLShaderProgram program;

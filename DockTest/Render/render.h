@@ -22,6 +22,7 @@ public:
 
 protected:
     QOpenGLShaderProgram program;
+    QOpenGLShaderProgram screenProgram;
 
 
 };

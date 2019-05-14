@@ -36,6 +36,9 @@ void ForwardRender::Render(Camera *camera, Scene* scene)
     {
         if(scene!= nullptr)
         {
+            GLuint pMatrix = program.uniformLocation("projectionMat");
+            glFuncs->glUniformMatrix4fv(pMatrix, 1, GL_FALSE, camera->projectionMatrix.data());
+
             foreach(GameObject* go, scene->gameObjects)
             {
 
@@ -47,15 +50,13 @@ void ForwardRender::Render(Camera *camera, Scene* scene)
                 model.rotate(transform->quatRotation);
                 model.scale(transform->scale.x(), transform->scale.y(),transform->scale.z());
 
-                QMatrix4x4 modelView;
-                modelView = camera->viewMatrix * model;
-                GLuint mvMatrix = program.uniformLocation("modelViewMat");
 
+                QMatrix4x4 modelView;                
+                modelView = camera->viewMatrix * model;                
+                GLuint mvMatrix = program.uniformLocation("modelViewMat");
                 glFuncs->glUniformMatrix4fv(mvMatrix, 1, GL_FALSE, modelView.data());
 
-                GLuint pMatrix = program.uniformLocation("projectionMat");
 
-                glFuncs->glUniformMatrix4fv(pMatrix, 1, GL_FALSE, camera->projectionMatrix.data());
 
 
                 ((MeshRenderer*)go->GetComponent(Type::COMP_MESH_RENDERER))->Draw();
