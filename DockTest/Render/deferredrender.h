@@ -8,7 +8,8 @@ class DeferredRender : public Renderer
 public:
     DeferredRender();
     ~DeferredRender() override;
-    void InitProgram(int width,int height);
+    void InitProgram();
+    void Resize(int width,int height);
 
     void Render(Camera* camera, Scene* scene) override;
     void RenderQuad();

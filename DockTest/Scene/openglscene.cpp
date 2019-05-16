@@ -66,7 +66,9 @@ void OpenGLScene::initializeGL()
     }
 
     //renderer->InitProgram();
-    renderer->InitProgram(this->width(),this->height());
+    renderer->InitProgram();
+    renderer->Resize(this->width(),this->height());
+
     // Handle context destructions
     connect(context(), SIGNAL(aboutToBeDestroyed()), this, SLOT(finalizeGL()));
 }
@@ -78,7 +80,7 @@ void OpenGLScene::resizeGL(int width, int height)
     glViewport(0,0,width,height);
     camera->SetViewport(width, height);
 
-    renderer->InitProgram(width,height);
+    renderer->Resize(width,height);
     // Resize textures;
 }
 
@@ -86,9 +88,7 @@ void OpenGLScene::paintGL()
 {
     makeCurrent();
 
-    glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    glActiveTexture(GL_TEXTURE0);
+
 
     camera->PrepareMatrices();
 

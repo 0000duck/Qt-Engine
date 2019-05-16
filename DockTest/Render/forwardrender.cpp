@@ -18,7 +18,6 @@ ForwardRender::~ForwardRender()
 }
 void ForwardRender::InitProgram()
 {
-    return;
     program.create();
     program.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/cameraShader.vert");
     program.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/cameraShader_tex.frag");

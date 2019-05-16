@@ -17,7 +17,29 @@ DeferredRender::~DeferredRender()
 
 }
 
-void DeferredRender::InitProgram(int width,int height)
+void DeferredRender::InitProgram()
+{
+
+    program.create();
+    program.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/cameraShader.vert");
+    program.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/cameraShader_tex.frag");
+    program.link();
+    program.bind();
+
+    screenProgram.create();
+    screenProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/screenRender.vert");
+    screenProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/screenRender.frag");
+    screenProgram.link();
+    screenProgram.bind();
+    screenProgram.release();
+
+
+
+
+
+}
+
+void DeferredRender::Resize(int width,int height)
 {
 
     glFuncs->glGenTextures(1,&gColor);
@@ -84,27 +106,27 @@ void DeferredRender::InitProgram(int width,int height)
 //    program.bind();
 //    program.release();
 
-    screenProgram.create();
-    screenProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/screenRender.vert");
-    screenProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/screenRender.frag");
-    screenProgram.link();
-    screenProgram.bind();
-    screenProgram.release();
+
 
 }
+
 void DeferredRender::Render(Camera *camera, Scene* scene)
 {
-    return;
+
     glFuncs->glBindFramebuffer(GL_FRAMEBUFFER,gBuffer);
 
+
     glFuncs->glClearDepth(1.0f);
-    glFuncs->glClearColor(1.0f,1.0f,1.0f,1.0f);
+    glFuncs->glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glFuncs->glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
+    glFuncs->glActiveTexture(GL_TEXTURE0);
 
     if(program.bind())
     {
         if(scene!= nullptr)
+
         {
+
             GLuint pMatrix = program.uniformLocation("projectionMat");
             glFuncs->glUniformMatrix4fv(pMatrix, 1, GL_FALSE, camera->projectionMatrix.data());
 
@@ -113,7 +135,7 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
                 QMatrix4x4 model;
                 model.setToIdentity();
 
-                Transform* transform = (Transform*)go->GetComponent(Type::COMP_TRANSFORM);
+                Transform* transform = go->GetTransform();
                 model.translate(transform->position.x(), transform->position.y(),transform->position.z());
                 model.rotate(transform->quatRotation);
                 model.scale(transform->scale.x(), transform->scale.y(),transform->scale.z());
@@ -130,17 +152,19 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
     }
     program.release();
 
-    QOpenGLFramebufferObject::bindDefault();
     if(screenProgram.bind())
     {
         screenProgram.setUniformValue("screenTexture",0);
         glFuncs->glActiveTexture(GL_TEXTURE0);
         glFuncs->glBindTexture(GL_TEXTURE,gColor);
-
+       printf("RenderQUAD\n");
         RenderQuad();
 
     }
+
     screenProgram.release();
+    QOpenGLFramebufferObject::bindDefault();
+
 
 }
 
