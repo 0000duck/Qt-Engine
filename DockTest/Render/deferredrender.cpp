@@ -24,24 +24,22 @@ void DeferredRender::InitProgram()
     program.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/cameraShader.vert");
     program.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/cameraShader_tex.frag");
     program.link();
-    program.bind();
+
 
     screenProgram.create();
     screenProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/screenRender.vert");
     screenProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/screenRender.frag");
     screenProgram.link();
-    screenProgram.bind();
-    screenProgram.release();
+
 
 
 
 
 
 }
-
 void DeferredRender::Resize(int width,int height)
 {
-
+printf("\nResize-----------\n");
     glFuncs->glGenTextures(1,&gColor);
     glFuncs->glBindTexture(GL_TEXTURE_2D,gColor);
     glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
@@ -49,6 +47,7 @@ void DeferredRender::Resize(int width,int height)
     glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_R,GL_CLAMP_TO_EDGE);
     glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);
     glFuncs->glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA8,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,nullptr);
+    printf("gColor = %i\n",gColor);
 
     glFuncs->glGenTextures(1,&gDepth);
     glFuncs->glBindTexture(GL_TEXTURE_2D,gDepth);
@@ -57,13 +56,15 @@ void DeferredRender::Resize(int width,int height)
     glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_R,GL_CLAMP_TO_EDGE);
     glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);
     glFuncs->glTexImage2D(GL_TEXTURE_2D,0,GL_DEPTH_COMPONENT24,width,height,0,GL_DEPTH_COMPONENT,GL_FLOAT,nullptr);
+    printf("gDepth = %i\n",gDepth);
 
     glFuncs->glGenFramebuffers(1,&gBuffer);
     glFuncs->glBindFramebuffer(GL_FRAMEBUFFER,gBuffer);
     glFuncs->glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D,gColor,0);
     glFuncs->glFramebufferTexture2D(GL_FRAMEBUFFER,GL_DEPTH_ATTACHMENT,GL_TEXTURE_2D,gDepth,0);
     glFuncs->glDrawBuffer(GL_COLOR_ATTACHMENT0);
-
+    printf("gBuffer = %i\n",gBuffer);
+    printf("-----------\n");
     /*
     // Position Color
     glFuncs->glGenTextures(1,&gPosition);
@@ -110,6 +111,14 @@ void DeferredRender::Resize(int width,int height)
 
 }
 
+void DeferredRender::DeleteBuffers()
+{
+    glFuncs->glDeleteTextures(1,&gColor);
+    glFuncs->glDeleteTextures(1,&gDepth);
+    glFuncs->glDeleteFramebuffers(1,&gBuffer);
+
+}
+
 void DeferredRender::Render(Camera *camera, Scene* scene)
 {
 
@@ -119,7 +128,6 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
     glFuncs->glClearDepth(1.0f);
     glFuncs->glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glFuncs->glClear(GL_COLOR_BUFFER_BIT|GL_DEPTH_BUFFER_BIT);
-    glFuncs->glActiveTexture(GL_TEXTURE0);
 
     if(program.bind())
     {
@@ -152,18 +160,19 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
     }
     program.release();
 
+    QOpenGLFramebufferObject::bindDefault();
+
     if(screenProgram.bind())
     {
         screenProgram.setUniformValue("screenTexture",0);
         glFuncs->glActiveTexture(GL_TEXTURE0);
         glFuncs->glBindTexture(GL_TEXTURE,gColor);
-       printf("RenderQUAD\n");
+        printf("RenderQUAD\n");
         RenderQuad();
 
     }
 
     screenProgram.release();
-    QOpenGLFramebufferObject::bindDefault();
 
 
 }

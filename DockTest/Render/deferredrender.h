@@ -10,7 +10,7 @@ public:
     ~DeferredRender() override;
     void InitProgram();
     void Resize(int width,int height);
-
+    void DeleteBuffers();
     void Render(Camera* camera, Scene* scene) override;
     void RenderQuad();
 

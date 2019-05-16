@@ -79,7 +79,7 @@ void OpenGLScene::resizeGL(int width, int height)
 
     glViewport(0,0,width,height);
     camera->SetViewport(width, height);
-
+    renderer->DeleteBuffers();
     renderer->Resize(width,height);
     // Resize textures;
 }
