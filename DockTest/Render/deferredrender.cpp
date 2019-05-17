@@ -7,10 +7,11 @@
 #include "Component/transform.h"
 #include "Component/meshrenderer.h"
 #include "qopenglframebufferobject.h"
+#include <QOpenGLTexture>
 
 DeferredRender::DeferredRender()
 {
-
+    texture = new QOpenGLTexture(QImage("Textures/Flowers.png"));
 }
 DeferredRender::~DeferredRender()
 {
@@ -19,24 +20,17 @@ DeferredRender::~DeferredRender()
 
 void DeferredRender::InitProgram()
 {
-
     program.create();
     program.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/cameraShader.vert");
     program.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/cameraShader_tex.frag");
     program.link();
 
-
     screenProgram.create();
     screenProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/screenRender.vert");
     screenProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/screenRender.frag");
     screenProgram.link();
-
-
-
-
-
-
 }
+
 void DeferredRender::Resize(int width,int height)
 {
 printf("\nResize-----------\n");
@@ -106,9 +100,6 @@ printf("\nResize-----------\n");
 //    program.link();
 //    program.bind();
 //    program.release();
-
-
-
 }
 
 void DeferredRender::DeleteBuffers()
@@ -116,14 +107,11 @@ void DeferredRender::DeleteBuffers()
     glFuncs->glDeleteTextures(1,&gColor);
     glFuncs->glDeleteTextures(1,&gDepth);
     glFuncs->glDeleteFramebuffers(1,&gBuffer);
-
 }
 
 void DeferredRender::Render(Camera *camera, Scene* scene)
 {
-
     glFuncs->glBindFramebuffer(GL_FRAMEBUFFER,gBuffer);
-
 
     glFuncs->glClearDepth(1.0f);
     glFuncs->glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
@@ -132,9 +120,7 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
     if(program.bind())
     {
         if(scene!= nullptr)
-
         {
-
             GLuint pMatrix = program.uniformLocation("projectionMat");
             glFuncs->glUniformMatrix4fv(pMatrix, 1, GL_FALSE, camera->projectionMatrix.data());
 
@@ -163,11 +149,11 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
     QOpenGLFramebufferObject::bindDefault();
 
     if(screenProgram.bind())
-    {
-        screenProgram.setUniformValue("screenTexture",0);
+    {       
+        screenProgram.setUniformValue("screenTexture", 0);
+
         glFuncs->glActiveTexture(GL_TEXTURE0);
-        glFuncs->glBindTexture(GL_TEXTURE,gColor);
-        printf("RenderQUAD\n");
+        glFuncs->glBindTexture(GL_TEXTURE_2D, gColor);
         RenderQuad();
 
     }
@@ -182,11 +168,11 @@ void DeferredRender::RenderQuad()
     if (quadVAO == 0)
      {
          float quadVertices[] = {
-             // positions        // texture Coords
-             -1.0f,  1.0f, 0.0f, 0.0f, 1.0f,
-             -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
-              1.0f,  1.0f, 0.0f, 1.0f, 1.0f,
-              1.0f, -1.0f, 0.0f, 1.0f, 0.0f,
+             // Positions               // texCoords       // Color
+             -1.0f,  1.0f, 0.0f,        0.0f, 1.0f,        1.0, 0.0, 0.0,
+             -1.0f, -1.0f, 0.0f,        0.0f, 0.0f,        0.0, 1.0, 0.0,
+              1.0f,  1.0f, 0.0f,        1.0f, 1.0f,        0.0, 0.0, 0.0,
+              1.0f, -1.0f, 0.0f,        1.0f, 0.0f,        1.0, 1.0, 1.0
          };
          // setup plane VAO
          glFuncs->glGenVertexArrays(1, &quadVAO);
@@ -195,14 +181,17 @@ void DeferredRender::RenderQuad()
          glFuncs->glBindBuffer(GL_ARRAY_BUFFER, quadVBO);
          glFuncs->glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), &quadVertices, GL_STATIC_DRAW);
          glFuncs->glEnableVertexAttribArray(0);
-         glFuncs->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+         glFuncs->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
          glFuncs->glEnableVertexAttribArray(1);
-         glFuncs->glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+         glFuncs->glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
+         glFuncs->glEnableVertexAttribArray(2);
+         glFuncs->glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(5 * sizeof(float)));
      }
 
     glFuncs->glBindVertexArray(quadVAO);
     glFuncs->glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
     glFuncs->glBindVertexArray(0);
+    glFuncs->glBindTexture(GL_TEXTURE_2D, 0);
 
 }
 

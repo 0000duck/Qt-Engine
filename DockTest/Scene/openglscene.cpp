@@ -49,6 +49,9 @@ void OpenGLScene::initializeGL()
     glFuncs = this;
     initializeOpenGLFunctions();
 
+    glEnable(GL_TEXTURE_2D);
+    //glEnable(GL_CULL_FACE);
+
     // Depth Test
     if(enableZtest)
     {
@@ -87,8 +90,6 @@ void OpenGLScene::resizeGL(int width, int height)
 void OpenGLScene::paintGL()
 {
     makeCurrent();
-
-
 
     camera->PrepareMatrices();
 
@@ -134,10 +135,10 @@ void OpenGLScene::Frame()
 
     if(needUpdate||needsUpdate)
     {
-        update();
         needsUpdate = false;
     }
 
+    update();
     input->PostUpdate();
 }
 

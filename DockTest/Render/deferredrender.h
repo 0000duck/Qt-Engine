@@ -2,6 +2,7 @@
 #define DEFERREDRENDER_H
 
 #include "render.h"
+#include <QOpenGLTexture>
 
 class DeferredRender : public Renderer
 {
@@ -27,6 +28,8 @@ public:
 
     unsigned int quadVAO = 0;
     unsigned int quadVBO;
+
+    QOpenGLTexture* texture;
 };
 
 #endif // DEFERREDRENDER_H
