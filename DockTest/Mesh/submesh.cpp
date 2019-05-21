@@ -2,6 +2,7 @@
 #include "Scene/openglscene.h"
 #include <stdio.h>
 #include <QOpenGLTexture>
+#include "Mesh/material.h"
 
 SubMesh::SubMesh(VertexFormat vertexFormat, void *data, int size) : ibo(QOpenGLBuffer::IndexBuffer)
 {
@@ -29,6 +30,8 @@ SubMesh::SubMesh(VertexFormat vertexFormat, void *data, int size, unsigned int *
     printf("Indices\n");
 
     meshName = name;
+
+    material = new Material();
 
 }
 

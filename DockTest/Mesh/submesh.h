@@ -6,7 +6,7 @@
 #include "QOpenGLVertexArrayObject"
 
 class QOpenGLTexture;
-
+class Material;
 enum DrawType
 {
     TRIANGLES,
@@ -27,7 +27,7 @@ public:
     const unsigned int* GetIndice()const;
 
     void SetName(const char* name);
-
+    Material* material = nullptr;
     QOpenGLTexture *texture = nullptr;
 
 public:

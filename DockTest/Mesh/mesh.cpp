@@ -7,7 +7,6 @@
 #include <assimp/scene.h>
 #include <assimp/postprocess.h>
 #include <QVector3D>
-
 #define H 32
 #define V 16
 
@@ -20,7 +19,6 @@ struct Vertex
 
 Mesh::Mesh()
 {
-
 }
 
 void Mesh::Draw()

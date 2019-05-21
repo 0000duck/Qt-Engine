@@ -7,11 +7,15 @@ in Data
     vec2 texCoord;
 }FSIn;
 
-out vec4 outColor;
+layout(location=0) out vec4 albedo;
+layout(location=1) out vec4 normals;
+layout(location=2) out vec4 position;
 
 uniform sampler2D texture;
 
 void main(void)
 {
-    outColor = texture2D(texture, FSIn.texCoord);
+    albedo = texture2D(texture, FSIn.texCoord);
+    normals = FSIn.normalViewspace * 0.5 + vec3(0.5);
+    position= FSIn.positionViewspace;
 }

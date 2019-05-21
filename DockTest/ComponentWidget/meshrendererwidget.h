@@ -28,6 +28,7 @@ signals:
 public slots:
     void ChangeMesh(const QString& mesh);
     void ChangeTexture(const QString& texture);
+    void FillColor();
 
 public:
     MeshRenderer *meshRenderer = nullptr;

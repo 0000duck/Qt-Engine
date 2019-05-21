@@ -71,7 +71,8 @@ SOURCES += \
     Scene/openglscene.cpp \
     Scene/scene.cpp \
     SceneWidget/scenewidget.cpp \
-    Input/interation.cpp
+    Input/interation.cpp \
+    Mesh/material.cpp
 
 
 HEADERS += \
@@ -118,7 +119,8 @@ HEADERS += \
     Scene/openglscene.h \
     Scene/scene.h \
     SceneWidget/scenewidget.h \
-    Input/interation.h
+    Input/interation.h \
+    Mesh/material.h
 
 
 
