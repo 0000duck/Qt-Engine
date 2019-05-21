@@ -19,12 +19,12 @@ public:
 
     unsigned int gBuffer;
 
-   // unsigned int gPosition;
-    //unsigned int gNormal;
+    unsigned int gPosition;
+    unsigned int gNormal;
     unsigned int gColor;
     unsigned int gDepth;
 
-    unsigned int attachments[2];
+    unsigned int attachments[1];
 
     unsigned int quadVAO = 0;
     unsigned int quadVBO;

@@ -33,7 +33,8 @@ void DeferredRender::InitProgram()
 
 void DeferredRender::Resize(int width,int height)
 {
-printf("\nResize-----------\n");
+    // ----- TEST 1 ------
+    printf("\nResize-----------\n");
     glFuncs->glGenTextures(1,&gColor);
     glFuncs->glBindTexture(GL_TEXTURE_2D,gColor);
     glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
@@ -42,6 +43,24 @@ printf("\nResize-----------\n");
     glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);
     glFuncs->glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA8,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,nullptr);
     printf("gColor = %i\n",gColor);
+
+    glFuncs->glGenTextures(1,&gNormal);
+    glFuncs->glBindTexture(GL_TEXTURE_2D,gNormal);
+    glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_R,GL_CLAMP_TO_EDGE);
+    glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);
+    glFuncs->glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA8,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,nullptr);
+    printf("gColor = %i\n",gNormal);
+
+    glFuncs->glGenTextures(1,&gPosition);
+    glFuncs->glBindTexture(GL_TEXTURE_2D,gPosition);
+    glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_R,GL_CLAMP_TO_EDGE);
+    glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);
+    glFuncs->glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA8,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,nullptr);
+    printf("gColor = %i\n",gPosition);
 
     glFuncs->glGenTextures(1,&gDepth);
     glFuncs->glBindTexture(GL_TEXTURE_2D,gDepth);
@@ -55,12 +74,30 @@ printf("\nResize-----------\n");
     glFuncs->glGenFramebuffers(1,&gBuffer);
     glFuncs->glBindFramebuffer(GL_FRAMEBUFFER,gBuffer);
     glFuncs->glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D,gColor,0);
+    glFuncs->glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT1,GL_TEXTURE_2D,gNormal,0);
+    glFuncs->glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT2,GL_TEXTURE_2D,gPosition,0);
     glFuncs->glFramebufferTexture2D(GL_FRAMEBUFFER,GL_DEPTH_ATTACHMENT,GL_TEXTURE_2D,gDepth,0);
-    glFuncs->glDrawBuffer(GL_COLOR_ATTACHMENT0);
+
+    //glFuncs->glDrawBuffer(GL_COLOR_ATTACHMENT0);
+
+    attachments[0] = GL_COLOR_ATTACHMENT0;
+    attachments[1] = GL_COLOR_ATTACHMENT1;
+    attachments[2] = GL_COLOR_ATTACHMENT2;
+    glFuncs->glDrawBuffers(3, attachments);
+
+
     printf("gBuffer = %i\n",gBuffer);
     printf("-----------\n");
-    /*
-    // Position Color
+
+    //------ TEST 1 -----
+
+    /*// TEST 2
+
+    // Buffer
+    glFuncs->glGenFramebuffers(1, &gBuffer);
+    glFuncs->glBindFramebuffer(GL_FRAMEBUFFER, gBuffer);
+
+    // Position
     glFuncs->glGenTextures(1,&gPosition);
     glFuncs->glBindTexture(GL_TEXTURE_2D,gPosition);
     glFuncs->glTexImage2D(GL_TEXTURE_2D,0,GL_RGB16F,1024,720,0,GL_RGB,GL_FLOAT,nullptr);
@@ -68,7 +105,7 @@ printf("\nResize-----------\n");
     glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
     glFuncs->glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D,gPosition,0);
 
-    // Normal Color
+    // Normals
     glFuncs->glGenTextures(1,&gNormal);
     glFuncs->glBindTexture(GL_TEXTURE_2D,gNormal);
     glFuncs->glTexImage2D(GL_TEXTURE_2D,0,GL_RGB16F,1024,720,0,GL_RGB,GL_FLOAT,nullptr);
@@ -76,30 +113,21 @@ printf("\nResize-----------\n");
     glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
     glFuncs->glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT1,GL_TEXTURE_2D,gNormal,0);
 
+    // Textures
+    glFuncs->glGenTextures(1, &gColor);
+    glFuncs->glBindTexture(GL_TEXTURE_2D, gColor);
+    glFuncs->glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, NULL);
+    glFuncs->glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glFuncs->glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glFuncs->glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT2, GL_TEXTURE_2D, gColor, 0);
+
     attachments[0] = GL_COLOR_ATTACHMENT0;
     attachments[1] = GL_COLOR_ATTACHMENT1;
+    attachments[2] = GL_COLOR_ATTACHMENT2;
+    glFuncs->glDrawBuffers(3, attachments);
 
-    glFuncs->glDrawBuffers(2,attachments);
 
-    glFuncs->glGenRenderbuffers(1,&gDepth);
-    glFuncs->glBindRenderbuffer(GL_RENDERBUFFER,gDepth);
-    glFuncs->glRenderbufferStorage(GL_RENDERBUFFER,GL_DEPTH_COMPONENT,1024,720);
-    glFuncs->glFramebufferRenderbuffer(GL_RENDERBUFFER,GL_DEPTH_ATTACHMENT,GL_RENDERBUFFER,gDepth);
-
-    if(glFuncs->glCheckFramebufferStatus(GL_FRAMEBUFFER)!=GL_FRAMEBUFFER_COMPLETE)
-    {
-       printf("Framebuffer not complete!\n");
-
-    }
-    glFuncs->glBindFramebuffer(GL_FRAMEBUFFER,0);
-    */
-
-//    program.create();
-//    program.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/cameraShader.vert");
-//    program.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/cameraShader_tex.frag");
-//    program.link();
-//    program.bind();
-//    program.release();
+     // TEST 2 */
 }
 
 void DeferredRender::DeleteBuffers()
@@ -140,7 +168,6 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
                 glFuncs->glUniformMatrix4fv(mvMatrix, 1, GL_FALSE, modelView.data());
 
                 ((MeshRenderer*)go->GetComponent(Type::COMP_MESH_RENDERER))->Draw();
-                //printf("Draw");
             }
         }
     }
@@ -151,11 +178,13 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
     if(screenProgram.bind())
     {       
         screenProgram.setUniformValue("screenTexture", 0);
-
         glFuncs->glActiveTexture(GL_TEXTURE0);
         glFuncs->glBindTexture(GL_TEXTURE_2D, gColor);
+        //glFuncs->glActiveTexture(GL_TEXTURE0);
+        //glFuncs->glBindTexture(GL_TEXTURE_2D, gNormal);
+        //glFuncs->glActiveTexture(GL_TEXTURE2);
+        //glFuncs->glBindTexture(GL_TEXTURE_2D, gPosition);
         RenderQuad();
-
     }
 
     screenProgram.release();
