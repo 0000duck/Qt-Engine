@@ -147,7 +147,9 @@ DISTFILES += \
     Shaders/cameraShader.vert \
     Shaders/cameraShader_tex.frag \
     Shaders/screenRender.frag \
-    Shaders/screenRender.vert
+    Shaders/screenRender.vert \
+    Shaders/screenRender2.frag \
+    Shaders/screenRender2.vert
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/ExternalLibrary/Assimp/lib/ -lassimp
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/ExternalLibrary/Assimp/lib/ -lassimpd

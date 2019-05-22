@@ -93,7 +93,7 @@ void SubMesh::Update()
 
 void SubMesh::Draw()
 {
-    if(texture != nullptr)      
+    if(texture != nullptr)
         glFuncs->glBindTexture(GL_TEXTURE_2D, texture->textureId());
 
     int numVertices = dataSize/vertexFormat.size;

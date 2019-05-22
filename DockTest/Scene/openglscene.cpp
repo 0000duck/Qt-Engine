@@ -49,7 +49,10 @@ void OpenGLScene::initializeGL()
     glFuncs = this;
     initializeOpenGLFunctions();
 
-    glEnable(GL_TEXTURE_2D);
+    glEnable(GL_TEXTURE_2D);   
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
     //glEnable(GL_CULL_FACE);
 
     // Depth Test
@@ -68,7 +71,6 @@ void OpenGLScene::initializeGL()
         glDisable(GL_DEPTH_TEST);
     }
 
-    //renderer->InitProgram();
     renderer->InitProgram();
     renderer->Resize(this->width(),this->height());
 
@@ -81,10 +83,11 @@ void OpenGLScene::resizeGL(int width, int height)
     makeCurrent();
 
     glViewport(0,0,width,height);
+
     camera->SetViewport(width, height);
+    // Resize textures;
     renderer->DeleteBuffers();
     renderer->Resize(width,height);
-    // Resize textures;
 }
 
 void OpenGLScene::paintGL()

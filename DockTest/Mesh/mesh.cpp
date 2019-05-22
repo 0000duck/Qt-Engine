@@ -304,7 +304,7 @@ void Mesh::CreatePlane()
         2,3,0
     };
 
-   VertexFormat vFormat;
+    VertexFormat vFormat;
     vFormat.SetVertexAttribute(0, 0, 3);
     vFormat.SetVertexAttribute(1, sizeof(QVector3D), 3);
 

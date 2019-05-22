@@ -24,12 +24,10 @@ public:
     unsigned int gColor;
     unsigned int gDepth;
 
-    unsigned int attachments[1];
+    unsigned int attachments[3];
 
     unsigned int quadVAO = 0;
     unsigned int quadVBO;
-
-    QOpenGLTexture* texture;
 };
 
 #endif // DEFERREDRENDER_H
