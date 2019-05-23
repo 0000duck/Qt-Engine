@@ -32,7 +32,7 @@ SubMesh::SubMesh(VertexFormat vertexFormat, void *data, int size, unsigned int *
     meshName = name;
 
     material = new Material();
-
+    texture = new QOpenGLTexture(QImage("Texture/Checker.jpg"));
 }
 
 SubMesh::~SubMesh()

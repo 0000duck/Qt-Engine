@@ -3,7 +3,8 @@
 
 #include "render.h"
 #include <QOpenGLTexture>
-
+#include <QVector3D>
+#include <qlist.h>
 class DeferredRender : public Renderer
 {
 public:
@@ -28,6 +29,9 @@ public:
 
     unsigned int quadVAO = 0;
     unsigned int quadVBO;
+private:
+    QList<QVector3D> lightPos;
+    QList<QVector3D> lightColor;
 };
 
 #endif // DEFERREDRENDER_H

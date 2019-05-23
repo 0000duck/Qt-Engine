@@ -8,7 +8,8 @@
 #include "Component/meshrenderer.h"
 #include "qopenglframebufferobject.h"
 #include <QOpenGLTexture>
-
+#include <QString>
+#include "string.h"
 DeferredRender::DeferredRender()
 {   
 }
@@ -28,6 +29,22 @@ void DeferredRender::InitProgram()
     screenProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/screenRender2.vert");
     screenProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/screenRender2.frag");
     screenProgram.link();
+
+
+    srand(10);
+    for(int i = 0;i<10;i++)
+    {
+        // calculate slightly random offsets
+        float xPos = ((rand() % 100) / 100.0) * 6.0 - 3.0;
+        float yPos = ((rand() % 100) / 100.0) * 6.0 - 4.0;
+        float zPos = ((rand() % 100) / 100.0) * 6.0 - 3.0;
+        lightPos.push_back(QVector3D(xPos, yPos, zPos));
+        // also calculate random color
+        float rColor = ((rand() % 100) / 200.0f) + 0.5; // between 0.5 and 1.0
+        float gColor = ((rand() % 100) / 200.0f) + 0.5; // between 0.5 and 1.0
+        float bColor = ((rand() % 100) / 200.0f) + 0.5; // between 0.5 and 1.0
+        lightColor.push_back(QVector3D(rColor, gColor, bColor));
+    }
 }
 
 void DeferredRender::Resize(int width,int height)
@@ -144,6 +161,8 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
                 GLuint mvMatrix = program.uniformLocation("modelViewMat");
                 glFuncs->glUniformMatrix4fv(mvMatrix, 1, GL_FALSE, modelView.data());
 
+                glFuncs->glActiveTexture(GL_TEXTURE0);
+
                 ((MeshRenderer*)go->GetComponent(Type::COMP_MESH_RENDERER))->Draw();
             }
         }
@@ -158,6 +177,9 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
         screenProgram.setUniformValue(screenProgram.uniformLocation("gNormal"), 1);
         screenProgram.setUniformValue(screenProgram.uniformLocation("gPosition"), 2);
 
+
+        screenProgram.setUniformValue(screenProgram.uniformLocation("renderView"),2 );
+
         glFuncs->glActiveTexture(GL_TEXTURE0);
         glFuncs->glBindTexture(GL_TEXTURE_2D, gColor);
 
@@ -166,6 +188,21 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
 
         glFuncs->glActiveTexture(GL_TEXTURE2);
         glFuncs->glBindTexture(GL_TEXTURE_2D, gPosition);
+
+        for(int i = 0;i<lightPos.size();i++)
+        {
+
+             glFuncs->glUniform3fv(glFuncs->glGetUniformLocation(screenProgram.programId(), ("lights["+QString::number(i)+"].Position").toStdString().c_str()),1,&lightPos[i][0]);
+             glFuncs->glUniform3fv(glFuncs->glGetUniformLocation(screenProgram.programId(),("lights["+QString::number(i)+"].Color").toStdString().c_str()),1,&lightColor[i][0]);
+
+             float constant = 1.0f;
+             float linear = 0.7f;
+             float quadratic = 1.8f;
+             glFuncs->glUniform1f(glFuncs->glGetUniformLocation(screenProgram.programId(),("lights["+QString::number(i)+"].Linear").toStdString().c_str()),linear);
+             glFuncs->glUniform1f(glFuncs->glGetUniformLocation(screenProgram.programId(),("lights["+QString::number(i)+"].Linear").toStdString().c_str()),quadratic);
+
+        }
+        glFuncs->glUniform3fv(glFuncs->glGetUniformLocation(screenProgram.programId(), "viewPos"),1, &camera->position[0]);
 
         RenderQuad();
     }
