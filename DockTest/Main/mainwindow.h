@@ -46,6 +46,8 @@ public slots:
     void createPlane();
     void createPatrick();
 
+    void changeRenderView(int index);
+
 
     void showGameObjectInspector(QListWidgetItem*);
     void updateMain();

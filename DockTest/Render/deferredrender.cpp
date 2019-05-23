@@ -178,7 +178,7 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
         screenProgram.setUniformValue(screenProgram.uniformLocation("gPosition"), 2);
 
 
-        screenProgram.setUniformValue(screenProgram.uniformLocation("renderView"),2 );
+        screenProgram.setUniformValue(screenProgram.uniformLocation("renderView"), renderView);
 
         glFuncs->glActiveTexture(GL_TEXTURE0);
         glFuncs->glBindTexture(GL_TEXTURE_2D, gColor);

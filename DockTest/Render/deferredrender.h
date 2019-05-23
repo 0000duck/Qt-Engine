@@ -18,6 +18,8 @@ public:
 
 public:
 
+    int renderView = 0;
+
     unsigned int gBuffer;
 
     unsigned int gPosition;

@@ -51,12 +51,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(uiHierarchy->uiHierarchy->listWidget,SIGNAL(itemClicked(QListWidgetItem*)),this,SLOT(showGameObjectInspector(QListWidgetItem*)));
     connect(uiInspector,SIGNAL(MainUpdate()),this,SLOT(updateMain()));
 
-
     connect(uiMainWindow->actionCube, SIGNAL(triggered()),this, SLOT(createCube()));
     connect(uiMainWindow->actionSphere, SIGNAL(triggered()),this, SLOT(createSphere()));
     connect(uiMainWindow->actionPlane, SIGNAL(triggered()),this, SLOT(createPlane()));
     connect(uiMainWindow->actionPatrick, SIGNAL(triggered()),this, SLOT(createPatrick()));
 
+    connect(uiMainWindow->renderView, SIGNAL(currentIndexChanged(int)), this, SLOT(changeRenderView(int)));
 
     //connect(uiMainWindow->actionSaveScreenShot,SIGNAL(triggered()),uiMainWindow->widget, SLOT(TakeScreenShot()));
     //connect(uiMainWindow->actionUndo, SIGNAL(triggered()), this, SLOT(undo()));
@@ -204,6 +204,11 @@ void::MainWindow::createPatrick()
     updateMain();
 }
 
+void MainWindow::changeRenderView(int index)
+{
+    openGLScene->SetRenderView(index);
+}
+
 
 void MainWindow::addGameObject()
 {
@@ -257,12 +262,14 @@ bool MainWindow::ChangeName(GameObject &go, int num)
     }
     return false;
 }
+
 void MainWindow::updateMain()
 {
     uiHierarchy->UpdateHierarchy(scene);
     openGLScene->needsUpdate = true;
 
 }
+
 void MainWindow::showGameObjectInspector(QListWidgetItem* item)
 {
     if(scene==nullptr)
@@ -278,6 +285,7 @@ void MainWindow::showGameObjectInspector(QListWidgetItem* item)
     openGLScene->selected = scene->gameObjects[item->listWidget()->currentRow()];
     uiInspector->UpdateInspector(openGLScene->selected);
 }
+
 void MainWindow::CreateUndoView()
 {
     undoView = new QUndoView(undoStack);

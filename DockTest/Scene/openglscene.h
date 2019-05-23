@@ -32,6 +32,8 @@ public:
     void resizeGL(int width, int height) override;
     void paintGL() override;
     bool GetScene(Scene *scene);
+    void SetRenderView(int index);
+
 private:
     QImage GetScreenShot();  
 

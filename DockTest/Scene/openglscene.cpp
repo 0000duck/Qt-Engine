@@ -131,6 +131,12 @@ bool OpenGLScene::GetScene(Scene *scenePointer)
     scene = scenePointer;
     return true;
 }
+
+void OpenGLScene::SetRenderView(int index)
+{
+    renderer->renderView = index;
+}
+
 void OpenGLScene::Frame()
 {
     bool needUpdate = interaction->Update();
@@ -155,12 +161,14 @@ void OpenGLScene::keyReleaseEvent(QKeyEvent* event)
     input->KeyUpEvent(event);
 
 }
+
 void OpenGLScene::mousePressEvent(QMouseEvent* event)
 {
     //printf("MouseDown\n");
     input->MouseButtonDownEvent(event);
     setFocus();
 }
+
 void OpenGLScene::mouseReleaseEvent(QMouseEvent* event)
 {
 
@@ -168,10 +176,12 @@ void OpenGLScene::mouseReleaseEvent(QMouseEvent* event)
     input->MouseButtonUpEvent(event);
 
 }
+
 void OpenGLScene::mouseMoveEvent(QMouseEvent* event)
 {
     input->MouseMoveEvent(event);
 }
+
 void OpenGLScene::wheelEvent(QWheelEvent* event)
 {
     input->MouseWheelEvent(event);

@@ -104,6 +104,84 @@
    <addaction name="actionOpenProject"/>
    <addaction name="actionSaveProject"/>
   </widget>
+  <widget class="QDockWidget" name="RenderSettings">
+   <property name="windowTitle">
+    <string>Render Settings</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>1</number>
+   </attribute>
+   <widget class="QWidget" name="dockWidgetContents_2">
+    <layout class="QVBoxLayout" name="verticalLayout">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>50</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>View</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="renderView">
+         <item>
+          <property name="text">
+           <string>Deferred</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Albedo</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Normals</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Position</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <spacer name="verticalSpacer">
+       <property name="orientation">
+        <enum>Qt::Vertical</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>20</width>
+         <height>40</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+    </layout>
+   </widget>
+  </widget>
   <action name="actionOpenProject">
    <property name="icon">
     <iconset resource="icons.qrc">
