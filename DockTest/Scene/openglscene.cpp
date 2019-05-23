@@ -49,14 +49,17 @@ void OpenGLScene::initializeGL()
     glFuncs = this;
     initializeOpenGLFunctions();
 
-    glEnable(GL_TEXTURE_2D);   
-    glEnable(GL_BLEND);
-    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    //glEnable(GL_TEXTURE_2D);
+    //glEnable(GL_BLEND);
+    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     //glEnable(GL_CULL_FACE);
 
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+
     // Depth Test
-    if(enableZtest)
+    /*if(enableZtest)
     {
         glEnable(GL_DEPTH_TEST);
         glDepthFunc(GL_LESS);
@@ -69,7 +72,7 @@ void OpenGLScene::initializeGL()
     else
     {
         glDisable(GL_DEPTH_TEST);
-    }
+    }*/
 
     renderer->InitProgram();
     renderer->Resize(this->width(),this->height());
@@ -80,8 +83,6 @@ void OpenGLScene::initializeGL()
 
 void OpenGLScene::resizeGL(int width, int height)
 {
-    makeCurrent();
-
     glViewport(0,0,width,height);
 
     camera->SetViewport(width, height);
@@ -92,8 +93,6 @@ void OpenGLScene::resizeGL(int width, int height)
 
 void OpenGLScene::paintGL()
 {
-    makeCurrent();
-
     camera->PrepareMatrices();
 
     if(scene!=nullptr)

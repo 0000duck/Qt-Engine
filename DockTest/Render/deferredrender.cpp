@@ -161,11 +161,11 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
         glFuncs->glActiveTexture(GL_TEXTURE0);
         glFuncs->glBindTexture(GL_TEXTURE_2D, gColor);
 
-        //glFuncs->glActiveTexture(GL_TEXTURE1);
-        //glFuncs->glBindTexture(GL_TEXTURE_2D, gNormal);
+        glFuncs->glActiveTexture(GL_TEXTURE1);
+        glFuncs->glBindTexture(GL_TEXTURE_2D, gNormal);
 
-        //glFuncs->glActiveTexture(GL_TEXTURE2);
-        //glFuncs->glBindTexture(GL_TEXTURE_2D, gPosition);
+        glFuncs->glActiveTexture(GL_TEXTURE2);
+        glFuncs->glBindTexture(GL_TEXTURE_2D, gPosition);
 
         RenderQuad();
     }

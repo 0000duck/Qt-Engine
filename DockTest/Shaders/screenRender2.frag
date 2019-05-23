@@ -14,5 +14,5 @@ void main(void)
     vec3 Normal = texture2D(gNormal, TexCoords).rgb;
     vec3 FragPos = texture2D(gPosition, TexCoords).rgb;
 
-    FragColor = vec4(Diffuse, 1.0);
+    FragColor = vec4(FragPos, 1.0);
 }
