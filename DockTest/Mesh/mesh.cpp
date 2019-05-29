@@ -61,14 +61,17 @@ void Mesh::AddSubMesh(VertexFormat vertexFormat, void *data, int size, unsigned 
 
 void Mesh::LoadModel(const char* fileName)
 {
-    Assimp::Importer import;
+    Assimp::Importer import;    
     std::string path = "Models/";
+
     path += fileName;
     QFile file(path.c_str());
     if(!file.open(QIODevice::ReadOnly))
     {
+        printf("returned\n");
         return;
     }
+
     QByteArray data = file.readAll();
 
     const aiScene *scene = import.ReadFileFromMemory(data.data(),

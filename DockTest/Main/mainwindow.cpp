@@ -17,6 +17,8 @@
 #include <QStandardPaths>
 #include <QFileDialog>
 #include <QMessageBox>
+#include <QMimeData>
+#include <QUrl>
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -61,6 +63,8 @@ MainWindow::MainWindow(QWidget *parent) :
     //connect(uiMainWindow->actionSaveScreenShot,SIGNAL(triggered()),uiMainWindow->widget, SLOT(TakeScreenShot()));
     //connect(uiMainWindow->actionUndo, SIGNAL(triggered()), this, SLOT(undo()));
     //connect(uiMainWindow->actionRedo, SIGNAL(triggered()), this, SLOT(redo()));
+
+    setAcceptDrops(true);
 }
 
 MainWindow::~MainWindow()
@@ -213,12 +217,11 @@ void MainWindow::changeRenderView(int index)
 void MainWindow::addGameObject()
 {
     printf("addGameObject\n");
+
     if(scene==nullptr)
         return;
-    GameObject *go = new GameObject();
-    TryChangeName(*go);
-    scene->gameObjects.push_back(go);
-    uiHierarchy->UpdateHierarchy(scene);
+
+    createCube();
 }
 
 
@@ -301,4 +304,68 @@ void MainWindow::CreateAction()
 
     redoAction=undoStack->createRedoAction(this,tr("&Redo"));
     redoAction->setShortcut(QKeySequence::Redo);
+}
+
+void MainWindow::dragEnterEvent(QDragEnterEvent* e)
+{
+    printf("Drag Enter Event\n");
+    if (e->mimeData()->hasUrls())
+    {
+        e->acceptProposedAction();
+    }
+}
+
+void MainWindow::dropEvent(QDropEvent* e)
+{
+    printf("Drop Event\n");
+    QStringList acceptedTypes;
+    acceptedTypes << "obj" /*"fbx"*/;
+
+    foreach(const QUrl& url, e->mimeData()->urls())
+    {
+        QString fname = url.toLocalFile();
+
+        QFileInfo info(fname);
+        if (info.exists())
+        {
+            if (acceptedTypes.contains(info.suffix().trimmed(), Qt::CaseInsensitive))
+            {
+                printf("Model %s dropped\n", fname.toStdString().c_str());
+                DropModel(fname);
+            }
+        }
+    }
+}
+
+void MainWindow::DropModel(const QString &file)
+{
+    if(scene==nullptr)
+        return;
+
+    // Copy the file into the Models directory
+    QFileInfo fileInfo(file);
+    QString fileName = fileInfo.fileName();
+    QString modelsPath = "Models/" + fileName;
+
+    if (!QFile::exists(modelsPath))
+    {
+        printf("Copy file\n");
+        QFile::copy(file, modelsPath);
+    }
+    else
+    {
+        printf("Not Copy file\n");
+    }
+
+    // Generate new model
+    GameObject *go = new GameObject();
+    TryChangeName(*go);
+
+    go->AddMesh(Shape::CUSTOM, fileName.toStdString().c_str());
+
+    scene->gameObjects.push_back(go);
+    updateMain();
+
+    printf("Final Drop\n");
+
 }

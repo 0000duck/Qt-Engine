@@ -14,6 +14,7 @@
 #include <QColorDialog>
 #include <QColor>
 #include <QPushButton>
+
 MeshRendererWidget::MeshRendererWidget(MeshRenderer* meshRenderer, QWidget *parent) :
     QWidget(parent),
     ui(new Ui::MeshRendererWidget)
@@ -28,6 +29,7 @@ MeshRendererWidget::MeshRendererWidget(MeshRenderer* meshRenderer, QWidget *pare
 
     models = dir.entryList();
     ui->comboBox->clear();
+    ui->comboBox->addItem("-");
     ui->comboBox->addItem("Cube");
     ui->comboBox->addItem("Sphere");
     ui->comboBox->addItem("Plane");

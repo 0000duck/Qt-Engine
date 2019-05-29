@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QUndoStack>
 #include <QUndoView>
+#include <QDragEnterEvent>
 
 namespace Ui
 {
@@ -48,15 +49,19 @@ public slots:
 
     void changeRenderView(int index);
 
-
     void showGameObjectInspector(QListWidgetItem*);
     void updateMain();
+
+protected:
+    void dragEnterEvent(QDragEnterEvent *event) override;
+    void dropEvent(QDropEvent *event) override;
 
 private:
     void TryChangeName(GameObject &go);
     bool ChangeName(GameObject &go, int num);
     void CreateAction();
     void CreateUndoView();
+    void DropModel(const QString& file);
 
 
 private:
