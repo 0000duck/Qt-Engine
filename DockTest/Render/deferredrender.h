@@ -26,6 +26,14 @@ public:
     unsigned int gNormal;
     unsigned int gColor;
     unsigned int gDepth;
+    unsigned int gBlurVertial;
+    unsigned int gBlurHorizontal;
+    unsigned int gScreen;
+
+    unsigned int gFBOBlurV;
+    unsigned int gFBOBlurH;
+
+    unsigned int gFBOScreen;
 
     unsigned int attachments[3];
 

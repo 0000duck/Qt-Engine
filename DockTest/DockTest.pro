@@ -149,7 +149,9 @@ DISTFILES += \
     Shaders/screenRender.frag \
     Shaders/screenRender.vert \
     Shaders/screenRender2.frag \
-    Shaders/screenRender2.vert
+    Shaders/screenRender2.vert \
+    Shaders/gaussianblur.vert \
+    Shaders/gaussianblur.frag
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/ExternalLibrary/Assimp/lib/ -lassimp
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/ExternalLibrary/Assimp/lib/ -lassimpd
