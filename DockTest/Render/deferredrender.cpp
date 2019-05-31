@@ -225,6 +225,10 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
                 GLuint mvMatrix = program.uniformLocation("modelViewMat");
                 glFuncs->glUniformMatrix4fv(mvMatrix, 1, GL_FALSE, modelView.data());
 
+                GLuint mMatrix = program.uniformLocation("modelMat");
+                glFuncs->glUniformMatrix4fv(mMatrix, 1, GL_FALSE, model.data());
+
+
                 glFuncs->glActiveTexture(GL_TEXTURE0);
 
                 ((MeshRenderer*)go->GetComponent(Type::COMP_MESH_RENDERER))->Draw();

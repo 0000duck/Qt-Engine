@@ -5,6 +5,7 @@ in Data
     vec3 positionViewspace;
     vec3 normalViewspace;
     vec2 texCoord;
+    vec3 positionWorldspace;
 }FSIn;
 
 out vec4 outColor;

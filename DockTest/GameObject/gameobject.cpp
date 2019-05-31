@@ -9,11 +9,9 @@
 GameObject::GameObject()
 {
     name = "GameObject";
-    Transform *myTransform = new Transform(this);
-    //ShapeRenderer *myShapeRenderer = new ShapeRenderer(this);
 
+    Transform *myTransform = new Transform(this);
     components.push_back(myTransform);
-    //components.push_back(myShapeRenderer);
 }
 
 void GameObject::Read(const QJsonObject &json)
