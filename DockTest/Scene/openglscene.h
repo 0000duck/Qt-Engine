@@ -33,6 +33,8 @@ public:
     void paintGL() override;
     bool GetScene(Scene *scene);
     void SetRenderView(int index);
+    void SetPPEffect(int index);
+
 
 private:
     QImage GetScreenShot();  

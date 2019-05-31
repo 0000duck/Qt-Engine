@@ -21,24 +21,29 @@ DeferredRender::~DeferredRender()
 void DeferredRender::InitProgram()
 {
     program.create();
-    program.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/cameraShader.vert");
-    program.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/cameraShader_tex.frag");
+    program.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/geometryShader.vert");
+    program.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/geometryShader.frag");
     program.link();
 
-    screenProgram.create();
-    screenProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/screenRender2.vert");
-    screenProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/screenRender2.frag");
-    screenProgram.link();
+    deferredProgram.create();
+    deferredProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/deferredShader.vert");
+    deferredProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/deferredShader.frag");
+    deferredProgram.link();
 
     quadProgram.create();
-    quadProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/screenRender.vert");
-    quadProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/screenRender.frag");
+    quadProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/screenShader.vert");
+    quadProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/screenShader.frag");
     quadProgram.link();
 
     blurProgram.create();
-    blurProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/gaussianblur.vert");
-    blurProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/gaussianblur.frag");
+    blurProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/gaussianBlurShader.vert");
+    blurProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/gaussianBlurShader.frag");
     blurProgram.link();
+
+    glowProgram.create();
+    glowProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/glowShader.vert");
+    glowProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/glowShader.frag");
+    glowProgram.link();
 
 
     srand(10);
@@ -147,22 +152,40 @@ void DeferredRender::Resize(int width,int height)
     glFuncs->glDrawBuffer(GL_COLOR_ATTACHMENT0);
     //-------------------------------------------------
 
-    //-----------------Screen-------------------------
-    glFuncs->glGenTextures(1,&gScreen);
-    glFuncs->glBindTexture(GL_TEXTURE_2D,gScreen);
+    //----------------- Deferred -------------------------
+    glFuncs->glGenTextures(1,&gDeferred);
+    glFuncs->glBindTexture(GL_TEXTURE_2D,gDeferred);
     glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
     glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
     glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_R,GL_CLAMP_TO_EDGE);
     glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);
     glFuncs->glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA8,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,nullptr);
-    printf("gScreen = %i\n",gScreen);
+    printf("gScreen = %i\n",gDeferred);
 
-    glFuncs->glGenFramebuffers(1,&gFBOScreen);
-    glFuncs->glBindFramebuffer(GL_FRAMEBUFFER,gFBOScreen);
-    glFuncs->glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D,gScreen,0);
+    glFuncs->glGenFramebuffers(1,&gFBODeferred);
+    glFuncs->glBindFramebuffer(GL_FRAMEBUFFER,gFBODeferred);
+    glFuncs->glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D, gDeferred,0);
 
     glFuncs->glDrawBuffer(GL_COLOR_ATTACHMENT0);
-    printf("gFBOScreen = %i\n",gFBOScreen);
+    printf("gFBODeferred = %i\n",gFBODeferred);
+    //------------------------------------------------
+
+    //-----------------Glow-------------------------
+    glFuncs->glGenTextures(1,&gGlow);
+    glFuncs->glBindTexture(GL_TEXTURE_2D,gGlow);
+    glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
+    glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
+    glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_R,GL_CLAMP_TO_EDGE);
+    glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);
+    glFuncs->glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA8,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,nullptr);
+    printf("gGlow = %i\n",gGlow);
+
+    glFuncs->glGenFramebuffers(1,&gFBOGlow);
+    glFuncs->glBindFramebuffer(GL_FRAMEBUFFER,gFBOGlow);
+    glFuncs->glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D, gGlow,0);
+
+    glFuncs->glDrawBuffer(GL_COLOR_ATTACHMENT0);
+    printf("gFBOGlow = %i\n", gFBOGlow);
     //------------------------------------------------
 
     status = glFuncs->glCheckFramebufferStatus(GL_FRAMEBUFFER);
@@ -193,12 +216,14 @@ void DeferredRender::DeleteBuffers()
     glFuncs->glDeleteTextures(1, &gDepth);
     glFuncs->glDeleteTextures(1, &gBlurVertical);
     glFuncs->glDeleteTextures(1, &gBlurHorizontal);
-    glFuncs->glDeleteTextures(1, &gScreen);
+    glFuncs->glDeleteTextures(1, &gGlow);
+    glFuncs->glDeleteTextures(1, &gDeferred);
 
     glFuncs->glDeleteFramebuffers(1, &gBuffer);
     glFuncs->glDeleteFramebuffers(1, &gFBOBlurH);
     glFuncs->glDeleteFramebuffers(1, &gFBOBlurV);
-    glFuncs->glDeleteFramebuffers(1, &gFBOScreen);
+    glFuncs->glDeleteFramebuffers(1, &gFBODeferred);
+    glFuncs->glDeleteFramebuffers(1, &gFBOGlow);
 
 }
 
@@ -245,19 +270,17 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
     program.release();
     glFuncs->glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-    glFuncs->glBindFramebuffer(GL_FRAMEBUFFER, gFBOScreen);
+    glFuncs->glBindFramebuffer(GL_FRAMEBUFFER, gFBODeferred);
     glClearDepth(1.0f);
-    glClearColor(0.0f,0.0f,0.0f,1.0f);
+    glFuncs->glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    if(screenProgram.bind())
+    if(deferredProgram.bind())
     {       
-        screenProgram.setUniformValue(screenProgram.uniformLocation("gAlbedo"), 0);
-        screenProgram.setUniformValue(screenProgram.uniformLocation("gNormal"), 1);
-        screenProgram.setUniformValue(screenProgram.uniformLocation("gPosition"), 2);
-
-
-        screenProgram.setUniformValue(screenProgram.uniformLocation("renderView"), renderView);
+        deferredProgram.setUniformValue(deferredProgram.uniformLocation("gAlbedo"), 0);
+        deferredProgram.setUniformValue(deferredProgram.uniformLocation("gNormal"), 1);
+        deferredProgram.setUniformValue(deferredProgram.uniformLocation("gPosition"), 2);
+        deferredProgram.setUniformValue(deferredProgram.uniformLocation("renderView"), renderView);
 
         glFuncs->glActiveTexture(GL_TEXTURE0);
         glFuncs->glBindTexture(GL_TEXTURE_2D, gColor);
@@ -270,35 +293,35 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
 
         for(int i = 0;i<lightPos.size();i++)
         {
-
-             glFuncs->glUniform3fv(glFuncs->glGetUniformLocation(screenProgram.programId(), ("lights["+QString::number(i)+"].Position").toStdString().c_str()),1,&lightPos[i][0]);
-             glFuncs->glUniform3fv(glFuncs->glGetUniformLocation(screenProgram.programId(),("lights["+QString::number(i)+"].Color").toStdString().c_str()),1,&lightColor[i][0]);
+             glFuncs->glUniform3fv(glFuncs->glGetUniformLocation(deferredProgram.programId(), ("lights["+QString::number(i)+"].Position").toStdString().c_str()),1,&lightPos[i][0]);
+             glFuncs->glUniform3fv(glFuncs->glGetUniformLocation(deferredProgram.programId(),("lights["+QString::number(i)+"].Color").toStdString().c_str()),1,&lightColor[i][0]);
 
              float constant = 1.0f;
              float linear = 0.7f;
              float quadratic = 1.8f;
-             glFuncs->glUniform1f(glFuncs->glGetUniformLocation(screenProgram.programId(),("lights["+QString::number(i)+"].Linear").toStdString().c_str()),linear);
-             glFuncs->glUniform1f(glFuncs->glGetUniformLocation(screenProgram.programId(),("lights["+QString::number(i)+"].Linear").toStdString().c_str()),quadratic);
+             glFuncs->glUniform1f(glFuncs->glGetUniformLocation(deferredProgram.programId(),("lights["+QString::number(i)+"].Linear").toStdString().c_str()),linear);
+             glFuncs->glUniform1f(glFuncs->glGetUniformLocation(deferredProgram.programId(),("lights["+QString::number(i)+"].Linear").toStdString().c_str()),quadratic);
 
         }
-        glFuncs->glUniform3fv(glFuncs->glGetUniformLocation(screenProgram.programId(), "viewPos"),1, &camera->position[0]);
+        glFuncs->glUniform3fv(glFuncs->glGetUniformLocation(deferredProgram.programId(), "viewPos"),1, &camera->position[0]);
 
         RenderQuad();
     }
 
-    screenProgram.release();
+    deferredProgram.release();
 
     glFuncs->glBindFramebuffer(GL_FRAMEBUFFER, 0);
     glFuncs->glBindFramebuffer(GL_FRAMEBUFFER, gFBOBlurV);
     glClearDepth(1.0f);
-    glClearColor(0.0f,0.0f,0.0f,1.0f);
+    glFuncs->glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
      if(blurProgram.bind())
      {
          glFuncs->glActiveTexture(GL_TEXTURE0);
-         glFuncs->glBindTexture(GL_TEXTURE_2D, gScreen);
-         float vec[] = {(1.0f/_width), (1.0f/_height*0)};
+         glFuncs->glBindTexture(GL_TEXTURE_2D, gDeferred);
+         float vec[] = {(1.0f/_width) * 2, 0};
+
          blurProgram.setUniformValue(blurProgram.uniformLocation("colorMap"), 0);
          glFuncs->glUniform2fv(glFuncs->glGetUniformLocation(blurProgram.programId(),"texCoordsInc"),1,&vec[0]);
 
@@ -309,15 +332,17 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
 
      glFuncs->glBindFramebuffer(GL_FRAMEBUFFER, 0);
      glFuncs->glBindFramebuffer(GL_FRAMEBUFFER, gFBOBlurH);
+
      glClearDepth(1.0f);
-     glClearColor(0.0f,0.0f,0.0f,1.0f);
+     glFuncs->glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
      glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
       if(blurProgram.bind())
       {
           glFuncs->glActiveTexture(GL_TEXTURE0);
           glFuncs->glBindTexture(GL_TEXTURE_2D, gBlurVertical);
-          float vec[] = {(1.0f/_width)*0 , (1.0f/_height)};
+          float vec[] = { 0, (1.0f/_height) * 2 };
+
           blurProgram.setUniformValue(blurProgram.uniformLocation("colorMap"), 0);
           glFuncs->glUniform2fv(glFuncs->glGetUniformLocation(blurProgram.programId(),"texCoordsInc"),1,&vec[0]);
 
@@ -326,17 +351,44 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
       }
       blurProgram.release();
 
-      QOpenGLFramebufferObject::bindDefault();
+
+     glFuncs->glBindFramebuffer(GL_FRAMEBUFFER, 0);
+     glFuncs->glBindFramebuffer(GL_FRAMEBUFFER, gFBOGlow);
+
+    if(glowProgram.bind())
+    {
+        glowProgram.setUniformValue(glowProgram.uniformLocation("colourTexture"), 0);
+        glowProgram.setUniformValue(glowProgram.uniformLocation("highlightTexture"), 1);
+
+        glFuncs->glActiveTexture(GL_TEXTURE0);
+        glFuncs->glBindTexture(GL_TEXTURE_2D, gDeferred);
+        glFuncs->glActiveTexture(GL_TEXTURE1);
+        glFuncs->glBindTexture(GL_TEXTURE_2D, gBlurHorizontal);
+
+        RenderQuad();
+    }
+
+    QOpenGLFramebufferObject::bindDefault();
 
     if(quadProgram.bind())
     {
-        screenProgram.setUniformValue(screenProgram.uniformLocation("screenTexture"), gBlurHorizontal);
+        quadProgram.setUniformValue(quadProgram.uniformLocation("postProcessing"), postProcessingEffect);
+
+        quadProgram.setUniformValue(quadProgram.uniformLocation("deferredTexture"), 0);
+        quadProgram.setUniformValue(quadProgram.uniformLocation("blurTexture"), 1);
+        quadProgram.setUniformValue(quadProgram.uniformLocation("glowTexture"), 2);
 
         glFuncs->glActiveTexture(GL_TEXTURE0);
+        glFuncs->glBindTexture(GL_TEXTURE_2D, gDeferred);
+        glFuncs->glActiveTexture(GL_TEXTURE1);
         glFuncs->glBindTexture(GL_TEXTURE_2D, gBlurHorizontal);
+        glFuncs->glActiveTexture(GL_TEXTURE2);
+        glFuncs->glBindTexture(GL_TEXTURE_2D, gGlow);
 
+        RenderQuad();
     }
-    RenderQuad();
+    quadProgram.release();
+
 }
 
 void DeferredRender::RenderQuad()
@@ -366,7 +418,7 @@ void DeferredRender::RenderQuad()
 
     glFuncs->glBindVertexArray(quadVAO);
     glFuncs->glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-   //d glFuncs->glBindVertexArray(0);
-   // glFuncs->glBindTexture(GL_TEXTURE_2D, 0);
+    //glFuncs->glBindVertexArray(0);
+    //glFuncs->glBindTexture(GL_TEXTURE_2D, 0);
 }
 

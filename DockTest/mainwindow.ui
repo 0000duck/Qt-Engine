@@ -125,7 +125,7 @@
          </property>
          <property name="minimumSize">
           <size>
-           <width>50</width>
+           <width>80</width>
            <height>0</height>
           </size>
          </property>
@@ -160,6 +160,54 @@
          <item>
           <property name="text">
            <string>Position</string>
+          </property>
+         </item>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QLabel" name="label_2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>80</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="font">
+          <font>
+           <weight>75</weight>
+           <bold>true</bold>
+          </font>
+         </property>
+         <property name="text">
+          <string>Visual Effect</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QComboBox" name="ppEffect">
+         <item>
+          <property name="text">
+           <string>None</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Blur</string>
+          </property>
+         </item>
+         <item>
+          <property name="text">
+           <string>Glow</string>
           </property>
          </item>
         </widget>

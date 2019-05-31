@@ -19,6 +19,7 @@ public:
 public:
 
     int renderView = 0;
+    int postProcessingEffect = 0;
 
     unsigned int gBuffer;
 
@@ -27,13 +28,14 @@ public:
     unsigned int gColor;
     unsigned int gDepth;
     unsigned int gBlurVertical;
-    unsigned int gBlurHorizontal;
-    unsigned int gScreen;
+    unsigned int gBlurHorizontal;  
+    unsigned int gDeferred;
+    unsigned int gGlow;
 
     unsigned int gFBOBlurV;
     unsigned int gFBOBlurH;
-
-    unsigned int gFBOScreen;
+    unsigned int gFBOGlow;
+    unsigned int gFBODeferred;
 
     unsigned int attachments[3];
 

@@ -143,15 +143,16 @@ RESOURCES += \
     icons.qrc
 
 DISTFILES += \
-    Shaders/cameraShader.frag \
-    Shaders/cameraShader.vert \
-    Shaders/cameraShader_tex.frag \
-    Shaders/screenRender.frag \
-    Shaders/screenRender.vert \
-    Shaders/screenRender2.frag \
-    Shaders/screenRender2.vert \
-    Shaders/gaussianblur.vert \
-    Shaders/gaussianblur.frag
+    Shaders/geometryShader.vert \
+    Shaders/geometryShader.frag \
+    Shaders/deferredShader.frag \
+    Shaders/deferredShader.vert \
+    Shaders/gaussianBlurShader.frag \
+    Shaders/gaussianBlurShader.vert \
+    Shaders/screenShader.frag \
+    Shaders/screenShader.vert \
+    Shaders/glowShader.frag \
+    Shaders/glowShader.vert
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/ExternalLibrary/Assimp/lib/ -lassimp
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/ExternalLibrary/Assimp/lib/ -lassimpd

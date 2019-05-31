@@ -59,6 +59,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(uiMainWindow->actionPatrick, SIGNAL(triggered()),this, SLOT(createPatrick()));
 
     connect(uiMainWindow->renderView, SIGNAL(currentIndexChanged(int)), this, SLOT(changeRenderView(int)));
+    connect(uiMainWindow->ppEffect, SIGNAL(currentIndexChanged(int)), this, SLOT(changePPEffect(int)));
 
     //connect(uiMainWindow->actionSaveScreenShot,SIGNAL(triggered()),uiMainWindow->widget, SLOT(TakeScreenShot()));
     //connect(uiMainWindow->actionUndo, SIGNAL(triggered()), this, SLOT(undo()));
@@ -213,6 +214,10 @@ void MainWindow::changeRenderView(int index)
     openGLScene->SetRenderView(index);
 }
 
+void MainWindow::changePPEffect(int index)
+{
+    openGLScene->SetPPEffect(index);
+}
 
 void MainWindow::addGameObject()
 {

@@ -137,6 +137,11 @@ void OpenGLScene::SetRenderView(int index)
     renderer->renderView = index;
 }
 
+void OpenGLScene::SetPPEffect(int index)
+{
+    renderer->postProcessingEffect = index;
+}
+
 void OpenGLScene::Frame()
 {
     bool needUpdate = interaction->Update();

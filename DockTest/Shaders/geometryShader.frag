@@ -17,6 +17,7 @@ uniform sampler2D texture;
 
 void main(void)
 {
+
     albedo = texture2D(texture, FSIn.texCoord);
     normals = normalize(FSIn.normalWorldspace);
     position = FSIn.positionWorldspace;

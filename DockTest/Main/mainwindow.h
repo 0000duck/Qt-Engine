@@ -48,6 +48,7 @@ public slots:
     void createPatrick();
 
     void changeRenderView(int index);
+    void changePPEffect(int index);
 
     void showGameObjectInspector(QListWidgetItem*);
     void updateMain();
