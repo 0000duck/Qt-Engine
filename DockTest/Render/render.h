@@ -23,6 +23,7 @@ public:
 protected:
     QOpenGLShaderProgram program;
     QOpenGLShaderProgram screenProgram;
+    QOpenGLShaderProgram quadProgram;
     QOpenGLShaderProgram blurProgram;
 
 

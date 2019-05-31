@@ -30,6 +30,11 @@ void DeferredRender::InitProgram()
     screenProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/screenRender2.frag");
     screenProgram.link();
 
+    quadProgram.create();
+    quadProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/screenRender.vert");
+    quadProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/screenRender.frag");
+    quadProgram.link();
+
     blurProgram.create();
     blurProgram.addShaderFromSourceFile(QOpenGLShader::Vertex, "Shaders/gaussianblur.vert");
     blurProgram.addShaderFromSourceFile(QOpenGLShader::Fragment, "Shaders/gaussianblur.frag");
@@ -54,6 +59,8 @@ void DeferredRender::InitProgram()
 
 void DeferredRender::Resize(int width,int height)
 {
+    _width = width;
+    _height = height;
     // ----- TEST 1 ------
     printf("\nResize-----------\n");
     glFuncs->glGenTextures(1,&gColor);
@@ -108,14 +115,14 @@ void DeferredRender::Resize(int width,int height)
     GLenum status = glFuncs->glCheckFramebufferStatus(GL_FRAMEBUFFER);
 
     //------------------BLUR-------------------------------
-    glFuncs->glGenTextures(1,&gBlurVertial);
-    glFuncs->glBindTexture(GL_TEXTURE_2D,gBlurVertial);
+    glFuncs->glGenTextures(1,&gBlurVertical);
+    glFuncs->glBindTexture(GL_TEXTURE_2D,gBlurVertical);
     glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MIN_FILTER,GL_NEAREST);
     glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_MAG_FILTER,GL_NEAREST);
     glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_R,GL_CLAMP_TO_EDGE);
     glFuncs->glTexParameteri(GL_TEXTURE_2D,GL_TEXTURE_WRAP_S,GL_CLAMP_TO_EDGE);
     glFuncs->glTexImage2D(GL_TEXTURE_2D,0,GL_RGBA8,width,height,0,GL_RGBA,GL_UNSIGNED_BYTE,nullptr);
-    printf("gBlurVertial = %i\n",gBlurVertial);
+    printf("gBlurVertial = %i\n",gBlurVertical);
 
     glFuncs->glGenTextures(1,&gBlurHorizontal);
     glFuncs->glBindTexture(GL_TEXTURE_2D,gBlurHorizontal);
@@ -128,7 +135,7 @@ void DeferredRender::Resize(int width,int height)
 
     glFuncs->glGenFramebuffers(1,&gFBOBlurV);
     glFuncs->glBindFramebuffer(GL_FRAMEBUFFER,gFBOBlurV);
-    glFuncs->glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D,gBlurVertial,0);
+    glFuncs->glFramebufferTexture2D(GL_FRAMEBUFFER,GL_COLOR_ATTACHMENT0,GL_TEXTURE_2D,gBlurVertical,0);
 
     glFuncs->glDrawBuffer(GL_COLOR_ATTACHMENT0);
     printf("gFBOBlurV = %i\n",gFBOBlurV);
@@ -184,7 +191,7 @@ void DeferredRender::DeleteBuffers()
     glFuncs->glDeleteTextures(1, &gNormal);
     glFuncs->glDeleteTextures(1, &gPosition);
     glFuncs->glDeleteTextures(1, &gDepth);
-    glFuncs->glDeleteTextures(1, &gBlurVertial);
+    glFuncs->glDeleteTextures(1, &gBlurVertical);
     glFuncs->glDeleteTextures(1, &gBlurHorizontal);
     glFuncs->glDeleteTextures(1, &gScreen);
 
@@ -238,7 +245,6 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
     program.release();
     glFuncs->glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-
     glFuncs->glBindFramebuffer(GL_FRAMEBUFFER, gFBOScreen);
     glClearDepth(1.0f);
     glClearColor(0.0f,0.0f,0.0f,1.0f);
@@ -283,7 +289,6 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
     screenProgram.release();
 
     glFuncs->glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
     glFuncs->glBindFramebuffer(GL_FRAMEBUFFER, gFBOBlurV);
     glClearDepth(1.0f);
     glClearColor(0.0f,0.0f,0.0f,1.0f);
@@ -292,12 +297,10 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
      if(blurProgram.bind())
      {
          glFuncs->glActiveTexture(GL_TEXTURE0);
-
-
          glFuncs->glBindTexture(GL_TEXTURE_2D, gScreen);
-         float vec[] = {1.0f,0.0f};
-         blurProgram.setUniformValue(screenProgram.uniformLocation("colorMap"), 0);
-         glFuncs->glUniform2fv(glFuncs->glGetUniformLocation(blurProgram.programId(),"texCoordsInc"),2,vec);
+         float vec[] = {(1.0f/_width), (1.0f/_height*0)};
+         blurProgram.setUniformValue(blurProgram.uniformLocation("colorMap"), 0);
+         glFuncs->glUniform2fv(glFuncs->glGetUniformLocation(blurProgram.programId(),"texCoordsInc"),1,&vec[0]);
 
          RenderQuad();
 
@@ -313,16 +316,27 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
       if(blurProgram.bind())
       {
           glFuncs->glActiveTexture(GL_TEXTURE0);
-          glFuncs->glBindTexture(GL_TEXTURE_2D, gBlurVertial);
-          float vec[] = {0.0f,1.0f};
-          blurProgram.setUniformValue(screenProgram.uniformLocation("colorMap"), 0);
-          glFuncs->glUniform2fv(glFuncs->glGetUniformLocation(blurProgram.programId(),"texCoordsInc"),2,vec);
+          glFuncs->glBindTexture(GL_TEXTURE_2D, gBlurVertical);
+          float vec[] = {(1.0f/_width)*0 , (1.0f/_height)};
+          blurProgram.setUniformValue(blurProgram.uniformLocation("colorMap"), 0);
+          glFuncs->glUniform2fv(glFuncs->glGetUniformLocation(blurProgram.programId(),"texCoordsInc"),1,&vec[0]);
 
           RenderQuad();
 
       }
       blurProgram.release();
 
+      QOpenGLFramebufferObject::bindDefault();
+
+    if(quadProgram.bind())
+    {
+        screenProgram.setUniformValue(screenProgram.uniformLocation("screenTexture"), gBlurHorizontal);
+
+        glFuncs->glActiveTexture(GL_TEXTURE0);
+        glFuncs->glBindTexture(GL_TEXTURE_2D, gBlurHorizontal);
+
+    }
+    RenderQuad();
 }
 
 void DeferredRender::RenderQuad()
@@ -352,7 +366,7 @@ void DeferredRender::RenderQuad()
 
     glFuncs->glBindVertexArray(quadVAO);
     glFuncs->glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
-    glFuncs->glBindVertexArray(0);
-    glFuncs->glBindTexture(GL_TEXTURE_2D, 0);
+   //d glFuncs->glBindVertexArray(0);
+   // glFuncs->glBindTexture(GL_TEXTURE_2D, 0);
 }
 

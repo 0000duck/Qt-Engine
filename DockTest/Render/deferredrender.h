@@ -26,7 +26,7 @@ public:
     unsigned int gNormal;
     unsigned int gColor;
     unsigned int gDepth;
-    unsigned int gBlurVertial;
+    unsigned int gBlurVertical;
     unsigned int gBlurHorizontal;
     unsigned int gScreen;
 
@@ -42,6 +42,9 @@ public:
 private:
     QList<QVector3D> lightPos;
     QList<QVector3D> lightColor;
+
+    int _width =0;
+    int _height = 0;
 };
 
 #endif // DEFERREDRENDER_H
