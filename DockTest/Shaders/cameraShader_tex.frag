@@ -9,6 +9,7 @@ in Data
     vec3 positionViewspace;
     vec3 normalWorldspace;
     vec2 texCoord;
+    vec3 positionWorldspace;
 }FSIn;
 
 
@@ -18,5 +19,5 @@ void main(void)
 {
     albedo = texture2D(texture, FSIn.texCoord);
     normals = normalize(FSIn.normalWorldspace);
-    position = FSIn.positionViewspace;
+    position = FSIn.positionWorldspace;
 }
