@@ -98,13 +98,6 @@ void MeshRendererWidget::UpdateTextures()
         auto nl = new QLabel(QString(name));
         nl->setStyleSheet("font-style: normal");
 
-        auto fb = new QPushButton();
-        fb->setObjectName(QString::fromStdString(std::to_string(i)));
-        QString fillColor = QString("Color:%1").arg(submesh->material->fillColor.name());
-        fb->setStyleSheet(fillColor);
-
-        connect(fb, SIGNAL(clicked()), this,SLOT(FillColor()));
-
         auto cb = new QComboBox();
         cb->setObjectName(QString::fromStdString(std::to_string(i)));
         cb->addItem("-");
@@ -113,7 +106,6 @@ void MeshRendererWidget::UpdateTextures()
         cb->setCurrentText(QString(submesh->textureName.c_str()));
 
         hb->addWidget(nl);
-        hb->addWidget(fb);
         hb->addWidget(cb);
 
         connect(cb, SIGNAL(currentIndexChanged(const QString&)), this, SLOT(ChangeTexture(const QString&)));
@@ -123,26 +115,7 @@ void MeshRendererWidget::UpdateTextures()
         //ui->SubmeshesLayout->addWidget(cb);
     }
 }
-void MeshRendererWidget::FillColor()
-{
-    QColor color = QColorDialog::getColor(Qt::white, this,"Choose Color");
-    if(color.isValid())
-    {
-        int index = std::stoi(sender()->objectName().toStdString());
 
-        QString qss = QString("background-color:%1").arg(color.name());
-
-        QPushButton* cb = (QPushButton*)sender();
-
-        cb->setStyleSheet(qss);
-
-        Material* material = meshRenderer->GetMesh()->GetSubMeshes().at(index)->material;
-
-        material->fillColor = color;
-
-    }
-    emit InspectorUpdate();
-}
 void MeshRendererWidget::ChangeTexture(const QString &texture)
 {
     int index = std::stoi(sender()->objectName().toStdString());

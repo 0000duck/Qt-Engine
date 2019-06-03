@@ -60,6 +60,9 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(uiMainWindow->renderView, SIGNAL(currentIndexChanged(int)), this, SLOT(changeRenderView(int)));
     connect(uiMainWindow->ppEffect, SIGNAL(currentIndexChanged(int)), this, SLOT(changePPEffect(int)));
+    connect(uiMainWindow->lightIntensity, SIGNAL(valueChanged(int)), this, SLOT(updateLightIntensity(int)));
+    connect(uiMainWindow->blurIntensity, SIGNAL(valueChanged(int)), this, SLOT(updateBlurIntensity(int)));
+    connect(uiMainWindow->glowIntensity, SIGNAL(valueChanged(int)), this, SLOT(updateGlowIntensity(int)));
 
     //connect(uiMainWindow->actionSaveScreenShot,SIGNAL(triggered()),uiMainWindow->widget, SLOT(TakeScreenShot()));
     //connect(uiMainWindow->actionUndo, SIGNAL(triggered()), this, SLOT(undo()));
@@ -217,6 +220,22 @@ void MainWindow::changeRenderView(int index)
 void MainWindow::changePPEffect(int index)
 {
     openGLScene->SetPPEffect(index);
+}
+
+void MainWindow::updateLightIntensity(int index)
+{
+    openGLScene->UpdateLightIntensity(index);
+}
+
+void MainWindow::updateBlurIntensity(int index)
+{
+    openGLScene->UpdateBlurIntensity(index);
+}
+
+void MainWindow::updateGlowIntensity(int index)
+{
+    float value = (float)index/10;
+    openGLScene->UpdateGlowIntensity(value);
 }
 
 void MainWindow::addGameObject()

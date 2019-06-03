@@ -51,7 +51,7 @@ void DeferredRender::InitProgram()
     brightnessProgram.link();
 
     srand(10);
-    for(int i = 0;i<10;i++)
+    for(int i = 0; i < 10; i++)
     {
         // calculate slightly random offsets
         float xPos = ((rand() % 100) / 100.0) * 6.0 - 3.0;
@@ -59,9 +59,9 @@ void DeferredRender::InitProgram()
         float zPos = ((rand() % 100) / 100.0) * 6.0 - 3.0;
         lightPos.push_back(QVector3D(xPos, yPos, zPos));
         // also calculate random color
-        float rColor = ((rand() % 100) / 20.0f) + 0.5; // between 0.5 and 1.0
-        float gColor = ((rand() % 100) / 20.0f) + 0.5; // between 0.5 and 1.0
-        float bColor = ((rand() % 100) / 20.0f) + 0.5; // between 0.5 and 1.0
+        float rColor = ((rand() % 100) / 200.0f) + 0.5; // between 0.5 and 1.0
+        float gColor = ((rand() % 100) / 200.0f) + 0.5; // between 0.5 and 1.0
+        float bColor = ((rand() % 100) / 200.0f) + 0.5; // between 0.5 and 1.0
         lightColor.push_back(QVector3D(rColor, gColor, bColor));
     }
 }
@@ -358,6 +358,7 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
         deferredProgram.setUniformValue(deferredProgram.uniformLocation("gNormal"), 1);
         deferredProgram.setUniformValue(deferredProgram.uniformLocation("gPosition"), 2);
         deferredProgram.setUniformValue(deferredProgram.uniformLocation("renderView"), renderView);
+        deferredProgram.setUniformValue(deferredProgram.uniformLocation("lightIntensity"), lightIntensity);
 
         glFuncs->glActiveTexture(GL_TEXTURE0);
         glFuncs->glBindTexture(GL_TEXTURE_2D, gColor);
@@ -409,7 +410,7 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
      {
          glFuncs->glActiveTexture(GL_TEXTURE0);
          glFuncs->glBindTexture(GL_TEXTURE_2D, gBrightness);
-         float vec[] = {(1.0f/_width) * 2, 0};
+         float vec[] = {(1.0f/_width) * blurIntensity, 0};
 
          blurProgram.setUniformValue(blurProgram.uniformLocation("colorMap"), 0);
          glFuncs->glUniform2fv(glFuncs->glGetUniformLocation(blurProgram.programId(),"texCoordsInc"),1,&vec[0]);
@@ -430,7 +431,7 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
       {
           glFuncs->glActiveTexture(GL_TEXTURE0);
           glFuncs->glBindTexture(GL_TEXTURE_2D, gBrightnessPlusBlurV);
-          float vec[] = { 0, (1.0f/_height) * 2 };
+          float vec[] = { 0, (1.0f/_height) * blurIntensity };
 
           blurProgram.setUniformValue(blurProgram.uniformLocation("colorMap"), 0);
           glFuncs->glUniform2fv(glFuncs->glGetUniformLocation(blurProgram.programId(),"texCoordsInc"),1,&vec[0]);
@@ -450,7 +451,7 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
      {
          glFuncs->glActiveTexture(GL_TEXTURE0);
          glFuncs->glBindTexture(GL_TEXTURE_2D, gDeferred);
-         float vec[] = {(1.0f/_width) * 2, 0};
+         float vec[] = {(1.0f/_width) * blurIntensity, 0};
 
          blurProgram.setUniformValue(blurProgram.uniformLocation("colorMap"), 0);
          glFuncs->glUniform2fv(glFuncs->glGetUniformLocation(blurProgram.programId(),"texCoordsInc"),1,&vec[0]);
@@ -471,7 +472,7 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
       {
           glFuncs->glActiveTexture(GL_TEXTURE0);
           glFuncs->glBindTexture(GL_TEXTURE_2D, gBlurVertical);
-          float vec[] = { 0, (1.0f/_height) * 2 };
+          float vec[] = { 0, (1.0f/_height) * blurIntensity };
 
           blurProgram.setUniformValue(blurProgram.uniformLocation("colorMap"), 0);
           glFuncs->glUniform2fv(glFuncs->glGetUniformLocation(blurProgram.programId(),"texCoordsInc"),1,&vec[0]);
@@ -488,6 +489,8 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
         glowProgram.setUniformValue(glowProgram.uniformLocation("colourTexture"), 0);
         glowProgram.setUniformValue(glowProgram.uniformLocation("highlightTexture"), 1);
 
+        glowProgram.setUniformValue(glowProgram.uniformLocation("glowIntensity"), glowIntensity);
+
         glFuncs->glActiveTexture(GL_TEXTURE0);
         glFuncs->glBindTexture(GL_TEXTURE_2D, gDeferred);
         glFuncs->glActiveTexture(GL_TEXTURE1);
@@ -502,6 +505,8 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
    {
        glowProgram.setUniformValue(glowProgram.uniformLocation("colourTexture"), 0);
        glowProgram.setUniformValue(glowProgram.uniformLocation("highlightTexture"), 1);
+
+       glowProgram.setUniformValue(glowProgram.uniformLocation("glowIntensity"), glowIntensity);
 
        glFuncs->glActiveTexture(GL_TEXTURE0);
        glFuncs->glBindTexture(GL_TEXTURE_2D, gDeferred);

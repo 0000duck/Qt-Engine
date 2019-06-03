@@ -49,6 +49,9 @@ public slots:
 
     void changeRenderView(int index);
     void changePPEffect(int index);
+    void updateLightIntensity(int index);
+    void updateBlurIntensity(int index);
+    void updateGlowIntensity(int index);
 
     void showGameObjectInspector(QListWidgetItem*);
     void updateMain();

@@ -34,7 +34,9 @@ public:
     bool GetScene(Scene *scene);
     void SetRenderView(int index);
     void SetPPEffect(int index);
-
+    void UpdateLightIntensity(int index);
+    void UpdateBlurIntensity(int index);
+    void UpdateGlowIntensity(float index);
 
 private:
     QImage GetScreenShot();  

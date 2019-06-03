@@ -17,6 +17,8 @@ uniform sampler2D gAlbedo;
 uniform sampler2D gNormal;
 uniform sampler2D gPosition;
 
+uniform float lightIntensity;
+
 const int NR_LIGHTS = 10;
 uniform Light lights[NR_LIGHTS];
 uniform vec3 viewPos;
@@ -43,7 +45,7 @@ void main(void)
         vec3 specular = lights[i].Color*spec*Specular;
 
         float distance = length(lights[i].Position - FragPos);
-        float attenuation = 1.0 / (1,0 + lights[i].Linear * distance + lights[i].Quadratic * distance * distance);
+        float attenuation = lightIntensity / (1,0 + lights[i].Linear * distance + lights[i].Quadratic * distance * distance);
         diffuse *= attenuation;
         specular *= attenuation;
         lighting += diffuse+specular;

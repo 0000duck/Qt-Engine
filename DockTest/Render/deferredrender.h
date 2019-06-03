@@ -20,7 +20,9 @@ public:
 
     int renderView = 0;
     int postProcessingEffect = 0;
-
+    float lightIntensity = 1.0f;
+    float blurIntensity = 2.0f;
+    float glowIntensity = 0.8f;
 
     unsigned int gBuffer;
 

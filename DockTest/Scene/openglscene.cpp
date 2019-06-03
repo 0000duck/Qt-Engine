@@ -142,6 +142,21 @@ void OpenGLScene::SetPPEffect(int index)
     renderer->postProcessingEffect = index;
 }
 
+void OpenGLScene::UpdateLightIntensity(int index)
+{
+    renderer->lightIntensity = index;
+}
+
+void OpenGLScene::UpdateBlurIntensity(int index)
+{
+    renderer->blurIntensity = index;
+}
+
+void OpenGLScene::UpdateGlowIntensity(float index)
+{
+    renderer->glowIntensity = index;
+}
+
 void OpenGLScene::Frame()
 {
     bool needUpdate = interaction->Update();
@@ -164,7 +179,6 @@ void OpenGLScene::keyReleaseEvent(QKeyEvent* event)
 {
     //printf("KeyUp\n");
     input->KeyUpEvent(event);
-
 }
 
 void OpenGLScene::mousePressEvent(QMouseEvent* event)
