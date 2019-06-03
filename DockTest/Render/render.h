@@ -25,7 +25,7 @@ protected:
     QOpenGLShaderProgram deferredProgram;
     QOpenGLShaderProgram blurProgram;
     QOpenGLShaderProgram glowProgram;
-
+    QOpenGLShaderProgram brightnessProgram;
     QOpenGLShaderProgram quadProgram;
 
 

@@ -21,6 +21,7 @@ public:
     int renderView = 0;
     int postProcessingEffect = 0;
 
+
     unsigned int gBuffer;
 
     unsigned int gPosition;
@@ -31,7 +32,15 @@ public:
     unsigned int gBlurHorizontal;  
     unsigned int gDeferred;
     unsigned int gGlow;
+    unsigned int gBrightness;
+    unsigned int gBrightnessPlusBlurV;
+    unsigned int gBrightnessPlusBlurH;
+    unsigned int gBrightnessPlusGlow;
 
+    unsigned int gFBOBrightnessPlusBlurV;
+    unsigned int gFBOBrightnessPlusBlurH;
+    unsigned int gFBOBrightnessPlusGlow;
+    unsigned int gFBOBrightness;
     unsigned int gFBOBlurV;
     unsigned int gFBOBlurH;
     unsigned int gFBOGlow;
@@ -41,6 +50,8 @@ public:
 
     unsigned int quadVAO = 0;
     unsigned int quadVBO;
+
+
 private:
     QList<QVector3D> lightPos;
     QList<QVector3D> lightColor;

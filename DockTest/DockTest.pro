@@ -152,7 +152,9 @@ DISTFILES += \
     Shaders/screenShader.frag \
     Shaders/screenShader.vert \
     Shaders/glowShader.frag \
-    Shaders/glowShader.vert
+    Shaders/glowShader.vert \
+    Shaders/brightnessshader.frag \
+    Shaders/brightnessshader.vert
 
 win32:CONFIG(release, debug|release): LIBS += -L$$PWD/ExternalLibrary/Assimp/lib/ -lassimp
 else:win32:CONFIG(debug, debug|release): LIBS += -L$$PWD/ExternalLibrary/Assimp/lib/ -lassimpd
