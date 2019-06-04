@@ -15,6 +15,7 @@ struct Vertex
 {
     QVector3D pos;
     QVector3D norm;
+    QVector2D texCoords = QVector2D(0,0);
 };
 
 Mesh::Mesh()
@@ -169,40 +170,40 @@ void Mesh::CreateCube()
     Vertex cube[24];
 
     // Front
-    cube[0].pos = QVector3D(-1.0f, -1.0f, -1.0f); cube[0].norm = QVector3D(0.0f, 0.0f, -1.0f);
-    cube[1].pos = QVector3D( 1.0f, -1.0f, -1.0f); cube[1].norm = QVector3D(0.0f, 0.0f, -1.0f);
-    cube[2].pos = QVector3D( 1.0f,  1.0f, -1.0f); cube[2].norm = QVector3D(0.0f, 0.0f, -1.0f);
-    cube[3].pos = QVector3D(-1.0f,  1.0f, -1.0f); cube[3].norm = QVector3D(0.0f, 0.0f, -1.0f);
+    cube[0].pos = QVector3D(-1.0f, -1.0f, -1.0f); cube[0].norm = QVector3D(0.0f, 0.0f, -1.0f); cube[0].texCoords = QVector2D(0.0f,  0.0f);
+    cube[1].pos = QVector3D( 1.0f, -1.0f, -1.0f); cube[1].norm = QVector3D(0.0f, 0.0f, -1.0f); cube[1].texCoords = QVector2D(1.0f,  0.0f);
+    cube[2].pos = QVector3D( 1.0f,  1.0f, -1.0f); cube[2].norm = QVector3D(0.0f, 0.0f, -1.0f); cube[2].texCoords = QVector2D(1.0f,  1.0f);
+    cube[3].pos = QVector3D(-1.0f,  1.0f, -1.0f); cube[3].norm = QVector3D(0.0f, 0.0f, -1.0f); cube[3].texCoords = QVector2D(0.0f,  1.0f);
 
     // Back
-    cube[4].pos = QVector3D(-1.0f, -1.0f, 1.0f); cube[4].norm = QVector3D(0.0f, 0.0f, 1.0f);
-    cube[5].pos = QVector3D( 1.0f, -1.0f, 1.0f); cube[5].norm = QVector3D(0.0f, 0.0f, 1.0f);
-    cube[6].pos = QVector3D( 1.0f,  1.0f, 1.0f); cube[6].norm = QVector3D(0.0f, 0.0f, 1.0f);
-    cube[7].pos = QVector3D(-1.0f,  1.0f, 1.0f); cube[7].norm = QVector3D(0.0f, 0.0f, 1.0f);
+    cube[4].pos = QVector3D(-1.0f, -1.0f, 1.0f); cube[4].norm = QVector3D(0.0f, 0.0f, 1.0f);  cube[4].texCoords = QVector2D(0.0f,  0.0f);
+    cube[5].pos = QVector3D( 1.0f, -1.0f, 1.0f); cube[5].norm = QVector3D(0.0f, 0.0f, 1.0f);  cube[5].texCoords = QVector2D(1.0f,  0.0f);
+    cube[6].pos = QVector3D( 1.0f,  1.0f, 1.0f); cube[6].norm = QVector3D(0.0f, 0.0f, 1.0f);  cube[6].texCoords = QVector2D(1.0f,  1.0f);
+    cube[7].pos = QVector3D(-1.0f,  1.0f, 1.0f); cube[7].norm = QVector3D(0.0f, 0.0f, 1.0f);  cube[7].texCoords = QVector2D(0.0f,  1.0f);
 
     // Right
-    cube[8].pos =  QVector3D( 1.0f, -1.0f, -1.0f); cube[8].norm =  QVector3D(1.0f, 0.0f, 0.0f);
-    cube[9].pos =  QVector3D( 1.0f, -1.0f,  1.0f); cube[9].norm =  QVector3D(1.0f, 0.0f, 0.0f);
-    cube[10].pos = QVector3D( 1.0f,  1.0f,  1.0f); cube[10].norm = QVector3D(1.0f, 0.0f, 0.0f);
-    cube[11].pos = QVector3D( 1.0f,  1.0f, -1.0f); cube[11].norm = QVector3D(1.0f, 0.0f, 0.0f);
+    cube[8].pos =  QVector3D( 1.0f, -1.0f, -1.0f); cube[8].norm =  QVector3D(1.0f, 0.0f, 0.0f);  cube[8].texCoords = QVector2D(0.0f,  0.0f);
+    cube[9].pos =  QVector3D( 1.0f, -1.0f,  1.0f); cube[9].norm =  QVector3D(1.0f, 0.0f, 0.0f);  cube[9].texCoords = QVector2D(0.0f,  1.0f);
+    cube[10].pos = QVector3D( 1.0f,  1.0f,  1.0f); cube[10].norm = QVector3D(1.0f, 0.0f, 0.0f);  cube[10].texCoords = QVector2D(1.0f,  1.0f);
+    cube[11].pos = QVector3D( 1.0f,  1.0f, -1.0f); cube[11].norm = QVector3D(1.0f, 0.0f, 0.0f);  cube[11].texCoords = QVector2D(1.0f,  0.0f);
 
     // Left
-    cube[12].pos = QVector3D(-1.0f, -1.0f, -1.0f);  cube[12].norm = QVector3D(-1.0f, 0.0f, 0.0f);
-    cube[13].pos = QVector3D(-1.0f, -1.0f,  1.0f);  cube[13].norm = QVector3D(-1.0f, 0.0f, 0.0f);
-    cube[14].pos = QVector3D(-1.0f,  1.0f,  1.0f);  cube[14].norm = QVector3D(-1.0f, 0.0f, 0.0f);
-    cube[15].pos = QVector3D(-1.0f,  1.0f, -1.0f);  cube[15].norm = QVector3D(-1.0f, 0.0f, 0.0f);
+    cube[12].pos = QVector3D(-1.0f, -1.0f, -1.0f);  cube[12].norm = QVector3D(-1.0f, 0.0f, 0.0f);  cube[12].texCoords = QVector2D(0.0f,  0.0f);
+    cube[13].pos = QVector3D(-1.0f, -1.0f,  1.0f);  cube[13].norm = QVector3D(-1.0f, 0.0f, 0.0f);  cube[13].texCoords = QVector2D(0.0f,  1.0f);
+    cube[14].pos = QVector3D(-1.0f,  1.0f,  1.0f);  cube[14].norm = QVector3D(-1.0f, 0.0f, 0.0f);  cube[14].texCoords = QVector2D(1.0f,  1.0f);
+    cube[15].pos = QVector3D(-1.0f,  1.0f, -1.0f);  cube[15].norm = QVector3D(-1.0f, 0.0f, 0.0f);  cube[15].texCoords = QVector2D(1.0f,  0.0f);
 
     // Top
-    cube[16].pos = QVector3D(-1.0f,  1.0f, -1.0f);  cube[16].norm = QVector3D(0.0f,  1.0f, 0.0f);
-    cube[17].pos = QVector3D( 1.0f,  1.0f, -1.0f);  cube[17].norm = QVector3D(0.0f,  1.0f, 0.0f);
-    cube[18].pos = QVector3D( 1.0f,  1.0f,  1.0f);  cube[18].norm = QVector3D(0.0f,  1.0f, 0.0f);
-    cube[19].pos = QVector3D(-1.0f,  1.0f,  1.0f);  cube[19].norm = QVector3D(0.0f,  1.0f, 0.0f);
+    cube[16].pos = QVector3D(-1.0f,  1.0f, -1.0f);  cube[16].norm = QVector3D(0.0f,  1.0f, 0.0f);  cube[16].texCoords = QVector2D(0.0f,  0.0f);
+    cube[17].pos = QVector3D( 1.0f,  1.0f, -1.0f);  cube[17].norm = QVector3D(0.0f,  1.0f, 0.0f);  cube[17].texCoords = QVector2D(1.0f,  0.0f);
+    cube[18].pos = QVector3D( 1.0f,  1.0f,  1.0f);  cube[18].norm = QVector3D(0.0f,  1.0f, 0.0f);  cube[18].texCoords = QVector2D(1.0f,  1.0f);
+    cube[19].pos = QVector3D(-1.0f,  1.0f,  1.0f);  cube[19].norm = QVector3D(0.0f,  1.0f, 0.0f);  cube[19].texCoords = QVector2D(0.0f,  1.0f);
 
     // Bottom
-    cube[20].pos = QVector3D(-1.0f, -1.0f, -1.0f);  cube[20].norm = QVector3D(0.0f, -1.0f, 0.0f);
-    cube[21].pos = QVector3D( 1.0f, -1.0f, -1.0f);  cube[21].norm = QVector3D(0.0f, -1.0f, 0.0f);
-    cube[22].pos = QVector3D( 1.0f, -1.0f,  1.0f);  cube[22].norm = QVector3D(0.0f, -1.0f, 0.0f);
-    cube[23].pos = QVector3D(-1.0f, -1.0f,  1.0f);  cube[23].norm = QVector3D(0.0f, -1.0f, 0.0f);
+    cube[20].pos = QVector3D(-1.0f, -1.0f, -1.0f);  cube[20].norm = QVector3D(0.0f, -1.0f, 0.0f);  cube[20].texCoords = QVector2D(0.0f,  0.0f);
+    cube[21].pos = QVector3D( 1.0f, -1.0f, -1.0f);  cube[21].norm = QVector3D(0.0f, -1.0f, 0.0f);  cube[21].texCoords = QVector2D(1.0f,  0.0f);
+    cube[22].pos = QVector3D( 1.0f, -1.0f,  1.0f);  cube[22].norm = QVector3D(0.0f, -1.0f, 0.0f);  cube[22].texCoords = QVector2D(1.0f,  1.0f);
+    cube[23].pos = QVector3D(-1.0f, -1.0f,  1.0f);  cube[23].norm = QVector3D(0.0f, -1.0f, 0.0f);  cube[23].texCoords = QVector2D(0.0f,  1.0f);
 
     printf("Created Vertices\n");
 
@@ -229,10 +230,10 @@ void Mesh::CreateCube()
         21,20,23
     };
 
-
     VertexFormat vFormat;
-    vFormat.SetVertexAttribute(0, 0, 3);
-    vFormat.SetVertexAttribute(1, sizeof(QVector3D), 3);
+    vFormat.SetVertexAttribute(0,0,3);
+    vFormat.SetVertexAttribute(1, 3 * sizeof(float), 3);
+    vFormat.SetVertexAttribute(2, 6 * sizeof(float), 2);
 
     printf("Vertex Format\n");
 
@@ -279,8 +280,9 @@ void Mesh::CreateSphere()
     printf("Created Indices\n");
 
     VertexFormat vFormat;
-    vFormat.SetVertexAttribute(0, 0, 3);
-    vFormat.SetVertexAttribute(1, sizeof(QVector3D), 3);
+    vFormat.SetVertexAttribute(0,0,3);
+    vFormat.SetVertexAttribute(1, 3 * sizeof(float), 3);
+    vFormat.SetVertexAttribute(2, 6 * sizeof(float), 2);
 
     printf("Vertex Format\n");
 
@@ -295,10 +297,10 @@ void Mesh::CreatePlane()
     Vertex plane[4];
 
     // Front
-    plane[0].pos = QVector3D(-3.0f,  0.0f, -3.0f);  plane[0].norm = QVector3D(0.0f,  1.0f, 0.0f);
-    plane[1].pos = QVector3D( 3.0f,  0.0f, -3.0f);  plane[1].norm = QVector3D(0.0f,  1.0f, 0.0f);
-    plane[2].pos = QVector3D( 3.0f,  0.0f,  3.0f);  plane[2].norm = QVector3D(0.0f,  1.0f, 0.0f);
-    plane[3].pos = QVector3D(-3.0f,  0.0f,  3.0f);  plane[3].norm = QVector3D(0.0f,  1.0f, 0.0f);
+    plane[0].pos = QVector3D(-3.0f,  0.0f, -3.0f);  plane[0].norm = QVector3D(0.0f,  1.0f, 0.0f); plane[0].texCoords = QVector2D(0.0f,  0.0f);
+    plane[1].pos = QVector3D( 3.0f,  0.0f, -3.0f);  plane[1].norm = QVector3D(0.0f,  1.0f, 0.0f); plane[1].texCoords = QVector2D(1.0f,  0.0f);
+    plane[2].pos = QVector3D( 3.0f,  0.0f,  3.0f);  plane[2].norm = QVector3D(0.0f,  1.0f, 0.0f); plane[2].texCoords = QVector2D(1.0f,  1.0f);
+    plane[3].pos = QVector3D(-3.0f,  0.0f,  3.0f);  plane[3].norm = QVector3D(0.0f,  1.0f, 0.0f); plane[3].texCoords = QVector2D(0.0f,  1.0f);
 
     //Indices Creation
     unsigned int indices[6]
@@ -308,8 +310,9 @@ void Mesh::CreatePlane()
     };
 
     VertexFormat vFormat;
-    vFormat.SetVertexAttribute(0, 0, 3);
-    vFormat.SetVertexAttribute(1, sizeof(QVector3D), 3);
+    vFormat.SetVertexAttribute(0,0,3);
+    vFormat.SetVertexAttribute(1, 3 * sizeof(float), 3);
+    vFormat.SetVertexAttribute(2, 6 * sizeof(float), 2);
 
     printf("Vertex Format\n");
 
