@@ -64,6 +64,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(uiMainWindow->blurIntensity, SIGNAL(valueChanged(int)), this, SLOT(updateBlurIntensity(int)));
     connect(uiMainWindow->glowIntensity, SIGNAL(valueChanged(int)), this, SLOT(updateGlowIntensity(int)));
 
+    connect(uiMainWindow->restoreValues,SIGNAL(clicked()),this,SLOT(restoreSliderValues()));
+
     //connect(uiMainWindow->actionSaveScreenShot,SIGNAL(triggered()),uiMainWindow->widget, SLOT(TakeScreenShot()));
     //connect(uiMainWindow->actionUndo, SIGNAL(triggered()), this, SLOT(undo()));
     //connect(uiMainWindow->actionRedo, SIGNAL(triggered()), this, SLOT(redo()));
@@ -236,6 +238,18 @@ void MainWindow::updateGlowIntensity(int index)
 {
     float value = (float)index/10;
     openGLScene->UpdateGlowIntensity(value);
+}
+
+void MainWindow::restoreSliderValues()
+{
+    uiMainWindow->lightIntensity->setValue(1);
+    uiMainWindow->blurIntensity->setValue(2);
+    uiMainWindow->glowIntensity->setValue(8);
+
+    //openGLScene->UpdateLightIntensity(1);
+    //openGLScene->UpdateBlurIntensity(2);
+    //openGLScene->UpdateGlowIntensity(8);
+
 }
 
 void MainWindow::addGameObject()

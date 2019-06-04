@@ -37,7 +37,6 @@ void InspectorWidget::UpdateInspector(GameObject* go)
     for(int i =0;i<go->components.size();i++)
     {
         Component* component = go->components[i];
-
         layout->addWidget(GetWidget(component));
     }
     layout->addItem(spacer);

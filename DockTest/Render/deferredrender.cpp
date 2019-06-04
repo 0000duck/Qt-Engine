@@ -378,7 +378,7 @@ void DeferredRender::Render(Camera *camera, Scene* scene)
              float linear = 0.7f;
              float quadratic = 1.8f;
              glFuncs->glUniform1f(glFuncs->glGetUniformLocation(deferredProgram.programId(),("lights["+QString::number(i)+"].Linear").toStdString().c_str()),linear);
-             glFuncs->glUniform1f(glFuncs->glGetUniformLocation(deferredProgram.programId(),("lights["+QString::number(i)+"].Linear").toStdString().c_str()),quadratic);
+             glFuncs->glUniform1f(glFuncs->glGetUniformLocation(deferredProgram.programId(),("lights["+QString::number(i)+"].Quadratic").toStdString().c_str()),quadratic);
 
         }
         glFuncs->glUniform3fv(glFuncs->glGetUniformLocation(deferredProgram.programId(), "viewPos"),1, &camera->position[0]);

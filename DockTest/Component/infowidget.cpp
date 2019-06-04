@@ -8,17 +8,11 @@ InfoWidget::InfoWidget(GameObject* go,QWidget *parent) :
 {
     ui->setupUi(this);
     this->go = go;
-
     if(this->go!=nullptr)
     {
         ui->goName->setText(this->go->name);
-        ui->isActive->setChecked(this->go->active);
-        ui->isVisible->setChecked(this->go->visible);
     }
-
     connect(ui->goName, SIGNAL(textChanged(QString)), this, SLOT(SetName(QString)));
-    connect(ui->isActive, SIGNAL(clicked(bool)), this, SLOT(SetActive(bool)));
-    connect(ui->isVisible, SIGNAL(clicked(bool)), this, SLOT(SetVisible(bool)));
 }
 
 InfoWidget::~InfoWidget()

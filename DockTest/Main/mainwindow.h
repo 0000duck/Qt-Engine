@@ -52,6 +52,7 @@ public slots:
     void updateLightIntensity(int index);
     void updateBlurIntensity(int index);
     void updateGlowIntensity(int index);
+    void restoreSliderValues();
 
     void showGameObjectInspector(QListWidgetItem*);
     void updateMain();
