@@ -19,6 +19,10 @@ This is a 3D mini engine that lets you create GameObjects with different shapes 
 
 **- F:** center the camera to the selected GameObject.
 
+**- R:** move up.
+
+**- T:** move down.
+
 ### 1) Loading Models
 The user has 2 ways to add elements on the scene:
 
