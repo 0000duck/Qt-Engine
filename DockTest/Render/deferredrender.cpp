@@ -294,7 +294,13 @@ void DeferredRender::DeleteBuffers()
     glFuncs->glDeleteTextures(1, &gGlow);
     glFuncs->glDeleteTextures(1, &gDeferred);
     glFuncs->glDeleteTextures(1, &gBrightness);
+    glFuncs->glDeleteTextures(1, &gBrightnessPlusBlurV);
+    glFuncs->glDeleteTextures(1, &gBrightnessPlusBlurH);
+    glFuncs->glDeleteTextures(1, &gBrightnessPlusGlow);
 
+    glFuncs->glDeleteFramebuffers(1, &gFBOBrightnessPlusBlurV);
+    glFuncs->glDeleteFramebuffers(1, &gFBOBrightnessPlusBlurH);
+    glFuncs->glDeleteFramebuffers(1, &gFBOBrightnessPlusGlow);
     glFuncs->glDeleteFramebuffers(1, &gFBOBrightness);
     glFuncs->glDeleteFramebuffers(1, &gBuffer);
     glFuncs->glDeleteFramebuffers(1, &gFBOBlurH);
